@@ -1,2 +1,9 @@
-@import 'slick-carousel/slick/slick.css';
-@import 'slick-carousel/slick/slick-theme.css';
+/* @import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css'; */
+
+* {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
