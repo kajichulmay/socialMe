@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header({ children }) {
   return (
-    <div className="flex">
+    <div className="flex outline-black">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-12 w-12"
