@@ -4,12 +4,12 @@ import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
 
 function Header({ children }) {
   return (
-    <div className="flex bg-white items-center justify-between h-auto p-1.5 shadow-container header-border sticky top-0 w-screen  ">
-      <div className="flex items-center">
-        <img className="w-8 h-8 mx-3" src={logoHeader} alt="" />
+    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border sticky top-0 w-screen rounded-b-3xl   ">
+      <div className="flex items-center  h-full">
+        <img className="w-10 h-10 mx-3" src={logoHeader} alt="" />
 
-        <div className="bg-primary-grad h-7 flex items-center w-auto p-0.5 rounded-full mx-6">
-          <div className="flex items-center rounded-full  bg-white h-6 shadow-input ">
+        <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 ">
+          <div className="flex items-center rounded-full  bg-white h-full shadow-input ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mx-5"
@@ -25,17 +25,21 @@ function Header({ children }) {
               />
             </svg>
 
-            <input className=" w-48 text-xs h-5 rounded-full outline-none " type="text" placeholder="search people" />
+            <input
+              className=" w-60 text-base  rounded-full outline-none h-full "
+              type="text"
+              placeholder="search people"
+            />
           </div>
         </div>
       </div>
       <div className="flex items-center">
-        <div className="text-sm text-dark font-normal">Welcome Guest</div>
+        <div className="text-base text-dark font-normal">Welcome Guest</div>
         <div className="shadow-input rounded-full mx-3">
-          <img class="rounded-full h-7 w-7" src={tempProfileHeader} alt="" />
+          <img class="rounded-full h-9 w-9" src={tempProfileHeader} alt="" />
         </div>
 
-        <div className=" flex items-center justify-center bg-white rounded-full h-7 w-7 shadow-input border border-red-300">
+        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input border border-red-300">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="#FF4949">
               <path
@@ -46,7 +50,7 @@ function Header({ children }) {
             </svg>
           </div>
         </div>
-        <div className=" flex items-center justify-center bg-white rounded-full h-7 w-7 shadow-input mx-3 border border-red-300">
+        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input mx-3 border border-red-300">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"

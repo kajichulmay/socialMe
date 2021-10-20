@@ -4,10 +4,10 @@ import Header from './components/layout/Header';
 import Post from './components/Post/Post';
 import MyProfile from './pages/MyProfile';
 import { Switch, Route } from 'react-router-dom';
-import Login from './components/login/Login';
+import Login from './pages/Login';
 function App() {
   return (
-    <>
+    <div className="bg-secondary">
       <Header />
       <Content>
         <Switch>
@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/post" component={Post} />
         </Switch>
       </Content>
-    </>
+    </div>
   );
 }
 
