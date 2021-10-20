@@ -2,8 +2,8 @@ import React from "react";
 
 function Login() {
     return (
-        <div style={{ display: "flex", justifyContent: "center", height: "100vh", alignItems: "center" }}>
-            <div className="rounded-3xl shadow-lg w-2/3  h-5/6 flex ">
+        <div className="flex w-full justify-center h-screen">
+            <div className="rounded-3xl shadow-lg w-2/3  h-5/6 flex">
                 <div className="bg-primary-grad rounded-l-3xl text-white w-2/3 p-10 pt-20 flex flex-col  items-center">
                     <p className="text-4xl">Welcome To Me</p>
                     <div className="flex flex-col h-1/3 justify-between items-center mt-10 font-light">

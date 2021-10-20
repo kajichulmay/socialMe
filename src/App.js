@@ -1,13 +1,22 @@
 import "./App.css";
-import TestTailwind from "./components/TestTailwind";
+import Content from "./components/layout/Content";
+import Header from "./components/layout/Header";
+import Post from "./components/Post/Post";
+import MyProfile from "./pages/MyProfile";
+import { Switch, Route } from "react-router-dom";
 import Login from "./login/Login";
-
 function App() {
     return (
-        <div className="App">
-            {/* <TestTailwind /> */}
-            <Login />
-        </div>
+        <>
+            <Header />
+            <Content>
+                <Switch>
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/myprofile" component={MyProfile} />
+                    <Route exact path="/post" component={Post} />
+                </Switch>
+            </Content>
+        </>
     );
 }
 
