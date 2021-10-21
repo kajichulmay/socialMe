@@ -6,14 +6,18 @@ function AddPost() {
   return (
     <div className=" flex h-auto bg-white w-full  justify-center mt-20 ">
       <div className=" w-3/4 m-8  flex  flex-col  justify-start rounded-2xl shadow-container relative ">
+        {/* imageProfile */}
         <img className=" absolute w-2/12 -top-16 -left-16  rounded-full  shadow-container " src={imageProfile} />
+        {/* NameUser */}
         <div className="boxText flex justify-between items-center ml-20 mb-3 w-auto  ">
           <div className="nameTitle">
             <p className="text-2xl ml-10 font-normal">Jenny Wilson</p>
           </div>
+          {/* ButtonPublic or PostEx */}
           <ButtonPostPublic />
           {/* <ButtonPostEx /> */}
         </div>
+        {/* Content Add Post */}
         <div className="boxText flex justify-between items-center ml-24 mb-3 w-auto  h-full">
           <div className="ml-5  width100 ">
             <textarea
@@ -24,6 +28,7 @@ function AddPost() {
         </div>
         <div className="boxText flex justify-between items-center ml-24 mb-5 w-auto  h-full ">
           <div className="ml-5  w-11/12 flex justify-between  ">
+            {/* Button Add Photo */}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 icon-grad " viewBox="0 0 20 20">
               <defs>
                 <linearGradient id="iconGrad" x2="0%" y2="100%">
@@ -38,6 +43,7 @@ function AddPost() {
                 clipRule="evenodd"
               />
             </svg>
+            {/* Button Send Post */}
             <button className="rounded-full shadow-input w-24 h-12 bg-primary-grad forhover flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
