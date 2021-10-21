@@ -4,7 +4,7 @@ import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
 
 function Header({ children }) {
   return (
-    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border sticky top-0 w-screen rounded-b-3xl   ">
+    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed z-20 w-screen rounded-b-3xl   ">
       <div className="flex items-center  h-full">
         <img className="w-10 h-10 mx-3" src={logoHeader} alt="" />
 
