@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logoHeader from '../../images/logoHeader.png';
 import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
+import DropdownNotification from '../dropdown/DropdownNotification';
 import Toggle from './Toggle';
 
 function Header({ children }) {
@@ -17,12 +18,12 @@ function Header({ children }) {
   );
 
   return (
-    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl ">
-      <div className="flex items-center  h-full ">
-        <img className="w-10 h-10 mx-3   " src={logoHeader} alt="" />
+    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl">
+      <div className="flex items-center  h-full">
+        <img className="w-10 h-10 mx-3" src={logoHeader} alt="" />
 
         <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md ">
-          <div className="flex items-center rounded-full  bg-white h-full   ">
+          <div className="flex items-center rounded-full  bg-white h-full  ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mx-5"
@@ -64,19 +65,7 @@ function Header({ children }) {
             </svg>
           </div>
         </div>
-        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 24 24">
-              {gd}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-          </div>
-        </div>
+        <DropdownNotification />
         <Toggle />
 
         <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad">
