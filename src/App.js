@@ -6,7 +6,6 @@ import ProfileSetting from './components/profileSetting/ProfileSetting';
 import MyProfile from './pages/MyProfile';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Input from './components/profileSetting/Input';
 function App() {
   return (
     <div className="bg-secondary">
@@ -17,7 +16,6 @@ function App() {
           <Route exact path="/myprofile" component={MyProfile} />
           <Route exact path="/post" component={Post} />
           <Route exact path="/profile-setting" component={ProfileSetting} />
-          <Route exact path="/profile-setting-input" component={Input} />
         </Switch>
       </Content>
     </div>
