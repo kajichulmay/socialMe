@@ -2,99 +2,109 @@
 @import 'slick-carousel/slick/slick-theme.css'; */
 
 * {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 16px;
-  margin: 0;
-  padding: 0;
+    font-family: "IBM Plex Sans Thai", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 .heigt100 {
-  height: 100%;
+    height: 100%;
 }
 .width100 {
-  width: 100%;
+    width: 100%;
 }
 .icon-grad {
-  fill: url('#iconGrad');
+    fill: url("#iconGrad");
 }
 
 .boxEle {
-  width: 130px;
-  height: 20px;
-  color: #929292;
+    width: 130px;
+    height: 20px;
+    color: #929292;
 }
 
 .boxProfile {
-  border-radius: 125px 27px 27px 125px;
+    border-radius: 125px 27px 27px 125px;
 }
 
 /* background color */
 .bg-primary-grad {
-  background: linear-gradient(180deg, rgba(255, 233, 155, 1) 0%, rgba(255, 171, 124, 1) 50%, rgba(255, 86, 80, 1) 100%);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 233, 155, 1) 0%,
+        rgba(255, 171, 124, 1) 50%,
+        rgba(255, 86, 80, 1) 100%
+    );
 }
 
 .bg-sub-grad {
-  background: linear-gradient(180deg, rgba(255, 171, 124, 1) 0%, rgba(255, 86, 80, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 171, 124, 1) 0%, rgba(255, 86, 80, 1) 100%);
 }
 
 .bg-chat-container {
-  background: #e5e5e5;
+    background: #e5e5e5;
 }
 
 .bg-secondary {
-  background-color: #f8f8f8;
+    background-color: #f8f8f8;
 }
 
 .shadow-container {
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .shadow-input {
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.45);
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.45);
 }
 .forhover:hover {
-  background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
+    background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
 }
 
 .bg-primary-grad {
-  background: linear-gradient(180deg, rgba(255, 233, 155, 1) 0%, rgba(255, 171, 124, 1) 50%, rgba(255, 86, 80, 1) 100%);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 233, 155, 1) 0%,
+        rgba(255, 171, 124, 1) 50%,
+        rgba(255, 86, 80, 1) 100%
+    );
 }
 
 .bg-sub-grad {
-  background: linear-gradient(180deg, rgba(255, 171, 124, 1) 0%, rgba(255, 86, 80, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 171, 124, 1) 0%, rgba(255, 86, 80, 1) 100%);
 }
 
 .bg-secondary {
-  background-color: #f8f8f8;
+    background-color: #f8f8f8;
 }
 
 .shadow-container {
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .shadow-input {
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.45);
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.45);
 }
 
 /* font */
 .text-dark {
-  color: #7b7b7b;
+    color: #7b7b7b;
 }
 
 /* border */
 .header-border {
-  border-bottom: 2px solid #ff4a4a;
+    border-bottom: 2px solid #ff4a4a;
 }
 
 .border-50 {
-  border-radius: 50px;
+    border-radius: 50px;
 }
 
 .forhover:hover {
-  background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
+    background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
 }
 
 /* hoverbutton Private */
 .forHoverButtonPost:hover {
-  background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
-  /* border: none; */
+    background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
+    /* border: none; */
 }
