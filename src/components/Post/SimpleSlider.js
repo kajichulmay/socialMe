@@ -13,7 +13,7 @@ function SimpleSlider() {
   };
 
   return (
-    <div className="w-full  mt-5 mb-5 outline-black relative ">
+    <div className="w-full  mt-5 mb-5  relative ">
       <div className="absolute  z-20 right-1/2 top-1/2  ">
         <img src={iconLock} className="origin-center transform translate-x-6 animate-pulse" />
       </div>

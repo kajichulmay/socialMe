@@ -17,7 +17,7 @@ function Header({ children }) {
   );
 
   return (
-    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl">
+    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl ">
       <div className="flex items-center  h-full ">
         <img className="w-10 h-10 mx-3   " src={logoHeader} alt="" />
 
