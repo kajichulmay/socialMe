@@ -4,7 +4,7 @@ import iconCake from '../../../src/images/iconCake.png';
 import iconEmail from '../../images/IconEmail.png';
 function TitleProfile() {
   return (
-    <div className=" flex outline-black bg-white w-3/4 justify-center">
+    <div className=" flex h-60 bg-white w-full  justify-center">
       <div className=" w-3/4 m-8  flex items-center boxProfile shadow-container   ">
         <div className="boximage rounded-full p-1 ">
           <div className="bg-primary-grad  rounded-full p-1">

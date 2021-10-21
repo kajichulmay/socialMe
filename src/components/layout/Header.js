@@ -4,12 +4,12 @@ import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
 
 function Header({ children }) {
   return (
-    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border sticky top-0 w-screen rounded-b-3xl   ">
+    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border sticky z-20 top-0 w-screen rounded-b-3xl   ">
       <div className="flex items-center  h-full">
         <img className="w-10 h-10 mx-3" src={logoHeader} alt="" />
 
-        <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 ">
-          <div className="flex items-center rounded-full  bg-white h-full shadow-input ">
+        <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md ">
+          <div className="flex items-center rounded-full  bg-white h-full  ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mx-5"
