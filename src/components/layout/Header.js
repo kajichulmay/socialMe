@@ -18,11 +18,12 @@ function Header({ children }) {
   );
 
   return (
-    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl">
-      <div className="flex items-center  h-full">
+    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
+      <div className="flex items-center h-full">
         <img className="w-10 h-10 mx-3" src={logoHeader} alt="" />
+        <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">Welcome Guest</div>
 
-        <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md ">
+        <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible  ">
           <div className="flex items-center rounded-full  bg-white h-full  ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,13 +48,12 @@ function Header({ children }) {
           </div>
         </div>
       </div>
-      <div className="flex items-center">
-        <div className="text-base text-dark font-normal flex-shrink">Welcome Guest</div>
-        <div className="shadow-input rounded-full mx-3">
+      <div className="flex items-center ">
+        <div className="text-base text-dark font-normal flex-shrink invisible lg:visible ">Welcome Guest</div>
+        <div className="shadow-input rounded-full mx-3 invisible lg:visible">
           <img class="rounded-full h-9 w-9" src={tempProfileHeader} alt="" />
         </div>
-
-        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input border border-red-300">
+        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input border border-red-300 invisible lg:visible">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20">
               {gd}
@@ -67,8 +67,7 @@ function Header({ children }) {
         </div>
         <DropdownNotification />
         <Toggle />
-
-        <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad">
+        <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad invisible lg:visible ">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">
               {gd}
@@ -80,6 +79,19 @@ function Header({ children }) {
             </svg>
           </div>
         </div>
+
+        {/* <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad visible lg:invisible flex-none ">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">
+              {gd}
+              <path
+                fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </div> */}
       </div>
     </div>
   );
