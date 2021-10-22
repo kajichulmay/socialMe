@@ -88,12 +88,12 @@ function Post(props) {
 
       <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
       {/* comment section */}
-      {/* <CommentBox /> */}
+      <CommentBox />
 
       {/* button to Purchase */}
-      <ButtonPurchase />
+      {/* <ButtonPurchase /> */}
       {/*end comment section */}
-      {/* <InputAddComment /> */}
+      <InputAddComment />
     </div>
   );
 }
