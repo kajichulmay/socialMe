@@ -6,7 +6,9 @@ import SimpleSlider from './SimpleSlider';
 import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
 
-function Post() {
+function Post(props) {
+  const data = props.data;
+
   return (
     <div
       className="bg-white w-4/5 mx-auto relative
@@ -16,7 +18,7 @@ function Post() {
       <div className="post-section">
         {/* display profile */}
         <div class="absolute -left-8 -top-8 w-24 h-24">
-          <img src={portrait} className="rounded-full shadow-input" />
+          <img src={data.profilePic} className="rounded-full shadow-input" />
         </div>
 
         <button className="absolute right-5 top-3">
@@ -25,18 +27,20 @@ function Post() {
 
         {/* name and date */}
         <div className="pl-20">
-          <p className="text-xl">Firstname Lastname</p>
+          <p className="text-xl">{`${data.firstName} ${data.lastName}`}</p>
           <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
         </div>
 
         {/* content post */}
         <div className=" py-4">
           <p className="px-6">
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim
-            velit mollit. Exercitation veniam consequat sunt nostrud amet.
+            {data.content.message}
+            {/* Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim
+            velit mollit. Exercitation veniam consequat sunt nostrud amet. */}
           </p>
           {/* picturePost */}
-          <SimpleSlider />
+          {data.content.picUrl ? <SimpleSlider picUrl={data.content.picUrl} /> : null}
+          {/* <SimpleSlider /> */}
         </div>
 
         <div className="flex px-6 mt-2 mb-4">
@@ -48,14 +52,6 @@ function Post() {
               className="h-8 w-8 mr-2 text-red-400"
               viewBox="0 0 20 20"
             >
-              {/* linear gradient for icon */}
-              {/* <defs>
-              <linearGradient id="iconGrad" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="rgba(255, 233, 155, 1)" />
-                <stop offset="40%" stop-color="rgba(255, 171, 124, 1)" />
-                <stop offset="100%" stop-color="rgba(255, 86, 80, 1)" />
-              </linearGradient>
-            </defs> */}
               <path
                 fill-rule="evenodd"
                 d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -86,7 +82,7 @@ function Post() {
 
       <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
       {/* comment section */}
-      <CommentBox />
+      {/* <CommentBox /> */}
       {/*end comment section */}
       <InputAddComment />
     </div>
