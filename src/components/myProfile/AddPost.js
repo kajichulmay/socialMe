@@ -1,13 +1,20 @@
 import React from 'react';
 import imageProfile from '../../mockData/image/mockProfile.png';
+import ProfilePicUi from '../ui/ProfilePicUi';
 import ButtonPostEx from './ButtonPostEx';
 import ButtonPostPublic from './ButtonPostPublic';
 function AddPost() {
   return (
-    <div className=" flex h-auto bg-white w-full  justify-center mt-20 ">
-      <div className=" w-3/4 m-8  flex  flex-col  justify-start rounded-2xl shadow-container relative ">
+    <div className=" flex h-auto  w-full  justify-center mt-20 ">
+      <div className=" w-3/4 m-8  flex  flex-col bg-white justify-start rounded-2xl shadow-container relative ">
         {/* imageProfile */}
-        <img className=" absolute w-2/12 -top-16 -left-16  rounded-full  shadow-container " src={imageProfile} />
+        <div className=" absolute w-36 h-36 -top-16 -left-16  rounded-full  shadow-container">
+          <ProfilePicUi
+            w="36"
+            h="36"
+            url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
+          />
+        </div>
         {/* NameUser */}
         <div className="boxText flex justify-between items-center ml-20 mb-3 w-auto  ">
           <div className="nameTitle">
@@ -21,15 +28,15 @@ function AddPost() {
         <div className="boxText flex justify-between items-center ml-24 mb-3 w-auto  h-full">
           <div className="ml-5  width100 ">
             <textarea
-              className="animate-pulse w-11/12  h-28 border-2 rounded-3xl border-red-400 pt-3  shadow-lg pl-3 focus:outline-none focus:ring-1 focus:ring-red-400 placeholder-gray-500 placeholder-opacity-75"
+              className="textInput  w-11/12  h-28 border-2 rounded-3xl border-red-400 pt-3  shadow-lg pl-3 focus:outline-none focus:ring-1 focus:ring-red-400 placeholder-gray-500 placeholder-opacity-75"
               placeholder="what on your mind..."
             />
           </div>
         </div>
         <div className="boxText flex justify-between items-center ml-24 mb-5 w-auto  h-full ">
-          <div className="ml-5  w-11/12 flex justify-between  ">
+          <div className="ml-5  w-11/12 flex justify-between cursor-pointer  ">
             {/* Button Add Photo */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 icon-grad " viewBox="0 0 20 20">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 icon-grad  " viewBox="0 0 20 20">
               <defs>
                 <linearGradient id="iconGrad" x2="0%" y2="100%">
                   <stop offset="0%" stop-color="rgba(255, 233, 155, 1)" />

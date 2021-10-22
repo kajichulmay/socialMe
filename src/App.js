@@ -21,7 +21,6 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/" component={Login} />
         </Switch>
-
       </Content>
     </div>
   );

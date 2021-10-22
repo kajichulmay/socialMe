@@ -14,6 +14,7 @@ function SimpleSlider() {
 
   return (
     <div className="w-full  mt-5 mb-5  relative ">
+      {/* icon lock Post */}
       <div className="absolute  z-10 right-1/2 top-1/2  ">
         <img src={iconLock} className="origin-center transform translate-x-6 animate-pulse" />
       </div>

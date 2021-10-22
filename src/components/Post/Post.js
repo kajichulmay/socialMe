@@ -5,20 +5,26 @@ import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
 import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
+import ButtonPurchase from './ButtonPurchase';
+import ProfilePicUi from '../ui/ProfilePicUi';
 
 function Post() {
   return (
     <div
-      className="bg-white w-4/5 mx-auto relative
+      className=" w-4/5 mx-auto relative
     my-20 py-6  shadow-container rounded-3xl "
     >
       {/* post section */}
       <div className="post-section">
         {/* display profile */}
         <div class="absolute -left-8 -top-8 w-24 h-24">
-          <img src={portrait} className="rounded-full shadow-input" />
+          {/* <img src={portrait} className="rounded-full shadow-input" /> */}
+          <ProfilePicUi
+            w="24"
+            h="24"
+            url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
+          />
         </div>
-
         <button className="absolute right-5 top-3">
           <DropdownEditdelete />
         </button>
@@ -86,9 +92,12 @@ function Post() {
 
       <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
       {/* comment section */}
-      <CommentBox />
+      {/* <CommentBox /> */}
+
+      {/* button to Purchase */}
+      <ButtonPurchase />
       {/*end comment section */}
-      <InputAddComment />
+      {/* <InputAddComment /> */}
     </div>
   );
 }
