@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../config/axios';
 import { setToken } from '../service/localStorage';
 import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../context/authContext';
@@ -29,7 +29,7 @@ function Login() {
   };
 
   // login
-  const handleClickLogin = e => {
+  const handleClickLogin = async e => {
     try {
       e.preventDefault();
       // validate email
@@ -49,7 +49,7 @@ function Login() {
       }
 
       if (email && password) {
-        const res = axios.push('/login', {
+        const res = await axios.post('/login', {
           email,
           password,
         });
