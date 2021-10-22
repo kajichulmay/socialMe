@@ -10,11 +10,13 @@ import validator from 'validator';
 function Login() {
   // state
   const [email, setEmail] = useState('');
+
   const [password, setPassword] = useState('');
 
   // validate state
   const [validateEmail, setValidateEmail] = useState('');
   const [validatePassword, setValidatePassword] = useState('');
+  const [validateError, setValidateError] = useState('');
 
   // history
   const history = useHistory();
@@ -58,7 +60,9 @@ function Login() {
         history.push('/profile-setting');
       }
     } catch (err) {
-      console.log(err);
+      console.dir(err);
+      if (err?.response?.data?.errEmail || err?.response?.data?.errPassword)
+        setValidatePassword(err.response.data.errEmail || err.response.data.errPassword);
     }
   };
 
@@ -114,6 +118,7 @@ function Login() {
               </div>
             </div>
             <p className="pl-10 text-red-600 mt-2 mb-5">{validatePassword}</p>
+            <p className="pl-10 text-red-600 mt-2 mb-5">{validateError}</p>
 
             <button className="h-12 bg-primary-grad forhover text-white rounded-full p-2 shadow-lg mt-5 w-3/4 m-auto lg:w-1/2">
               SIGN IN

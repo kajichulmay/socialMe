@@ -6,7 +6,7 @@ import MyProfile from './pages/MyProfile';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProfileSetting from './components/profileSetting/ProfileSetting';
+import ProfileSetting from './pages/ProfileSetting';
 import LayoutWithChat from './pages/LayoutWithChat';
 function App() {
   return (
