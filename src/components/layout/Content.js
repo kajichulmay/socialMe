@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Content({ children }) {
-  return <div className=" md:container md:mx-auto flex bg-white ">{children}</div>;
+  return <div className=" 2xl:container lg:mx-auto flex bg-secondary ">{children}</div>;
 }
 
 export default Content;

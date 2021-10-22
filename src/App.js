@@ -8,17 +8,15 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProfileSetting from './components/profileSetting/ProfileSetting';
 import LayoutWithChat from './pages/LayoutWithChat';
-import DropdownMenu from './components/layout/DropdownMenu';
 function App() {
   return (
     <div className="bg-secondary w-full">
       <Header />
       <Content>
         <Switch>
-          <Route exact path="/dropdown-menu" component={DropdownMenu} />
           <Route exact path="/profile-setting" component={ProfileSetting} />
 
-          <Route exact path="/myprofile" component={LayoutWithChat} />
+          <Route exact path="/userviewer" component={LayoutWithChat} />
 
           <Route exact path="/register" component={Register} />
           <Route exact path="/" component={Login} />

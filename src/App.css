@@ -39,6 +39,12 @@
   fill: url('#iconGrad');
 }
 
+/* text area */
+
+.textInput {
+  resize: none;
+}
+
 .boxEle {
   width: 130px;
   height: 20px;

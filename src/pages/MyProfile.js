@@ -1,11 +1,12 @@
 import React from 'react';
+import Chatbox from '../components/chatbox/Chatbox';
 import AddPost from '../components/myProfile/AddPost';
 import Line from '../components/myProfile/Line';
 import TitleProfile from '../components/myProfile/TitleProfile';
 
 function MyProfile() {
   return (
-    <div className=" bg-white flex items-center flex-col heigt100   ">
+    <div className="  flex items-center flex-col heigt100 2xl:w-full  ">
       <TitleProfile />
       <AddPost />
       <Line />
