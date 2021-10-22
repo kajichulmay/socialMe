@@ -4,10 +4,11 @@ import iconCake from '../../../src/images/iconCake.png';
 import iconEmail from '../../images/IconEmail.png';
 function TitleProfile() {
   return (
-    <div className=" flex lg:h-full  lg:w-full justify-center ">
-      <div className="  w-screen  flex flex-col justify-center m-8 lg:w-3/4   lg:flex-row items-center lg:rounded-full bg-white shadow-container   ">
+    <div className="outline-black flex lg:h-full  lg:w-full justify-center ">
+      <div className=" w-screen flex justify-center m-8 lg:w-3/4   lg:flex-row items-center
+      lg:rounded-full bg-white shadow-container outline-black ">
         <div className="boximage  rounded-full mt-5 lg:mt-0  w-44 h-44 ">
-          {/* Profile User */}
+          {/* Profile picture User */}
           <div className="bg-primary-grad  rounded-full w-44 h-44  flex justify-center items-center   ">
             <div
               className="bg-primary-grad  rounded-full w-40 h-40 border-4 p-20 border-white "

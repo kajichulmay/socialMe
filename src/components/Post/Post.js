@@ -1,6 +1,5 @@
 import React from 'react';
 import ChatBox from '../myProfile/ChatBox';
-import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
 import CommentBox from './CommentBox';
@@ -13,11 +12,11 @@ function Post(props) {
 
   return (
     <div
-      className=" w-4/5 mx-auto relative
+      className=" lg:w-4/5 lg:mx-auto mx-4 relative
     my-20 py-6  shadow-container rounded-3xl "
     >
       {/* post section */}
-      <div className="post-section">
+      <div className="post-section dark:bg-gray-800 bg-blue-500">
 
 
         {/* display profile */}
@@ -97,6 +96,7 @@ function Post(props) {
         {/*end  post section */}
 
         <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
+
         {/* comment section */}
         <CommentBox />
 

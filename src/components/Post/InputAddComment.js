@@ -1,24 +1,27 @@
 import React from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
+import ProfilePicUi from '../ui/ProfilePicUi';
 function InputAddComment() {
   return (
     <>
       {/*input comment section */}
       <div className=" mt-4 w-11/12 flex mx-auto  items-center">
-        <div class=" w-12 h-12 mr-2">
-          <img src={portrait} className="rounded-full" />
+        <div class="mr-2">
+          <ProfilePicUi url={portrait} afterSize={12} beforeSize={12} />
+          {/* <img src={portrait} className="rounded-full" /> */}
         </div>
         <div className="w-full relative">
           <input
             type="text"
             className="border w-full rounded-full border-red-400 shadow-input pl-5 p-1
-          focus:outline-none focus:ring-2 focus:ring-red-400 animate-pulse "
+          focus:outline-none focus:ring-2 focus:ring--300 animate-pulse "
             placeholder="Write a  comment..."
           />
-          <button className="absolute right-0 h-full bg-primary-grad forhover text-white rounded-full shadow-lgm-auto px-2">
+          <button className="absolute right-0 h-full forhover
+          bg-primary-grad forhover rounded-full shadow-lgm-auto px-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 transform rotate-90"
+              className="h-5 w-5 transform rotate-90 text-white"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
