@@ -8,17 +8,17 @@ function LayoutWithChat() {
   return (
     <div className="w-full flex   h-screen">
       {/* <!-- Scroll wrapper --> */}
-      {/* <div class="w-3/4 flex  overflow-hidden"> */}
-      {/* <!-- Scrollable container --> */}
-      <div class="w-full overflow-y-scroll">
-        <div class="p-8 mt-10 ">
-          <MyProfile />
-          <NewsFeed />
+      <div class="w-3/4 flex  overflow-hidden">
+        {/* <!-- Scrollable container --> */}
+        <div class="w-full overflow-y-scroll">
+          <div class="p-8 mt-10 ">
+            <MyProfile />
+            <NewsFeed />
+          </div>
         </div>
       </div>
-      {/* </div> */}
       {/* <!-- Fixed sidebar --> */}
-      {/* <ChatBox /> */}
+      <ChatBox />
     </div>
   );
 }
