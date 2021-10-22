@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
 import logoHeader from '../../images/logoHeader.png';
 import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
 import DropdownNotification from '../dropdown/DropdownNotification';
+import DropdownMenu from './DropdownMenu';
 import Toggle from './Toggle';
 
 function Header({ children }) {
-  const [enabled, setEnabled] = useState(false);
-
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">
@@ -20,9 +18,13 @@ function Header({ children }) {
   return (
     <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
       <div className="flex items-center h-full">
-        <img className="w-10 h-10 mx-3" src={logoHeader} alt="" />
+        {/* logo */}
+        <img className="w-10 h-10 mx-3 " src={logoHeader} alt="" />
+
+        {/* welcome left */}
         <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">Welcome Guest</div>
 
+        {/* search */}
         <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible  ">
           <div className="flex items-center rounded-full  bg-white h-full  ">
             <svg
@@ -39,21 +41,26 @@ function Header({ children }) {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-
             <input
-              className=" w-60 text-base  rounded-full outline-none h-full "
+              className=" w-60 text-base  rounded-full outline-none h-full maxwidth "
               type="text"
               placeholder="search people"
             />
           </div>
         </div>
       </div>
+
       <div className="flex items-center ">
-        <div className="text-base text-dark font-normal flex-shrink invisible lg:visible ">Welcome Guest</div>
-        <div className="shadow-input rounded-full mx-3 invisible lg:visible">
-          <img class="rounded-full h-9 w-9" src={tempProfileHeader} alt="" />
+        {/* welcome right */}
+        <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
+
+        {/* profile's pic */}
+        <div className="shadow-input rounded-full mx-3 maxwidth ">
+          <img class="rounded-full h-9 w-9 cursor-pointer" src={tempProfileHeader} alt="" />
         </div>
-        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input border border-red-300 invisible lg:visible">
+
+        {/* chat */}
+        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input border border-red-300 maxwidth cursor-pointer ">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20">
               {gd}
@@ -65,9 +72,15 @@ function Header({ children }) {
             </svg>
           </div>
         </div>
+
+        {/* DropdownNotification */}
         <DropdownNotification />
+
+        {/* dark/light mode */}
         <Toggle />
-        <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad invisible lg:visible ">
+
+        {/* logout */}
+        <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad maxwidth cursor-pointer ">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">
               {gd}
@@ -80,18 +93,8 @@ function Header({ children }) {
           </div>
         </div>
 
-        {/* <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad visible lg:invisible flex-none ">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">
-              {gd}
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </div>
-        </div> */}
+        {/* dorpdown menu */}
+        <DropdownMenu />
       </div>
     </div>
   );
