@@ -79,7 +79,7 @@ export default function ProfileSetting() {
             </div>
           </div>
           <div className="inputFollwer w-full flex-shrink  px-3 right relative">
-            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-thin forhover mt-5 object-right right-5 absolute">
+            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-normal forhover mt-5 object-right right-5 absolute">
               Save change
             </button>
           </div>
@@ -94,7 +94,7 @@ export default function ProfileSetting() {
                     <span>Change password ?</span>
                   </Disclosure.Button>
                   <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                    <form className="mt-20 mb-10 ">
+                    <form className="mt-10 mb-10 ">
                       <div className=" w-1/3">Reset your password</div>
                       <div className="w-full flex ">
                         <div className="w-1/2">
@@ -134,7 +134,7 @@ export default function ProfileSetting() {
                             </div>
                           </div>
                           <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-20">
-                            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-thin forhover mt-5 object-right right-5 absolute">
+                            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-normal px-5 w-auto forhover mt-5 object-right right-5 absolute">
                               Reset password
                             </button>
                           </div>

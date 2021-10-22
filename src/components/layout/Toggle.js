@@ -17,7 +17,7 @@ export default function CustomLabelExample() {
   return (
     <Switch.Group>
       <Switch checked={enabled} onChange={setEnabled}>
-        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth">
+        <div className=" flex items-center justify-center bg-white hover:bg-gray-200  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth">
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"

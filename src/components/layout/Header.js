@@ -60,7 +60,7 @@ function Header({ children }) {
         </div>
 
         {/* chat */}
-        <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input border border-red-300 maxwidth cursor-pointer ">
+        <div className=" flex items-center justify-center bg-white hover:bg-gray-200 rounded-full h-9 w-9 shadow-input border border-red-300 maxwidth cursor-pointer ">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20">
               {gd}
@@ -80,7 +80,7 @@ function Header({ children }) {
         <Toggle />
 
         {/* logout */}
-        <div className="flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad maxwidth cursor-pointer ">
+        <div className="flex items-center justify-center bg-white hover:bg-gray-200  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad maxwidth cursor-pointer ">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">
               {gd}

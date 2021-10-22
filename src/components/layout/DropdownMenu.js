@@ -17,7 +17,7 @@ export default function DropdownMenu() {
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button>
-            <div className=" flex items-center justify-center bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  minwidth">
+            <div className=" flex items-center justify-center hover:bg-gray-200  bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  minwidth">
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="#ff4949">
                   {gd}
