@@ -1,28 +1,38 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import NewsFeed from './NewsFeed';
-import ChatBox from '../components/myProfile/ChatBox';
-import MyProfile from './MyProfile';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import NewsFeed from "./NewsFeed";
+import ChatBox from "../components/myProfile/ChatBox";
+import MyProfile from "./MyProfile";
 
 function LayoutWithChat() {
-  return (
-    <div className="w-full flex  bg-red-500 h-screen">
-      {/* <!-- Scroll wrapper --> */}
-      <div class="w-3/4 flex bg-gray-100 overflow-hidden">
-        {/* <!-- Scrollable container --> */}
-        <div class="w-full overflow-y-scroll">
-          <div class="p-8 mt-10 bg-white">
+    return (
+        <div className="w-full flex  bg-red-500 h-screen">
+            {/* <!-- Scroll wrapper --> */}
+            <div class="w-3/4 flex bg-gray-100 overflow-hidden">
+                {/* <!-- Scrollable container --> */}
+                <div class="w-full overflow-y-scroll">
+                    <div class="p-8 mt-10 bg-white">
+                        <Switch>
+                            <Route path="/">
+                                <MyProfile />
+                            </Route>
+                            <Route path="/feed">
+                                <NewsFeed />
+                            </Route>
 
-            <MyProfile />
-            <NewsFeed />
-
-          </div>
+                            <Route path="*">
+                                <div>
+                                    <p>404 page not faound</p>
+                                </div>
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
+            </div>
+            {/* <!-- Fixed sidebar --> */}
+            <ChatBox />
         </div>
-      </div>
-      {/* <!-- Fixed sidebar --> */}
-      <ChatBox />
-    </div>
-  );
+    );
 }
 
 export default LayoutWithChat;

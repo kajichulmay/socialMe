@@ -1,15 +1,67 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import Chatbox from "../components/chatbox/Chatbox";
-import DropdownNotification from "../components/dropdown/DropdownNotification";
+import { useState } from "react";
+import axios from "axios";
+import { setToken } from "../service/localStorage";
+import jwtDecode from "jwt-decode";
+import { AuthContext } from "../context/authContext";
+import validator from "validator";
 
 function Login() {
+    // state
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    // validate state
+    const [validateEmail, setValidateEmail] = useState("");
+    const [validatePassword, setValidatePassword] = useState("");
+
     // history
     const history = useHistory();
+
+    // context
+    const { user, setUser } = useContext(AuthContext);
+
     // function
+    // register
     const handleClickRegister = () => {
         history.push("/register");
     };
+
+    // login
+    const handleClickLogin = e => {
+        try {
+            e.preventDefault();
+            // validate email
+            if (email.trim() === "") {
+                setValidateEmail("Email is required");
+            } else if (!validator.isEmail(email)) {
+                setValidateEmail("Wrong Email form");
+            } else {
+                setValidateEmail("");
+            }
+
+            // validate password
+            if (password.trim() === "") {
+                setValidatePassword("Password is required");
+            } else {
+                setValidatePassword("");
+            }
+
+            if (email && password) {
+                const res = axios.push("/login", {
+                    email,
+                    password,
+                });
+                setToken(res.data.token);
+                setUser(jwtDecode(res.data.token));
+                history.push("/profile-setting");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <div className="w-full justify-center mt-10 flex lg:h-screen lg:mt-20">
             <div className="shadow-lg w-full flex flex-col bg-white md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl">
@@ -30,11 +82,16 @@ function Login() {
                 </div>
                 <div className="p-10 flex flex-col justify-between items-center w-full pt-20 lg:h-full">
                     <p className="text-gray-400 text-2xl">Sign into Your account</p>
-                    <form className="flex flex-col h-full justify-between w-2/3 mt-10 lg:h-3/5">
+                    <form
+                        className="flex flex-col h-full justify-between w-2/3 mt-10 lg:h-3/5"
+                        onSubmit={handleClickLogin}
+                    >
                         {/* form */}
                         <div className=" mx-3">
                             <div class="relative">
                                 <input
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                     type="text"
                                     className="w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                                 />
@@ -43,12 +100,14 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-                        <p className="pl-10 text-red-600 mt-2 mb-5">Email is required</p>
+                        <p className="pl-10 text-red-600 mt-2 mb-5">{validateEmail}</p>
 
                         {/* form */}
                         <div className=" mx-3">
                             <div class="relative">
                                 <input
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
                                     type="password"
                                     className="w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                                 />
@@ -57,7 +116,7 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-                        <p className="pl-10 text-red-600 mt-2 mb-5">Password is required</p>
+                        <p className="pl-10 text-red-600 mt-2 mb-5">{validatePassword}</p>
 
                         <button className="h-12 bg-primary-grad forhover text-white rounded-full p-2 shadow-lg mt-5 w-3/4 m-auto lg:w-1/2">
                             SIGN IN
