@@ -102,6 +102,12 @@
   color: #7b7b7b;
 }
 
+.text-dark-thin * {
+  color: #ff4949;
+  font-weight: 300;
+  font-size: 13px;
+}
+
 /* border */
 .header-border {
   border-bottom: 2px solid #ff4a4a;
