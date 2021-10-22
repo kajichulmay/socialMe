@@ -16,17 +16,14 @@ function LayoutWithChat() {
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
           <div class="p-8 mt-10">
-            <Switch>
-              <Route path={`${path}/myprofile/`}>
-                <MyProfile />
-              </Route>
-              <Route exact path={`${path}`}>
-                <NewsFeed />
-              </Route>
-            </Switch>
+
+            <MyProfile />
+            <NewsFeed />
+
           </div>
         </div>
       </div>
+      {/* </div> */}
       {/* <!-- Fixed sidebar --> */}
       <ChatBox />
     </div>

@@ -5,22 +5,28 @@ import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
 import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
+import ButtonPurchase from './ButtonPurchase';
+import ProfilePicUi from '../ui/ProfilePicUi';
 
 function Post(props) {
   const data = props.data;
 
   return (
     <div
-      className="bg-white w-4/5 mx-auto relative
+      className=" w-4/5 mx-auto relative
     my-20 py-6  shadow-container rounded-3xl "
     >
       {/* post section */}
       <div className="post-section">
         {/* display profile */}
         <div class="absolute -left-8 -top-8 w-24 h-24">
-          <img src={data.profilePic} className="rounded-full shadow-input" />
+          {/* <img src={portrait} className="rounded-full shadow-input" /> */}
+          <ProfilePicUi
+            w="24"
+            h="24"
+            url={data.profilePic}
+          />
         </div>
-
         <button className="absolute right-5 top-3">
           <DropdownEditdelete />
         </button>
@@ -83,8 +89,11 @@ function Post(props) {
       <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
       {/* comment section */}
       {/* <CommentBox /> */}
+
+      {/* button to Purchase */}
+      <ButtonPurchase />
       {/*end comment section */}
-      <InputAddComment />
+      {/* <InputAddComment /> */}
     </div>
   );
 }
