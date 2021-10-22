@@ -1,36 +1,28 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import NewsFeed from "./NewsFeed";
 import ChatBox from "../components/myProfile/ChatBox";
 import MyProfile from "./MyProfile";
 
 function LayoutWithChat() {
+    const { path, url } = useRouteMatch();
+    console.log(path);
+    console.log(url);
     return (
-        <div className="w-full flex  bg-red-500 h-screen">
+        <div className="w-full lg:flex  h-screen">
             {/* <!-- Scroll wrapper --> */}
-            <div class="w-3/4 flex bg-gray-100 overflow-hidden">
+            <div class="lg:w-3/4 flex overflow-hidden">
                 {/* <!-- Scrollable container --> */}
                 <div class="w-full overflow-y-scroll">
-                    <div class="p-8 mt-10 bg-white">
-                        <Switch>
-                            <Route path="/">
-                                <MyProfile />
-                            </Route>
-                            <Route path="/feed">
-                                <NewsFeed />
-                            </Route>
+                    <div class="p-8 mt-10">
+                        <MyProfile />
 
-                            <Route path="*">
-                                <div>
-                                    <p>404 page not faound</p>
-                                </div>
-                            </Route>
-                        </Switch>
+                        <NewsFeed />
                     </div>
                 </div>
+                {/* <!-- Fixed sidebar --> */}
+                <ChatBox />
             </div>
-            {/* <!-- Fixed sidebar --> */}
-            <ChatBox />
         </div>
     );
 }
