@@ -2,7 +2,16 @@ import React from 'react';
 import Slider from 'react-slick';
 import iconLock from '../../images/iconLock.png';
 import ImagePost from './ImagePost';
-function SimpleSlider() {
+
+function SimpleSlider(props) {
+
+  // console.log(props.picUrl);
+
+  const { picUrl } = props;
+  // console.log(picUrl);
+
+
+
   const settings = {
     dots: true,
     infinite: true,
@@ -12,38 +21,22 @@ function SimpleSlider() {
     arrows: false,
   };
 
+
   return (
-    <div className="w-full  mt-5 mb-5  relative ">
-      {/* icon lock Post */}
-      <div className="absolute  z-10 right-1/2 top-1/2  ">
+    <div className="w-full  my-5 relative ">
+      {/* <div className="absolute  z-10 right-1/2 top-1/2  ">
         <img src={iconLock} className="origin-center transform translate-x-6 animate-pulse" />
-      </div>
+      </div> */}
       <Slider {...settings}>
+        {picUrl ?
+          picUrl.map(item => <ImagePost picUrl={item} />) : null}
+        {/* <ImagePost />
         <ImagePost />
         <ImagePost />
         <ImagePost />
         <ImagePost />
         <ImagePost />
-        <ImagePost />
-        <ImagePost />
-        {/* <div className="w-full ">
-          <img src={imgSlide1} className="w-full" />
-        </div>
-        <div className="w-full ">
-          <img src={imgSlide2} className="w-full" />
-        </div>
-        <div className="w-full ">
-          <img src={imgSlide3} className="w-full" />
-        </div>
-        <div className="w-full ">
-          <img src={imgSlide4} className="w-full" />
-        </div> */}
-        {/* <div className="w-full outline-black">
-          <img src={imgSlide1} className="w-full" />
-        </div>
-        <div className="w-full outline-black">
-          <img src={imgSlide1} className="w-full" />
-        </div> */}
+        <ImagePost /> */}
       </Slider>
     </div>
   );

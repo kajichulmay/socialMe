@@ -16,7 +16,7 @@ function App() {
         <Switch>
           <Route exact path="/profile-setting" component={ProfileSetting} />
 
-          <Route exact path="/myprofile" component={LayoutWithChat} />
+          <Route exact path="/userviewer" component={LayoutWithChat} />
 
           <Route exact path="/register" component={Register} />
           <Route exact path="/" component={Login} />

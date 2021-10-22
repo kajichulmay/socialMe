@@ -4,7 +4,7 @@ import FirendsList from '../myProfile/FirendsList';
 
 function ChatBox() {
   return (
-    <div class="w-1/4 bg-chat-container">
+    <div class="lg:w-1/4 lg:block hidden bg-chat-container">
       <div className=" mt-24 text-center ">
         <p className="capitalize text-2xl font-thin mb-5">chat with your friends</p>
       </div>
