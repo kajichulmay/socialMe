@@ -18,24 +18,34 @@ function Post(props) {
     >
       {/* post section */}
       <div className="post-section">
+
+
         {/* display profile */}
-        <div class="absolute -left-8 -top-8 w-24 h-24">
-          {/* <img src={portrait} className="rounded-full shadow-input" /> */}
-          <ProfilePicUi
-            w="24"
-            h="24"
-            url={data.profilePic}
-          />
+        <div class="ml-14">
+          <div class="absolute -left-8 -top-8">
+            {/* <img src={portrait} className="rounded-full shadow-input" /> */}
+            <ProfilePicUi
+              beforeSize="24"
+              afterSize="20"
+              // w="20"
+              // h="20"
+              url={data.profilePic}
+            />
+          </div>
+
+          {/* name and date */}
+          <div className="pl-5">
+            <p className="text-xl capitalize">{`${data.firstName} ${data.lastName}`}</p>
+            <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
+          </div>
         </div>
+
+
+
+
         <button className="absolute right-5 top-3">
           <DropdownEditdelete />
         </button>
-
-        {/* name and date */}
-        <div className="pl-20">
-          <p className="text-xl">{`${data.firstName} ${data.lastName}`}</p>
-          <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
-        </div>
 
         {/* content post */}
         <div className=" py-4">
@@ -83,17 +93,18 @@ function Post(props) {
             <p className="text-dark">12 comment</p>
           </div>
         </div>
+
+        {/*end  post section */}
+
+        <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
+        {/* comment section */}
+        <CommentBox />
+
+        {/* button to Purchase */}
+        {/* <ButtonPurchase /> */}
+        {/*end comment section */}
+        <InputAddComment />
       </div>
-      {/*end  post section */}
-
-      <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
-      {/* comment section */}
-      <CommentBox />
-
-      {/* button to Purchase */}
-      {/* <ButtonPurchase /> */}
-      {/*end comment section */}
-      <InputAddComment />
     </div>
   );
 }

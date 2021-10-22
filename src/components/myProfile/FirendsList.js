@@ -8,8 +8,8 @@ function FirendsList() {
     items-center cursor-pointer  mb-2"
     >
       <ProfilePicUi
-        w="16"
-        h="16"
+        beforeSize="16"
+        afterSize="16"
         url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
       />
       {/* <img src={mockFriendsChat} className="mr-5" /> */}

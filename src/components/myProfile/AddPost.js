@@ -8,10 +8,10 @@ function AddPost() {
     <div className=" flex h-auto  w-full  justify-center mt-20 ">
       <div className=" w-3/4 m-8  flex  flex-col bg-white justify-start rounded-2xl shadow-container relative ">
         {/* imageProfile */}
-        <div className=" absolute w-36 h-36 -top-16 -left-16  rounded-full  shadow-container">
+        <div className=" absolute -top-16 -left-16  rounded-full  shadow-container">
           <ProfilePicUi
-            w="36"
-            h="36"
+            afterSize="36"
+            beforeSize="36"
             url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
           />
         </div>
