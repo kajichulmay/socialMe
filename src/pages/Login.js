@@ -67,12 +67,12 @@ function Login() {
   };
 
   return (
-    <div className="w-full justify-center lg:items-center mt-10 flex login-container lg:mt-16">
+    <div className="w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16">
       {/* main login container */}
       <div className="shadow-lg w-full flex flex-col bg-white
       md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl ">
         {/* left sector */}
-        <div className="bg-primary-grad text-white w-full p-10 pt-20 flex flex-col items-center lg:w-2/3 lg:rounded-l-3xl lg:pt-32">
+        <div className=" text-center bg-primary-grad text-white w-full p-10 pt-20 flex flex-col items-center lg:w-2/3 lg:rounded-l-3xl lg:pt-32">
           <p className="text-4xl">Welcome To Me</p>
           <div className="flex flex-col justify-between items-center h-1/3 mt-10 font-light lg:h-1/3 lg:justify-between">
             <p className="text-xl">Me Social Media</p>
@@ -82,7 +82,7 @@ function Login() {
           </div>
           <button
             onClick={handleClickRegister}
-            className="h-12 bg-white text-red-400 shadow-lg rounded-full p-2 w-1/2 lg:w-2/3  mt-20"
+            className="h-12 bg-white text-red-400 shadow-lg rounded-full p-2 w-1/2 lg:w-2/3  mt-10"
           >
             SIGN UP
           </button>
