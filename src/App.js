@@ -8,12 +8,15 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProfileSetting from './components/profileSetting/ProfileSetting';
 import LayoutWithChat from './pages/LayoutWithChat';
+import Profile from './pages/Profile';
+import { Modal } from '@mui/material';
 function App() {
   return (
     <div className="bg-secondary w-full">
       <Header />
       <Content>
         <Switch>
+          <Route exact path="/profile" component={Profile} />
           <Route exact path="/profile-setting" component={ProfileSetting} />
 
           <Route exact path="/userviewer" component={LayoutWithChat} />
