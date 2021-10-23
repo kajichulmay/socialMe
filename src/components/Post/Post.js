@@ -12,8 +12,8 @@ function Post(props) {
 
   return (
     <div
-      className=" lg:w-4/5 lg:mx-auto mx-4 relative
-    my-20 py-6  shadow-container rounded-3xl "
+      className=" lg:w-4/5 w-10/12 mx-auto relative
+    my-20 py-6 shadow-container rounded-3xl "
     >
       {/* post section */}
       <div className="post-section">

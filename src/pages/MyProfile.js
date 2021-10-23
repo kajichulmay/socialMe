@@ -1,16 +1,31 @@
 import React from 'react';
-import Chatbox from '../components/chatbox/Chatbox';
+import Chatbox from '../components/myProfile/ChatBox';
 import AddPost from '../components/myProfile/AddPost';
 import Line from '../components/myProfile/Line';
 import TitleProfile from '../components/myProfile/TitleProfile';
+import FeedContainer from '../components/Post/FeedContainer';
 
 function MyProfile() {
   return (
-    <div className="  flex items-center flex-col heigt100 2xl:w-full  ">
-      <TitleProfile />
-      <AddPost />
-      <Line />
+    <div className="w-full lg:flex justify-center h-screen ">
+      {/* <!-- Scroll wrapper --> */}
+      <div class="w-full flex overflow-hidden outline-black">
+        {/* <!-- Scrollable container --> */}
+        <div class="w-full overflow-y-scroll">
+          <div class="py-8 lg:px-8 px-0 mt-10">
+            {/* personalProfile */}
+            <TitleProfile />
+            <AddPost />
+            <Line />
+            <FeedContainer />
+            {/*end personalProfile */}
+          </div>
+        </div>
+        {/* <!-- Fixed sidebar --> */}
+        <Chatbox />
+      </div>
     </div>
+
   );
 }
 

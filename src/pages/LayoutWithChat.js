@@ -14,8 +14,7 @@ function LayoutWithChat() {
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
           <div class="p-8 mt-10">
-            <MyProfile />
-            <NewsFeed />
+
           </div>
         </div>
         {/* <!-- Fixed sidebar --> */}

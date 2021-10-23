@@ -51,12 +51,11 @@ input:focus {
 
 .boxEle {
   width: 130px;
-  height: 20px;
   color: #929292;
 }
 
 .boxProfile {
-  border-radius: 125px 27px 27px 125px;
+  border-radius: 125px 0px;
 }
 
 /* background color */

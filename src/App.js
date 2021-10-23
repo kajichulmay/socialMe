@@ -7,7 +7,6 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProfileSetting from './pages/ProfileSetting';
-import LayoutWithChat from './pages/LayoutWithChat';
 function App() {
   return (
     <div className="bg-secondary w-full">
@@ -16,7 +15,8 @@ function App() {
         <Switch>
           <Route exact path="/profile-setting" component={ProfileSetting} />
 
-          <Route exact path="/userviewer" component={LayoutWithChat} />
+          <Route exact path="/myprofile" component={MyProfile} />
+          <Route exact path="/newsfeed" component={NewsFeed} />
 
           <Route exact path="/register" component={Register} />
           <Route exact path="/" component={Login} />

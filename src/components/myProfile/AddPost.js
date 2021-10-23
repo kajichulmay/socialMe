@@ -8,21 +8,24 @@ function AddPost() {
     <div className=" flex h-auto  w-full  justify-center mt-20 ">
       <div className=" w-3/4 m-8  flex  flex-col bg-white justify-start rounded-2xl shadow-container relative ">
         {/* imageProfile */}
-        <div className=" absolute -top-16 -left-16  rounded-full  shadow-container">
+        <div className="absolute -top-16 -left-16  rounded-full  shadow-container">
           <ProfilePicUi
             afterSize="36"
             beforeSize="36"
             url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
           />
         </div>
+
         {/* NameUser */}
         <div className="boxText flex justify-between items-center ml-20 mb-3 w-auto  ">
           <div className="nameTitle">
             <p className="text-2xl ml-10 font-normal">Jenny Wilson</p>
           </div>
+
           {/* ButtonPublic or PostEx */}
           <ButtonPostPublic />
           {/* <ButtonPostEx /> */}
+
         </div>
         {/* Content Add Post */}
         <div className="boxText flex justify-between items-center ml-24 mb-3 w-auto  h-full">
