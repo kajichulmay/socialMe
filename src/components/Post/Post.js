@@ -16,8 +16,7 @@ function Post(props) {
     my-20 py-6  shadow-container rounded-3xl "
     >
       {/* post section */}
-      <div className="post-section dark:bg-gray-800 bg-blue-500">
-
+      <div className="post-section">
 
         {/* display profile */}
         <div class="ml-14">
@@ -38,9 +37,6 @@ function Post(props) {
             <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
           </div>
         </div>
-
-
-
 
         <button className="absolute right-5 top-3">
           <DropdownEditdelete />

@@ -11,12 +11,14 @@ function InputAddComment() {
           {/* <img src={portrait} className="rounded-full" /> */}
         </div>
         <div className="w-full relative">
+
           <input
             type="text"
             className="border w-full rounded-full border-red-400 shadow-input pl-5 p-1
           focus:outline-none focus:ring-2 focus:ring--300 animate-pulse "
             placeholder="Write a  comment..."
           />
+
           <button className="absolute right-0 h-full forhover
           bg-primary-grad forhover rounded-full shadow-lgm-auto px-6">
             <svg
