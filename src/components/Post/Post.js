@@ -6,13 +6,14 @@ import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
 import ButtonPurchase from './ButtonPurchase';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import Line from '../myProfile/Line';
 
 function Post(props) {
   const data = props.data;
 
   return (
     <div
-      className=" lg:w-4/5 w-10/12 mx-auto relative
+      className=" lg:w-4/5 w-10/12 relative mx-auto
     my-20 py-6 shadow-container rounded-3xl "
     >
       {/* post section */}
@@ -54,7 +55,7 @@ function Post(props) {
           {/* <SimpleSlider /> */}
         </div>
 
-        <div className="flex px-6 mt-2 mb-4">
+        <div className="flex px-6 mt-2 ">
           <div className="flex mr-4 items-center">
             {/* display recomment */}
             <svg
@@ -90,8 +91,7 @@ function Post(props) {
         </div>
 
         {/*end  post section */}
-
-        <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
+        <Line />
 
         {/* comment section */}
         <CommentBox />

@@ -33,10 +33,11 @@ function Register() {
 
                 {/* right sector */}
                 <div className="flex flex-col justify-between items-center
-                w-full p-6 lg:p-10">
-                    <p className="text-gray-400 text-2xl ">Register new account</p>
+                w-full p-10">
+                    <p className="text-gray-400 text-2xl">Register new account</p>
                     {/* form */}
-                    <form className="flex flex-col justify-between w-4/5 mt-6 lg:mt-12">
+                    <form className="flex flex-col justify-between 
+                    w-2/3 lg:w-4/5 mt-6 lg:mt-12">
                         {/* input firstname */}
                         <div className=" mx-3">
                             <div class="relative">

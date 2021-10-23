@@ -90,10 +90,10 @@ function Login() {
         {/*end  left sector */}
 
         {/* right sector */}
-        <div className=" p-6 lg:p-10 flex flex-col justify-center items-center w-full">
+        <div className=" p-10 flex flex-col lg:justify-around justify-center items-center w-full">
           <p className="text-gray-400 text-2xl ">Sign into Your account</p>
           {/* form */}
-          <form className="flex flex-col justify-between lg:w-5/6 w-4/5 mt-6 lg:mt-12"
+          <form className="flex flex-col justify-between w-2/3 lg:w-4/5 mt-6 lg:mt-9"
             onSubmit={handleClickLogin}>
             {/* email input */}
             <div className="mx-3">

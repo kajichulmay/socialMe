@@ -6,7 +6,7 @@ function TitleProfile() {
   return (
     <>
       <div className="mt-14 flex lg:h-full  lg:w-4/5 mx-auto justify-center relative">
-        <div className="outline-black flex flex-col lg:flex-row  justify-center
+        <div className="bg-white flex flex-col lg:flex-row  justify-center
       w-full items-center lg:rounded-full shadow-container">
           <div className=" rounded-full mt-5 lg:mt-0  ">
             {/* ProfilePic User */}
@@ -60,7 +60,8 @@ function TitleProfile() {
           {/*end user info */}
         </div>
       </div>
-      <div className="bg-white  ">
+      <div className="bg-white shadow-container lg:w-2/3 mx-auto p-10 mt-10 rounded-3xl
+      ">
         <p>About me</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ratione modi commodi dolorem explicabo sint facere non quas provident nisi.</p>
       </div>
