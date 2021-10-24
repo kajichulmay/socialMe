@@ -1,6 +1,7 @@
 import React from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import { timeStampDisplay } from '../../service/dateService';
 function CommentBox() {
   return (
     <>
@@ -10,7 +11,7 @@ function CommentBox() {
         <div className=" lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8">
           <div className="pl-16 flex justify-end items-center">
             <p className="mr-2 text-lg">Firstname Lastname</p>
-            <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
+            <p className="text-sm text-gray-500">{timeStampDisplay('2021-10-12 07:13:26')}</p>
           </div>
           <div className="relative py-6 px-14 shadow-container rounded-3xl ">
             <div class="absolute -left-8 -top-8">

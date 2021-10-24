@@ -5,31 +5,25 @@ import Swal from 'sweetalert2';
 export default function DropdownEditdelete(props) {
     const { setIsEdit } = props;
 
+
+
     const handleClickDelPost = async () => {
-        // try {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Delete!',
-        });
-        // .then(result => {
-        //     if (result.isConfirmed) {
-        //       removeToken();
-        //       setUser(null);
-        //       Swal.fire('Logout!', 'Your account has been logout.', 'success');
-        //       history.push('/');
-        //     }
-        //   });
-        // } catch (err) {
-        //   console.dir(err);
-        // }
+        try {
+            // sweetAlert return confirm value
+            const { isConfirmed } = await Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete!',
+            });
+            console.log(isConfirmed);
+        } catch (error) {
+            console.log(error);
+        }
     };
-
-
 
     return (
         <div>
@@ -100,7 +94,7 @@ export default function DropdownEditdelete(props) {
             </Menu>
         </div>
     );
-}
+};
 
 // icon components
 function EditInactiveIcon(props) {

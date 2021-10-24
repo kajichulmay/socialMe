@@ -8,12 +8,11 @@ import ProfilePicUi from '../ui/ProfilePicUi';
 import Line from '../myProfile/Line';
 import CommentsContainer from '../Post/CommentsContainer';
 import EditPostForm from '../Post/EditPostForm';
+import { timeStampDisplay } from '../../service/dateService';
 
 function Post(props) {
   const data = props.data;
   const [isEdit, setIsEdit] = useState(false);
-
-  console.log(isEdit);
 
   return (
     <div
@@ -36,7 +35,7 @@ function Post(props) {
           {/* name and date */}
           <div className="pl-5">
             <p className="text-xl capitalize">{`${data.firstName} ${data.lastName}`}</p>
-            <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
+            <p className="text-sm text-gray-500">{timeStampDisplay('2021-10-12 07:13:26')}</p>
           </div>
         </div>
 

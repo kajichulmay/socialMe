@@ -2,6 +2,7 @@ import React from 'react';
 import imageProfile from '../../mockData/image/mockProfile.png';
 import iconCake from '../../../src/images/iconCake.png';
 import iconEmail from '../../images/IconEmail.png';
+import BtnFollow from './BtnFollow';
 function TitleProfile() {
   return (
     <>
@@ -44,15 +45,12 @@ function TitleProfile() {
                   <span className=" boxEle ">Email address</span>
                   <span className="text-gray-400">kajichul.chon@gmail.com</span>
                 </div>
+              </div>
 
-              </div>
-              {/*end detail user*/}
-              {/* BTNFollower */}
-              <div className="absolute top-2 right-2 ">
-                <button className="rounded-full shadow-input px-4 py-2 bg-primary-grad text-white forhover">
-                  Follower
-                </button>
-              </div>
+
+              {/*btn follow */}
+              <BtnFollow />
+              {/*end btn follow */}
             </div>
             {/*end detail user*/}
 

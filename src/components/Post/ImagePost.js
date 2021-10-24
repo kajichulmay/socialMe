@@ -8,21 +8,19 @@ function ImagePost(props) {
     Swal.fire({
       imageUrl: src,
       showConfirmButton: false,
-      showCloseButton: true,
     });
   };
 
 
-
   return (
     <>
-      <div className="bg-red-500" onClick={(e) => e.stopPropagation()}>
+      <div className="bg-red-500" >
         {/* if private  add className  filter  blur-3xl */}
-        <img src={props.picUrl} className="w-full object-cover"
+        <img src={props.picUrl}
+          className="w-full object-cover"
           style={{
             height: '500px'
           }}
-
           onClick={() => hdlClickOpenModalPicture(props.picUrl)}
         />
         {/* <img src={props.picUrl} className="w-full  filter  blur-3xl " /> */}

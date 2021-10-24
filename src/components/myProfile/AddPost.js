@@ -1,6 +1,7 @@
 import React from 'react';
 import imageProfile from '../../mockData/image/mockProfile.png';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import BtnTogglePostType from './BtnTogglePostType';
 import ButtonPostEx from './ButtonPostEx';
 import ButtonPostPublic from './ButtonPostPublic';
 function AddPost() {
@@ -24,8 +25,10 @@ function AddPost() {
             <p className="text-2xl pl-20 font-normal">Jenny Wilson</p>
           </div>
 
-          {/* ButtonPublic or PostEx */}
-          <ButtonPostPublic />
+          {/* ButtonPublic or Exclusive*/}
+          {/* <ButtonPostPublic /> */}
+          <BtnTogglePostType />
+          {/* <ButtonPostEx /> */}
           {/* <ButtonPostEx /> */}
 
         </div>
@@ -33,7 +36,7 @@ function AddPost() {
         <div className="flex justify-between items-center
         mx-auto mb-5 w-10/12">
           <textarea
-            className="textInput w-full h-36 border-2 rounded-3xl border-red-400 pt-3  shadow-lg pl-3
+            className="textInput w-full h-36 border rounded-3xl border-red-400 pt-3  shadow-lg pl-3
               focus:outline-none focus:ring-1 focus:ring-red-400 placeholder-gray-500
               placeholder-opacity-75"
             placeholder="what on your mind..."
