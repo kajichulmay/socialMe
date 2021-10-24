@@ -1,6 +1,11 @@
 import React from 'react';
 
 function EditPostForm(props) {
+
+  //  state: toggle editForm
+  const { setIsEdit } = props;
+
+  // content from state
   const { message } = props.content;
   return (
     <div className=" px-6 py-4 mx-6 bg-white rounded-2xl shadow-container flex flex-col">
@@ -13,8 +18,10 @@ function EditPostForm(props) {
         value={message}
       />
       {/* btn grp */}
-      <div className="flex self-end w-1/4">
-        <button className="capitalize w-1/2 rounded-full shadow-input py-1 text-lg  text-red-400">
+      <div className="flex self-end w-1/3">
+        <button
+          onClick={() => setIsEdit(false)}
+          className="capitalize w-1/2 rounded-full shadow-input py-1 text-lg  text-red-400">
           cancel
         </button>
         <button className="capitalize w-1/2 rounded-full shadow-input py-1 ml-4 text-lg   bg-primary-grad text-white forhover">

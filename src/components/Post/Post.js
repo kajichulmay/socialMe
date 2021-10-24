@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
@@ -11,8 +11,9 @@ import EditPostForm from '../Post/EditPostForm';
 
 function Post(props) {
   const data = props.data;
+  const [isEdit, setIsEdit] = useState(false);
 
-
+  console.log(isEdit);
 
   return (
     <div
@@ -40,17 +41,20 @@ function Post(props) {
         </div>
 
         <button className="absolute right-5 top-3">
-          <DropdownEditdelete />
+          <DropdownEditdelete setIsEdit={setIsEdit} />
         </button>
 
         {/* content of post */}
         <div className="py-4">
-          {/* message */}
-          <p className="px-6">
-            {data.content.message}
-          </p>
-          {/* edit post  */}
-          <EditPostForm content={data.content} />
+          {/*condition rendering: message and editPost */}
+          {isEdit ?
+            <EditPostForm content={data.content} setIsEdit={setIsEdit} /> :
+            <p className="px-6">
+              {data.content.message}
+            </p>
+          }
+
+
           {/* picture use slick */}
           {data.content.picUrl ? <SimpleSlider picUrl={data.content.picUrl} /> : null}
         </div>
