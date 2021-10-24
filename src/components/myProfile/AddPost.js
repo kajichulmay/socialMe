@@ -5,7 +5,7 @@ import ButtonPostEx from './ButtonPostEx';
 import ButtonPostPublic from './ButtonPostPublic';
 function AddPost() {
   return (
-    <div className=" flex  justify-center w-full mt-20 ">
+    <div className=" flex  justify-center w-full mt-20 mb-8">
       <div className="pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
       rounded-2xl shadow-container relative">
         {/* imageProfile */}
@@ -26,6 +26,7 @@ function AddPost() {
 
           {/* ButtonPublic or PostEx */}
           <ButtonPostPublic />
+          {/* <ButtonPostEx /> */}
 
         </div>
         {/* Content Add Post */}
@@ -41,10 +42,11 @@ function AddPost() {
         </div>
 
         {/* bottom btn sector */}
-        <div className=" flex justify-between outline-black
+        <div className=" flex justify-between
         items-center  mx-auto w-11/12">
           {/* Button Add Photo */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 icon-grad bg-red-500"
+          <svg xmlns="http://www.w3.org/2000/svg"
+            className="h-10 w-10 icon-grad "
             viewBox="0 0 20 20">
             <defs>
               <linearGradient id="iconGrad" x2="0%" y2="100%">

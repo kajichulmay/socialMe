@@ -15,11 +15,11 @@ function MyProfile() {
           <div class="py-8 lg:px-8 px-0 mt-10">
             {/* personalProfile */}
             <TitleProfile />
+            {/*end personalProfile */}
             <Line title="create post" />
             <AddPost />
             <Line title="news feed" />
             <FeedContainer />
-            {/*end personalProfile */}
           </div>
         </div>
         {/* <!-- Fixed sidebar --> */}

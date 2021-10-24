@@ -5,12 +5,8 @@ import ImagePost from './ImagePost';
 
 function SimpleSlider(props) {
 
-  // console.log(props.picUrl);
-
   const { picUrl } = props;
   // console.log(picUrl);
-
-
 
   const settings = {
     dots: true,
@@ -28,16 +24,10 @@ function SimpleSlider(props) {
       {/* <div className="absolute  z-10 right-1/2 top-1/2  ">
         <img src={iconLock} className="origin-center transform translate-x-6 animate-pulse" />
       </div> */}
+
       <Slider {...settings}>
         {picUrl ?
           picUrl.map(item => <ImagePost picUrl={item} />) : null}
-        {/* <ImagePost />
-        <ImagePost />
-        <ImagePost />
-        <ImagePost />
-        <ImagePost />
-        <ImagePost />
-        <ImagePost /> */}
       </Slider>
     </div>
   );

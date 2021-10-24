@@ -60,11 +60,11 @@ function TitleProfile() {
           {/*end user info */}
         </div>
       </div>
-      <div className="bg-white shadow-container lg:w-2/3 mx-auto p-10 mt-10 rounded-3xl
+      {/* <div className="bg-white shadow-container lg:w-2/3 mx-auto p-10 mt-10 rounded-3xl
       ">
         <p>About me</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ratione modi commodi dolorem explicabo sint facere non quas provident nisi.</p>
-      </div>
+      </div> */}
     </>
   );
 }

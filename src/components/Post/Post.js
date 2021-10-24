@@ -2,19 +2,22 @@ import React from 'react';
 import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
-import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
 import ButtonPurchase from './ButtonPurchase';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import Line from '../myProfile/Line';
+import CommentsContainer from '../Post/CommentsContainer';
+import EditPostForm from '../Post/EditPostForm';
 
 function Post(props) {
   const data = props.data;
 
+
+
   return (
     <div
       className=" lg:w-4/5 w-10/12 relative mx-auto
-    my-20 py-6 shadow-container rounded-3xl "
+    my-16 py-6 shadow-container rounded-3xl "
     >
       {/* post section */}
       <div className="post-section">
@@ -22,12 +25,9 @@ function Post(props) {
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
-            {/* <img src={portrait} className="rounded-full shadow-input" /> */}
             <ProfilePicUi
               beforeSize="24"
               afterSize="20"
-              // w="20"
-              // h="20"
               url={data.profilePic}
             />
           </div>
@@ -43,17 +43,18 @@ function Post(props) {
           <DropdownEditdelete />
         </button>
 
-        {/* content post */}
-        <div className=" py-4">
+        {/* content of post */}
+        <div className="py-4">
+          {/* message */}
           <p className="px-6">
             {data.content.message}
-            {/* Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim
-            velit mollit. Exercitation veniam consequat sunt nostrud amet. */}
           </p>
-          {/* picturePost */}
+          {/* edit post  */}
+          <EditPostForm content={data.content} />
+          {/* picture use slick */}
           {data.content.picUrl ? <SimpleSlider picUrl={data.content.picUrl} /> : null}
-          {/* <SimpleSlider /> */}
         </div>
+        {/*end content of post */}
 
         <div className="flex px-6 mt-2 ">
           <div className="flex mr-4 items-center">
@@ -90,11 +91,12 @@ function Post(props) {
           </div>
         </div>
 
-        {/*end  post section */}
+
         <Line />
 
         {/* comment section */}
-        <CommentBox />
+        <CommentsContainer />
+
 
         {/* button to Purchase */}
         {/* <ButtonPurchase /> */}

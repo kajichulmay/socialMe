@@ -16,8 +16,9 @@ function NewsFeed() {
         <div class="w-full overflow-y-scroll">
           <div class="py-8 lg:px-8 px-0 mt-10">
             {/* feed container */}
+            <Line title="EIEI" />
             <AddPost />
-            <Line />
+            <Line title="news feed" />
             <FeedContainer />
             {/*news feed container */}
           </div>
