@@ -7,8 +7,10 @@ function TitleProfile() {
   return (
     <>
       <div className="mt-14 flex lg:h-full  lg:w-4/5 mx-auto justify-center relative">
-        <div className="bg-white flex flex-col lg:flex-row  justify-center
-      w-full items-center lg:rounded-full shadow-container">
+        {/* <div className="bg-white flex flex-col lg:flex-row  justify-center
+      w-full items-center lg:rounded-full shadow-container"> */}
+        <div className="bg-white flex flex-col lg:flex-row justify-center
+      w-full items-center profile-title shadow-container">
           <div className=" rounded-full mt-5 lg:mt-0  ">
             {/* ProfilePic User */}
             <div className="bg-primary-grad rounded-full w-44 h-44 flex justify-center items-center   ">
@@ -24,7 +26,7 @@ function TitleProfile() {
             </div>
           </div>
           {/* user info */}
-          <div className=" flex flex-col  m-7 container items-center lg:items-start  ">
+          <div className=" flex outline-black flex-col  m-7 container items-center lg:items-start  ">
             {/* Name user */}
             <div className="">
               <p className="text-4xl font-normal">Chae young Park</p>
@@ -53,7 +55,7 @@ function TitleProfile() {
               {/*end btn follow */}
             </div>
             {/*end detail user*/}
-
+            <p>sdlkfj</p>
           </div>
           {/*end user info */}
         </div>

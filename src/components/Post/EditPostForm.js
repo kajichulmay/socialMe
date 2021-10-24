@@ -27,7 +27,7 @@ function EditPostForm(props) {
           cancel
         </button>
         <button className="capitalize w-1/2 rounded-full shadow-input py-1 ml-4 text-lg   bg-primary-grad text-white forhover">
-          Edit
+          edit
         </button>
       </div>
       {/*end btn grp */}

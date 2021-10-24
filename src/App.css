@@ -126,6 +126,10 @@ input:focus {
   border-radius: 50px;
 }
 
+.profile-title {
+  border-radius: 5.5rem 5.5rem 0 0;
+}
+
 .whiteBtnHover:hover {
   background: rgb(246, 246, 246);
 }
@@ -143,6 +147,9 @@ input:focus {
 @media screen and (max-width: 1024px) {
   .maxwidth {
     display: none;
+  }
+  .profile-title {
+    border-radius: 0;
   }
 }
 
