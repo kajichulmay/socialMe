@@ -10,19 +10,18 @@ export default function ProfileSetting() {
   const [editMode, setEditMode] = useState(false);
   const [validateFirstName, setValidateFirstName] = useState(' ');
   const [validateLastName, setValidateLastName] = useState(' ');
-  const [validateEmail, setValidateEmail] = useState(' ');
   const [validateOldPassword, setValidateOldPassword] = useState('');
   const [validateNewPassword, setValidateNewPassword] = useState('');
   const [validateConfirmNewPassword, setValidateConfirmNewPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
+  const [newFirst, setNewFirst] = useState('');
 
   const handleClickSubmitProfile = e => {
     try {
@@ -33,6 +32,7 @@ export default function ProfileSetting() {
         setValidateFirstName('First name is required');
       } else if (firstName.trim() !== '') {
         setValidateFirstName(' ');
+        setNewFirst(...firstName);
       }
 
       // validate last name
@@ -42,17 +42,8 @@ export default function ProfileSetting() {
         setValidateLastName(' ');
       }
 
-      // validate email
-      if (email.trim() === '') {
-        setValidateEmail('Email is required');
-      } else if (!validator.isEmail(email)) {
-        setValidateEmail('Invalid Email format');
-      } else if (email.trim() !== '') {
-        setValidateEmail(' ');
-      }
-
       // toggle to !editMode = not null
-      if (firstName.trim() !== '' && lastName.trim() !== '' && email.trim() !== '' && validator.isEmail(email)) {
+      if (firstName.trim() !== '' && lastName.trim() !== '') {
         setEditMode(false);
       }
     } catch (err) {
@@ -75,17 +66,8 @@ export default function ProfileSetting() {
       setValidateLastName(' ');
     }
 
-    // validate email
-    if (email.trim() === '') {
-      setValidateEmail('Email is required');
-    } else if (!validator.isEmail(email)) {
-      setValidateEmail('Invalid Email format');
-    } else if (email.trim() !== '') {
-      setValidateEmail(' ');
-    }
-
     // toggle to !editMode = not null
-    if (firstName.trim() !== '' && lastName.trim() !== '' && email.trim() !== '' && validator.isEmail(email)) {
+    if (firstName.trim() !== '' && lastName.trim() !== '') {
       setEditMode(false);
     }
   };
@@ -162,7 +144,7 @@ export default function ProfileSetting() {
               <div className="w-1/2 mx-3">
                 <div class="relative">
                   <input
-                    value={firstName}
+                    value={editMode ? firstName : newFirst}
                     onChange={e => setFirstName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
@@ -199,26 +181,7 @@ export default function ProfileSetting() {
               </div>
             </div>
             <div className="flex mt-3">
-              <div className="w-1/2 mx-3">
-                <div class="relative">
-                  <input
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    readOnly={!editMode}
-                    type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
-                        ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
-                        : 'cursor-not-allowed focus:outline-none'
-                    }`}
-                  />
-                  <div class="absolute top-2 p-1 bg-white left-4 ">
-                    <p className="text-red-600 text-dark text-xs font-normal">Email</p>
-                  </div>
-                </div>
-                <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateEmail}</p>
-              </div>
-              <div className="w-1/2 mx-3">
+              <div className="w-1/2 mx-3 pr-6">
                 <div class="relative">
                   <input
                     value={birthDate}
