@@ -8,25 +8,18 @@ import { PostContext } from '../../context/postContext';
 function FeedContainer() {
   const { refreshFeed } = useContext(PostContext);
   const [postList, setPostList] = useState([]);
-
+  const postLates = postList.sort((a, b) => b.id - a.id);
   useEffect(() => {
-    axios.get('/post/mypost')
+    axios
+      .get('/post/mypost')
       // .then(result => console.log(result.data))
       .then(result => setPostList([...result.data.myPostList]))
       .catch(err => window.alert(err));
   }, [refreshFeed]);
 
+  const showList = postLates.map((item, idx) => <Post key={idx} data={item} />);
 
-  const showList = postList
-    .map((item, idx) =>
-      <Post key={idx} data={item} />
-    );
-
-  return (
-    <div>
-      {showList}
-    </div>
-  );
-};
+  return <div>{showList}</div>;
+}
 
 export default FeedContainer;
