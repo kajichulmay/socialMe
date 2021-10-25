@@ -10,12 +10,10 @@ function LayoutWithChat() {
   return (
     <div className="w-full lg:flex justify-center h-screen ">
       {/* <!-- Scroll wrapper --> */}
-      <div class="w-full flex overflow-hidden outline-black">
+      <div class="w-full flex overflow-hidden ">
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
-          <div class="p-8 mt-10">
-
-          </div>
+          <div class="p-8 mt-10"></div>
         </div>
         {/* <!-- Fixed sidebar --> */}
         <ChatBox />

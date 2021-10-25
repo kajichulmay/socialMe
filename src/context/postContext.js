@@ -1,60 +1,83 @@
-import { user as initialUser } from '../service/localStorage';
 import axios from '../config/axios';
-import { createContext, useState } from 'react';
+import { createContext, useState, useContext } from 'react';
 import { getToken } from '../service/localStorage';
+import { AuthContext } from './authContext';
+import { SpinnerContext } from './SpinnerContext';
 
 
 const PostContext = createContext();
 const PostContextProvider = ({ children }) => {
+  const { spinner, setSpinner } = useContext(SpinnerContext);
+  const { user } = useContext(AuthContext);
+
   // currentPost for edit and delete
-  const [currentPostId, setCurrentPostId] = useState('');
+  const [newPostInput, setNewPostInput] = useState({
+    message: '',
+    status: 'public'
+  });
 
-  const [postListByUser, setPostListByUserId] = useState('');
-  const [postListByFollow, setPostListByFollow] = useState('');
 
-  // arr postList by UserId -> profile page
-  const getPostByUserId = async (userId) => {
+  const [refreshFeed, setRefreshFeed] = useState(false);
+
+  const togleReFeed = () => setRefreshFeed(cur => !cur);
+
+
+  const getAllMyPost = async () => {
     try {
-      const res = await axios.get(`/post/${userId}`, {
-        headers: { authorization: 'Bearer ' + getToken() }
-      });
-      setPostListByUserId(cur => ({ ...cur, ...res.data }));
+      const res = await axios.get(`/post/mypost`);
+      console.log(res.data);
+      // setPostListByUserId(cur => ({ ...cur, ...res.data }));
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // arr postList by UserId -> profile page
+  const getPostByUserId = async (userId) => {
+    // try {
+    //   const res = await axios.get(`/post/${userId}`, {
+    //     headers: { authorization: 'Bearer ' + getToken() }
+    //   });
+    //   setPostListByUserId(cur => ({ ...cur, ...res.data }));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
 
   // arr postList by follow list -> newsfeed page
   const getPostByFollow = async (userId) => {
-    try {
-      const res = await axios.get(`/post/${userId}`, {
-        headers: { authorization: 'Bearer ' + getToken() }
-      });
-      setPostListByUserId(cur => ({ ...cur, ...res.data }));
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const res = await axios.get(`/post/${userId}`, {
+    //     headers: { authorization: 'Bearer ' + getToken() }
+    //   });
+    //   setPostListByUserId(cur => ({ ...cur, ...res.data }));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
 
   // createPost -> addPost component
-  const hdlSubmitCreatePost = async () => {
-    console.log('create post');
-    // try {
-    //   const formData = new FormData();
-    //   // formData.append("flightId", reserveInfoForSubmit.flightId);
-    //   // formData.append("passengerId", reserveInfoForSubmit.passengerId);
-    //   // formData.append("orderList", JSON.stringify(reserveInfoForSubmit.orderList));
-    //   // formData.append("payslip", payslip);
-
-    //   await axios.post(`/post`, formData, {
-    //     headers: { authorization: 'Bearer ' + getToken() }
-    //   });
-
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  const hdlSubmitCreatePost = async (infoCreatePost) => {
+    if (!infoCreatePost.message.trim()) return window.alert('pls input message');
+    try {
+      setSpinner(true);
+      const formData = new FormData();
+      formData.append("userId", user.id);
+      formData.append("message", infoCreatePost.message);
+      formData.append("status", infoCreatePost.status);
+      await axios.post('/post', formData);
+      setNewPostInput(cur => ({
+        ...cur,
+        message: '',
+        status: 'public'
+      }));
+      setSpinner(false);
+      togleReFeed();
+    } catch (error) {
+      window.alert(error);
+    }
   };
 
   // editPost -> editForm component
@@ -68,6 +91,7 @@ const PostContextProvider = ({ children }) => {
     // } catch (error) {
     //   console.log(error);
     // }
+
   };
 
   // del post -> Post component
@@ -85,13 +109,12 @@ const PostContextProvider = ({ children }) => {
   };
 
 
-
-
   return <PostContext.Provider value={{
     hdlSubmitCreatePost, hdlDeletePost,
-    getPostByUserId, getPostByFollow,
-    postListByUser, postListByFollow,
-    hdlEditPost, hdlDeletePost
+    getPostByUserId, getPostByFollow, getAllMyPost,
+    newPostInput, setNewPostInput,
+    hdlEditPost, hdlDeletePost,
+    refreshFeed, setRefreshFeed, togleReFeed
   }}>
     {children}
   </PostContext.Provider>;
