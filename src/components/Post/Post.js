@@ -7,6 +7,7 @@ import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
 import ButtonPurchase from './ButtonPurchase';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import CheckoutCreditPayment from '../checkoutPayOmise/CheckoutCreditPayment';
 
 function Post(props) {
   const data = props.data;
@@ -18,8 +19,6 @@ function Post(props) {
     >
       {/* post section */}
       <div className="post-section">
-
-
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
@@ -39,9 +38,6 @@ function Post(props) {
             <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
           </div>
         </div>
-
-
-
 
         <button className="absolute right-5 top-3">
           <DropdownEditdelete />
@@ -101,7 +97,8 @@ function Post(props) {
         <CommentBox />
 
         {/* button to Purchase */}
-        {/* <ButtonPurchase /> */}
+        <ButtonPurchase />
+        <CheckoutCreditPayment />
         {/*end comment section */}
         <InputAddComment />
       </div>
