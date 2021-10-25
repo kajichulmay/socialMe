@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Chatbox from '../components/myProfile/ChatBox';
 import AddPost from '../components/myProfile/AddPost';
 import Line from '../components/myProfile/Line';
 import TitleProfile from '../components/myProfile/TitleProfile';
 import FeedContainer from '../components/Post/FeedContainer';
-
+import Spinner from "../components/spinner/Spinner";
+import { SpinnerContext } from "../context/SpinnerContext";
 function MyProfile() {
+  const { spinner } = useContext(SpinnerContext);
+
+
   return (
     <div className="w-full lg:flex justify-center h-screen ">
+      {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden outline-black">
         {/* <!-- Scrollable container --> */}
