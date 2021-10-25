@@ -18,7 +18,7 @@ const PostContextProvider = ({ children }) => {
       const res = await axios.get(`/post/${userId}`, {
         headers: { authorization: 'Bearer ' + getToken() }
       });
-      IdPostListByUserId(cur => ({ ...cur, ...res.data }));
+      setPostListByUserId(cur => ({ ...cur, ...res.data }));
     } catch (error) {
       console.log(error);
     }

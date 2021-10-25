@@ -15,14 +15,14 @@ function App() {
       <Header />
       <Content>
         <Switch>
-          <Route exact path="/profile-setting" component={ProfileSetting} />
           <PostContextProvider >
+            <Route exact path="/profile-setting" component={ProfileSetting} />
             <Route exact path="/myprofile" component={MyProfile} />
             <Route exact path="/newsfeed" component={NewsFeed} />
-          </PostContextProvider>
 
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={Login} />
+          </PostContextProvider>
         </Switch>
       </Content>
     </div>
