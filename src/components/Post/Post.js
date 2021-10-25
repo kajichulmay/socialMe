@@ -52,8 +52,6 @@ function Post(props) {
               {data.content.message}
             </p>
           }
-
-
           {/* picture use slick */}
           {data.content.picUrl ? <SimpleSlider picUrl={data.content.picUrl} /> : null}
         </div>
@@ -106,6 +104,7 @@ function Post(props) {
         {/* button to Purchase */}
         {/* <ButtonPurchase /> */}
         {/*end comment section */}
+
         <InputAddComment />
       </div>
     </div>

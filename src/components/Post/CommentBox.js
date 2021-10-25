@@ -8,7 +8,7 @@ function CommentBox() {
       {/* comment container */}
       <div className="content-section mt-4 flex flex-col  px-4">
         {/* comment */}
-        <div className=" lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8">
+        <div className="lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8">
           <div className="pl-16 flex justify-end items-center">
             <p className="mr-2 text-lg">Firstname Lastname</p>
             <p className="text-sm text-gray-500">{timeStampDisplay('2021-10-12 07:13:26')}</p>
@@ -44,7 +44,6 @@ function CommentBox() {
             <div class="absolute -right-8 -top-8 w-20 h-20">
               <img src={portrait} className="rounded-full shadow-input" />
             </div>
-
 
 
             <div className="comment-container">

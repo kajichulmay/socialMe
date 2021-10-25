@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import imageProfile from '../../mockData/image/mockProfile.png';
 import photoIcon from '../../images/photoIcon.png';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnTogglePostType from './BtnTogglePostType';
+import { PostContext } from '../../context/postContext';
 
 function AddPost() {
+  const { } = useContext(PostContext);
 
-  const gd = <defs>
-    <linearGradient id="iconGrad" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="rgba(255, 233, 155, 1)" />
-      <stop offset="40%" stop-color="rgba(255, 171, 124, 1)" />
-      <stop offset="100%" stop-color="rgba(255, 86, 80, 1)" />
-    </linearGradient>
-  </defs>;
 
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">

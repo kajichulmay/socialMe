@@ -7,6 +7,8 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProfileSetting from './pages/ProfileSetting';
+import { PostContextProvider } from './context/postContext';
+
 function App() {
   return (
     <div className="bg-secondary w-full">
@@ -14,9 +16,10 @@ function App() {
       <Content>
         <Switch>
           <Route exact path="/profile-setting" component={ProfileSetting} />
-
-          <Route exact path="/myprofile" component={MyProfile} />
-          <Route exact path="/newsfeed" component={NewsFeed} />
+          <PostContextProvider >
+            <Route exact path="/myprofile" component={MyProfile} />
+            <Route exact path="/newsfeed" component={NewsFeed} />
+          </PostContextProvider>
 
           <Route exact path="/register" component={Register} />
           <Route exact path="/" component={Login} />
