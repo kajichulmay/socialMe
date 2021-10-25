@@ -30,8 +30,7 @@ function Post(props) {
           {/* name and date */}
           <div className="pl-5">
             <p className="text-xl capitalize">{`${data?.User.firstName} ${data?.User.lastName}`}</p>
-            <p className="text-sm text-gray-500">
-              {timeStampDisplay(data?.createdAt)}</p>
+            <p className="text-sm text-gray-500">{timeStampDisplay(data?.createdAt)}</p>
           </div>
         </div>
 
@@ -94,7 +93,7 @@ function Post(props) {
         {/* <CommentsContainer /> */}
 
         {/* button to Purchase */}
-        <ButtonPurchase />
+        <ButtonPurchase userId={data.userId} postId={data.id} />
 
         {/*end comment section */}
 
