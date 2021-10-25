@@ -7,19 +7,22 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProfileSetting from './pages/ProfileSetting';
-import LayoutWithChat from './pages/LayoutWithChat';
+import { PostContextProvider } from './context/postContext';
+
 function App() {
   return (
     <div className="bg-secondary w-full">
       <Header />
       <Content>
         <Switch>
-          <Route exact path="/profile-setting" component={ProfileSetting} />
+          <PostContextProvider >
+            <Route exact path="/profile-setting" component={ProfileSetting} />
+            <Route exact path="/myprofile" component={MyProfile} />
+            <Route exact path="/newsfeed" component={NewsFeed} />
 
-          <Route exact path="/userviewer" component={LayoutWithChat} />
-
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={Login} />
+          </PostContextProvider>
         </Switch>
       </Content>
     </div>

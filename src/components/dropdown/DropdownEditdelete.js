@@ -1,10 +1,33 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
+import Swal from 'sweetalert2';
 
-export default function DropdownEditdelete() {
+export default function DropdownEditdelete(props) {
+    const { setIsEdit } = props;
+
+
+
+    const handleClickDelPost = async () => {
+        try {
+            // sweetAlert return confirm value
+            const { isConfirmed } = await Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete!',
+            });
+            console.log(isConfirmed);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div>
-            <Menu as="div" className="relative inline-block text-left">
+            <Menu as="div" className="relative z-20 inline-block text-left">
                 <div>
                     <Menu.Button>
                         <Dotdropdown />
@@ -19,14 +42,17 @@ export default function DropdownEditdelete() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
+
                     <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        {/* edit menu */}
                         <div className="px-1 py-1 ">
                             <Menu.Item>
                                 {({ active }) => (
+
                                     <button
-                                        className={`${
-                                            active ? "bg-violet-500 text-red-400" : "text-gray-900"
-                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                        onClick={() => setIsEdit(cur => !cur)}
+                                        className={`${active ? "bg-violet-500 text-red-400" : "text-gray-900"
+                                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     >
                                         {active ? (
                                             <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -38,13 +64,14 @@ export default function DropdownEditdelete() {
                                 )}
                             </Menu.Item>
                         </div>
+                        {/* delete menu */}
                         <div className="px-1 py-1">
                             <Menu.Item>
                                 {({ active }) => (
                                     <button
-                                        className={`${
-                                            active ? "bg-violet-500 text-red-400" : "text-gray-900"
-                                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                        onClick={handleClickDelPost}
+                                        className={`${active ? "bg-violet-500 text-red-400" : "text-gray-900"
+                                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     >
                                         {active ? (
                                             <DeleteActiveIcon
@@ -67,7 +94,7 @@ export default function DropdownEditdelete() {
             </Menu>
         </div>
     );
-}
+};
 
 // icon components
 function EditInactiveIcon(props) {

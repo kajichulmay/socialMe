@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+input:focus {
+    outline: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 0.5rem;
@@ -52,12 +56,11 @@
 
 .boxEle {
     width: 130px;
-    height: 20px;
     color: #929292;
 }
 
 .boxProfile {
-    border-radius: 125px 27px 27px 125px;
+    border-radius: 125px 0px;
 }
 
 /* background color */
@@ -138,6 +141,14 @@
     border-radius: 50px;
 }
 
+.profile-title {
+    border-radius: 5.5rem 5.5rem 5rem 5rem;
+}
+
+.whiteBtnHover:hover {
+    background: rgb(246, 246, 246);
+}
+
 .forhover:hover {
     background: linear-gradient(180deg, rgb(255, 229, 133) 0%, rgb(255, 151, 91) 50%, rgb(240, 56, 50) 100%);
 }
@@ -152,10 +163,17 @@
     .maxwidth {
         display: none;
     }
+    .profile-title {
+        border-radius: 0;
+    }
 }
 
 @media screen and (min-width: 1024px) {
     .minwidth {
         display: none;
+    }
+    /* login-register container responsive */
+    .login-container {
+        height: 92vh;
     }
 }

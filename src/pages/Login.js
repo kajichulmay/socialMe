@@ -60,7 +60,7 @@ function Login() {
                 });
                 setToken(res.data.token);
                 setUser(jwtDecode(res.data.token));
-                history.push("/profile-setting");
+                history.push("/newsfeed");
             }
             if (responseGoogle.profileObj) {
                 setToken(responseGoogle.accessToken);
@@ -74,9 +74,14 @@ function Login() {
     };
 
     return (
-        <div className="w-full justify-center mt-10 flex lg:h-screen lg:mt-20">
-            <div className="shadow-lg w-full flex flex-col bg-white md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl">
-                <div className="bg-primary-grad text-white w-full p-10 pt-20 flex flex-col  items-center lg:w-2/3 lg:rounded-l-3xl lg:pt-32">
+        <div className="w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16">
+            {/* main login container */}
+            <div
+                className="shadow-lg w-full flex flex-col bg-white
+      md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl "
+            >
+                {/* left sector */}
+                <div className=" text-center bg-primary-grad text-white w-full p-10 pt-20 flex flex-col items-center lg:w-2/3 lg:rounded-l-3xl lg:pt-32">
                     <p className="text-4xl">Welcome To Me</p>
                     <div className="flex flex-col justify-between items-center h-1/3 mt-10 font-light lg:h-1/3 lg:justify-between">
                         <p className="text-xl">Me Social Media</p>
@@ -86,19 +91,23 @@ function Login() {
                     </div>
                     <button
                         onClick={handleClickRegister}
-                        className="h-12 bg-white text-red-400 shadow-lg rounded-full p-2 w-1/2 mt-20"
+                        className="h-12 bg-white text-red-400 shadow-lg rounded-full p-2 w-1/2 lg:w-2/3  mt-10"
                     >
                         SIGN UP
                     </button>
                 </div>
-                <div className="p-10 flex flex-col justify-between items-center w-full pt-20 lg:h-full">
-                    <p className="text-gray-400 text-2xl">Sign into Your account</p>
+                {/*end  left sector */}
+
+                {/* right sector */}
+                <div className=" p-10 flex flex-col lg:justify-around justify-center items-center w-full">
+                    <p className="text-gray-400 text-2xl ">Sign into Your account</p>
+                    {/* form */}
                     <form
-                        className="flex flex-col h-full justify-between w-2/3 mt-10 lg:h-3/5"
+                        className="flex flex-col justify-between w-2/3 lg:w-4/5 mt-6 lg:mt-9"
                         onSubmit={handleClickLogin}
                     >
-                        {/* form */}
-                        <div className=" mx-3">
+                        {/* email input */}
+                        <div className="mx-3">
                             <div class="relative">
                                 <input
                                     value={email}
@@ -111,9 +120,9 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-                        <p className="pl-10 text-red-600 mt-2 mb-5">{validateEmail}</p>
+                        <p className="pl-10 text-red-600 mt-1 mb-3">{validateEmail}</p>
 
-                        {/* form */}
+                        {/* password input */}
                         <div className=" mx-3">
                             <div class="relative">
                                 <input
@@ -127,13 +136,17 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-                        <p className="pl-10 text-red-600 mt-2 mb-5">{validatePassword}</p>
-                        <p className="pl-10 text-red-600 mt-2 mb-5">{validateError}</p>
+                        <p className="pl-10 text-red-600 mt-1 mb-3">{validatePassword}</p>
+                        <p className="pl-10 text-red-600 mt-1 mb-3">{validateError}</p>
 
-                        <button className="h-12 bg-primary-grad forhover text-white rounded-full p-2 shadow-lg mt-5 w-3/4 m-auto lg:w-1/2">
+                        <button
+                            className="h-12 bg-primary-grad forhover text-white rounded-full p-2
+            shadow-lg  m-auto w-1/2"
+                        >
                             SIGN IN
                         </button>
                     </form>
+                    {/*end form */}
 
                     {/* google login */}
                     <GoogleLogin
@@ -142,7 +155,9 @@ function Login() {
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                     />
+                    {/*end social login sector */}
                 </div>
+                {/*end right sector */}
             </div>
         </div>
     );
