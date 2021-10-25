@@ -1,10 +1,11 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
-import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
-import addRound from '../../images/Add_round.png';
-import { useEffect, useState } from 'react';
+import tempProfileHeader from '../mockData/images/tempProfileHeader.png';
+import addRound from '../images/Add_round.png';
+import { useEffect, useState, useContext } from 'react';
 import validator from 'validator';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../context/authContext';
 
 export default function ProfileSetting() {
   const [editMode, setEditMode] = useState(false);
@@ -314,7 +315,7 @@ export default function ProfileSetting() {
                             <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
                           </div>
                           <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-20">
-                            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-normal px-5 w-auto forhover mt-5 object-right right-5 absolute">
+                            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
                               Reset password
                             </button>
                             {alert}

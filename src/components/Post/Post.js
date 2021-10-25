@@ -1,34 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChatBox from '../myProfile/ChatBox';
-import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
-import CommentBox from './CommentBox';
 import InputAddComment from './InputAddComment';
 import ButtonPurchase from './ButtonPurchase';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import Line from '../myProfile/Line';
+import CommentsContainer from '../Post/CommentsContainer';
+import EditPostForm from '../Post/EditPostForm';
+import { timeStampDisplay } from '../../service/dateService';
 
 function Post(props) {
   const data = props.data;
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <div
-      className=" w-4/5 mx-auto relative
-    my-20 py-6  shadow-container rounded-3xl "
+      className=" lg:w-4/5 w-10/12 relative mx-auto
+    my-16 py-6 shadow-container rounded-3xl "
     >
       {/* post section */}
       <div className="post-section">
 
-
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
-            {/* <img src={portrait} className="rounded-full shadow-input" /> */}
             <ProfilePicUi
               beforeSize="24"
               afterSize="20"
-              // w="20"
-              // h="20"
               url={data.profilePic}
             />
           </div>
@@ -36,30 +35,31 @@ function Post(props) {
           {/* name and date */}
           <div className="pl-5">
             <p className="text-xl capitalize">{`${data.firstName} ${data.lastName}`}</p>
-            <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
+            <p className="text-sm text-gray-500">{timeStampDisplay('2021-10-12 07:13:26')}</p>
           </div>
         </div>
 
-
-
-
         <button className="absolute right-5 top-3">
-          <DropdownEditdelete />
+          <DropdownEditdelete setIsEdit={setIsEdit} />
         </button>
 
-        {/* content post */}
-        <div className=" py-4">
-          <p className="px-6">
-            {data.content.message}
-            {/* Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim
-            velit mollit. Exercitation veniam consequat sunt nostrud amet. */}
-          </p>
-          {/* picturePost */}
+        {/* content of post */}
+        <div className="py-4">
+          {/*condition rendering: message and editPost */}
+          {isEdit ?
+            <EditPostForm content={data.content} setIsEdit={setIsEdit} /> :
+            <p className="px-6">
+              {data.content.message}
+            </p>
+          }
+          {/* picture use slick */}
           {data.content.picUrl ? <SimpleSlider picUrl={data.content.picUrl} /> : null}
-          {/* <SimpleSlider /> */}
         </div>
+        {/*end content of post */}
 
-        <div className="flex px-6 mt-2 mb-4">
+
+        {/*  */}
+        <div className="flex px-6">
           <div className="flex mr-4 items-center">
             {/* display recomment */}
             <svg
@@ -94,15 +94,17 @@ function Post(props) {
           </div>
         </div>
 
-        {/*end  post section */}
 
-        <div className="h-0.5 bg-gray-300  rounded-3xl"></div>
+        <Line />
+
         {/* comment section */}
-        <CommentBox />
+        <CommentsContainer />
+
 
         {/* button to Purchase */}
         {/* <ButtonPurchase /> */}
         {/*end comment section */}
+
         <InputAddComment />
       </div>
     </div>

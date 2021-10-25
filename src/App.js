@@ -6,23 +6,24 @@ import MyProfile from './pages/MyProfile';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProfileSetting from './components/profileSetting/ProfileSetting';
-import LayoutWithChat from './pages/LayoutWithChat';
-import Profile from './pages/Profile';
+import ProfileSetting from './pages/ProfileSetting';
+import { PostContextProvider } from './context/postContext';
 import { Modal } from '@mui/material';
+
 function App() {
   return (
     <div className="bg-secondary w-full">
       <Header />
       <Content>
         <Switch>
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/profile-setting" component={ProfileSetting} />
+          <PostContextProvider>
+            <Route exact path="/profile-setting" component={ProfileSetting} />
+            <Route exact path="/myprofile" component={MyProfile} />
+            <Route exact path="/newsfeed" component={NewsFeed} />
 
-          <Route exact path="/userviewer" component={LayoutWithChat} />
-
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={Login} />
+          </PostContextProvider>
         </Switch>
       </Content>
     </div>

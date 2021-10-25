@@ -1,10 +1,40 @@
+import { AuthContext } from '../../context/authContext';
 import logoHeader from '../../images/logoHeader.png';
 import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
 import DropdownNotification from '../dropdown/DropdownNotification';
 import DropdownMenu from './DropdownMenu';
 import Toggle from './Toggle';
+import { useContext } from 'react';
+import { removeToken } from '../../service/localStorage';
+import { useHistory } from 'react-router';
+import Swal from 'sweetalert2';
 
 function Header({ children }) {
+  const { user, setUser } = useContext(AuthContext);
+  const history = useHistory();
+
+  const handleClickLogout = async () => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Logout!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          removeToken();
+          setUser(null);
+          Swal.fire('Logout!', 'Your account has been logout.', 'success');
+          history.push('/');
+        }
+      });
+    } catch (err) {
+      console.dir(err);
+    }
+  };
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">
@@ -19,7 +49,7 @@ function Header({ children }) {
     <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
       <div className="flex items-center h-full">
         {/* logo */}
-        <img className="w-10 h-10 mx-3 " src={logoHeader} alt="" />
+        <img className="w-10 h-10 mx-3 cursor-pointer " src={logoHeader} alt="" />
 
         {/* welcome left */}
         <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">Welcome Guest</div>
@@ -80,7 +110,10 @@ function Header({ children }) {
         <Toggle />
 
         {/* logout */}
-        <div className="flex items-center justify-center bg-white hover:bg-gray-200  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad maxwidth cursor-pointer ">
+        <div
+          className="flex items-center justify-center bg-white hover:bg-gray-200  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad maxwidth cursor-pointer "
+          onClick={handleClickLogout}
+        >
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">
               {gd}
