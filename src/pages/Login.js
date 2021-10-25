@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "../config/axios";
@@ -13,24 +13,70 @@ import GoogleLogin from "react-google-login";
 function Login() {
     // state
     const [email, setEmail] = useState("");
-
     const [password, setPassword] = useState("");
+    const [allusers, setAllusers] = useState({});
 
     // validate state
     const [validateEmail, setValidateEmail] = useState("");
+
     const [validatePassword, setValidatePassword] = useState("");
     const [validateError, setValidateError] = useState("");
+
+    // useEffect
+    useEffect(() => {
+        const fetchusers = async () => {
+            const res = await axios.get("/user");
+            setAllusers(res.data.allUser);
+        };
+        fetchusers();
+    }, []);
+
+    // console.log(allusers);
 
     // history
     const history = useHistory();
 
     // context
-    const { user, setUser, responseGoogle } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
 
     // function
     // register
     const handleClickRegister = () => {
         history.push("/register");
+    };
+
+    // google response
+    const responseGoogle = async response => {
+        try {
+            const test = allusers.findIndex(item => item.googleId === response.googleId);
+            let res;
+            if (response?.profileObj) {
+                if (test === -1) {
+                    res = await axios.post("/register", {
+                        firstName: response.profileObj.givenName,
+                        lastName: response.profileObj.familyName,
+                        email: response.profileObj.email,
+                        password: response.googleId,
+                        confirmPassword: response.googleId,
+                        profilePicture: response.profileObj.imageUrl,
+                        googleId: response.googleId,
+                    });
+                }
+
+                if (test != -1 || res.data.message === "you account has been created") {
+                    const res2 = await axios.post("/login", {
+                        email: response.profileObj.email,
+                        password: response.googleId,
+                    });
+                    console.log(response);
+                    setToken(response.tokenId);
+                    setUser(jwtDecode(res2.data.token));
+                    history.push("/newsfeed");
+                }
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     // login
@@ -61,10 +107,6 @@ function Login() {
                 setToken(res.data.token);
                 setUser(jwtDecode(res.data.token));
                 history.push("/newsfeed");
-            }
-            if (responseGoogle.profileObj) {
-                setToken(responseGoogle.accessToken);
-                history.push("/profile-setting");
             }
         } catch (err) {
             console.dir(err);
@@ -149,12 +191,14 @@ function Login() {
                     {/*end form */}
 
                     {/* google login */}
+
                     <GoogleLogin
                         clientId="245755252905-umqvniqtv89lhf3mfe95m2jqf2imsh6e.apps.googleusercontent.com"
                         buttonText="Login"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                     />
+
                     {/*end social login sector */}
                 </div>
                 {/*end right sector */}
