@@ -1,18 +1,33 @@
 import React from 'react';
 import ChatBox from '../components/myProfile/ChatBox';
-import Post from '../components/Post/Post';
-import MOCK_POST from '../mockData/MOCK_POST_DATA';
+import AddPost from '../components/myProfile/AddPost';
+import Line from '../components/myProfile/Line';
+import FeedContainer from '../components/Post/FeedContainer';
+
 
 function NewsFeed() {
-  const listPost = MOCK_POST.map((item, idx) =>
-    <Post key={idx} data={item} />
-  );
+
 
   return (
-    <div>
-      {listPost}
-      {/* <Post /> */}
+    <div className="w-full lg:flex justify-center h-screen ">
+      {/* <!-- Scroll wrapper --> */}
+      <div class="w-full flex overflow-hidden outline-black">
+        {/* <!-- Scrollable container --> */}
+        <div class="w-full overflow-y-scroll">
+          <div class="py-8 lg:px-8 px-0 mt-10">
+            {/* feed container */}
+            <Line title="EIEI" />
+            <AddPost />
+            <Line title="news feed" />
+            <FeedContainer />
+            {/*news feed container */}
+          </div>
+        </div>
+        {/* <!-- Fixed sidebar --> */}
+        <ChatBox />
+      </div>
     </div>
+
   );
 }
 

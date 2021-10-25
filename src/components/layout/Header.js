@@ -8,9 +8,11 @@ import { useContext } from 'react';
 import { removeToken } from '../../service/localStorage';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
+
 function Header({ children }) {
   const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
+
   const handleClickLogout = async () => {
     try {
       Swal.fire({
@@ -33,7 +35,6 @@ function Header({ children }) {
       console.dir(err);
     }
   };
-  console.log(user);
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">
@@ -84,8 +85,8 @@ function Header({ children }) {
         <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
 
         {/* profile's pic */}
-        <div className="shadow-input rounded-full mx-3 maxwidth ">
-          <img class="rounded-full h-9 w-9 cursor-pointer" src={tempProfileHeader} alt="" />
+        <div className="shadow-input rounded-full mx-3 maxwidth wrapper ">
+          <img class="rounded-full h-9 w-9 cursor-pointer bounce_button " src={tempProfileHeader} alt="" />
         </div>
 
         {/* chat */}

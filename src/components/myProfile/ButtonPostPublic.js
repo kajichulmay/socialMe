@@ -2,7 +2,9 @@ import React from 'react';
 
 function ButtonPostPublic() {
   return (
-    <button className="bg-white border-opacity-30  box-border border-yellow-400 py-2 px-3 m-2 rounded-full flex justify-between items-center  shadow-input forHoverButtonPost mr-5  ">
+    <button className="bg-white border-opacity-30 
+    box-border border-yellow-400 py-2 px-3 rounded-full flex
+    justify-between items-center shadow-input forHoverButtonPost">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-5 w-5 mr-5 mb-2 icon-grad"

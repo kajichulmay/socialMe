@@ -1,6 +1,7 @@
 const MOCK_POST = [
   {
-    postId: 1,
+    postId: 'post01',
+    userId: 'user01',
     firstName: 'nirat',
     lastName: 'kashom',
     profilePic: 'https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
@@ -9,7 +10,8 @@ const MOCK_POST = [
     }
   },
   {
-    postId: 2,
+    postId: 'post02',
+    userId: 'user02',
     firstName: 'tony',
     lastName: 'stark',
     profilePic: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Robert_Downey_Jr._as_Tony_Stark_in_Avengers_Infinity_War.jpg',
@@ -19,7 +21,8 @@ const MOCK_POST = [
     }
   },
   {
-    postId: 3,
+    postId: 'post03',
+    userId: 'user03',
     firstName: 'ultron',
     lastName: 'prime',
     profilePic: 'https://www.looper.com/img/gallery/who-actually-voices-ultron-in-the-mcu/intro-1630528779.jpg',
@@ -30,7 +33,6 @@ const MOCK_POST = [
         'https://www.murphysmultiverse.com/wp-content/uploads/2021/09/ultron.jpg',
         'https://i.pinimg.com/736x/e4/d0/0c/e4d00c27b3da15b36cc25d9f64676ca3.jpg',
       ]
-
     }
   },
 ];

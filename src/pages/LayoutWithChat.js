@@ -6,8 +6,7 @@ import MyProfile from './MyProfile';
 
 function LayoutWithChat() {
   const { path, url } = useRouteMatch();
-  console.log(path);
-  console.log(url);
+
   return (
     <div className="w-full lg:flex justify-center h-screen ">
       {/* <!-- Scroll wrapper --> */}
@@ -15,9 +14,7 @@ function LayoutWithChat() {
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
           <div class="p-8 mt-10">
-            <MyProfile />
 
-            <NewsFeed />
           </div>
         </div>
         {/* <!-- Fixed sidebar --> */}
