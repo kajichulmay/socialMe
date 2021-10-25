@@ -1,10 +1,16 @@
-import React from 'react';
-import imageProfile from '../../mockData/image/mockProfile.png';
+import React, { useContext } from 'react';
 import iconCake from '../../../src/images/iconCake.png';
 import iconEmail from '../../images/IconEmail.png';
 import BtnFollow from './BtnFollow';
 import Line from './Line';
+import { dateOnly } from '../../service/dateService';
+import { AuthContext } from '../../context/authContext';
+
 function TitleProfile() {
+  const { user } = useContext(AuthContext);
+
+
+  console.log(user);
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
@@ -17,8 +23,7 @@ function TitleProfile() {
                 <div
                   className="bg-primary-grad  rounded-full border-4 p-20 border-white "
                   style={{
-                    backgroundImage:
-                      'url("https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg")',
+                    backgroundImage: `url(${user?.profilePicture})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}
@@ -31,22 +36,26 @@ function TitleProfile() {
             <div className=" flex flex-col m-7 container items-center lg:items-start  ">
               {/* Name user */}
               <div className="">
-                <p className="text-4xl font-normal">Chae young Park</p>
+                <p className="text-4xl font-normal capitalize">
+                  {`${user?.firstName} ${user?.lastName}`}
+                </p>
               </div>
               {/* detail user*/}
               <div className="flex mt-2">
                 <div className=" ">
                   {/*birth Date */}
-                  <div className="flex items-end  ">
+                  {user?.birthDate ? <div className="flex items-end  ">
                     <img src={iconCake} className="mr-4" />
-                    <span className=" boxEle ">date of birth</span>
-                    <span className="text-gray-400">17-06-1993</span>
+                    <span className=" boxEle capitalize">date of birth</span>
+                    <span className="text-gray-400">{dateOnly(user?.birthDate)}</span>
                   </div>
+                    : null}
+
                   {/* Email */}
                   <div className="flex items-center mt-1  ">
                     <img src={iconEmail} className="mr-4" />
                     <span className=" boxEle ">Email address</span>
-                    <span className="text-gray-400">kajichul.chon@gmail.com</span>
+                    <span className="text-gray-400">{user?.email}</span>
                   </div>
                 </div>
                 {/*btn follow */}

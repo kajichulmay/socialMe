@@ -11,4 +11,16 @@ const timeStampDisplay = (rawDate) => {
   return formattedDate.toUpperCase();
 };
 
-export { timeStampDisplay };
+const dateOnly = (rawDate) => {
+  if (!rawDate) return 'pls input date';
+  const dateObj = new Date(rawDate);
+  const formattedDate = new Intl.DateTimeFormat('en-GB',
+    {
+      dateStyle: 'short',
+      hour12: true,
+    }
+  ).format(dateObj);
+  return formattedDate.toUpperCase();
+};
+
+export { timeStampDisplay, dateOnly };

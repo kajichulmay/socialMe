@@ -1,22 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
-import { AuthContextProvider } from "./context/authContext";
-import { SpinnerContextProvider } from "./context/SpinnerContext";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContextProvider } from './context/authContext';
+import { SpinnerContextProvider } from './context/SpinnerContext';
+import { UserContextProvider } from './context/userContext';
 ReactDOM.render(
-    <React.StrictMode>
-        <AuthContextProvider>
-            <SpinnerContextProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </SpinnerContextProvider>
-        </AuthContextProvider>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>
+    <AuthContextProvider>
+      <UserContextProvider>
+        <SpinnerContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </SpinnerContextProvider>
+      </UserContextProvider>
+    </AuthContextProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

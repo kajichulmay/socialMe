@@ -4,11 +4,14 @@ import AddPost from "../components/myProfile/AddPost";
 import Line from "../components/myProfile/Line";
 import TitleProfile from "../components/myProfile/TitleProfile";
 import FeedContainer from "../components/Post/FeedContainer";
-import { AuthContext } from "../context/authContext";
-
+import Spinner from "../components/spinner/Spinner";
+import { SpinnerContext } from "../context/SpinnerContext";
 function MyProfile() {
+    const { spinner } = useContext(SpinnerContext);
+
     return (
         <div className="w-full lg:flex justify-center h-screen ">
+            {spinner && <Spinner />}
             {/* <!-- Scroll wrapper --> */}
             <div class="w-full flex overflow-hidden outline-black">
                 {/* <!-- Scrollable container --> */}
