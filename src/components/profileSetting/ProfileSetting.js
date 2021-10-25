@@ -32,7 +32,7 @@ export default function ProfileSetting() {
         setValidateFirstName('First name is required');
       } else if (firstName.trim() !== '') {
         setValidateFirstName(' ');
-        setNewFirst(...firstName);
+        // setNewFirst(...firstName);
       }
 
       // validate last name
@@ -57,6 +57,7 @@ export default function ProfileSetting() {
       setValidateFirstName('First name is required');
     } else if (firstName.trim() !== '') {
       setValidateFirstName(' ');
+      setFirstName(newFirst);
     }
 
     // validate last name
@@ -113,6 +114,12 @@ export default function ProfileSetting() {
     }
   };
 
+  const handleClickEditMode = e => {
+    e.preventDefault();
+    setEditMode(true);
+    setNewFirst(firstName);
+  };
+
   return (
     <div className="w-full px-4 pt-16 bg-secondary mt-10">
       <div className=" max-w-xl p-5 mx-auto bg-white border-50">
@@ -144,7 +151,8 @@ export default function ProfileSetting() {
               <div className="w-1/2 mx-3">
                 <div class="relative">
                   <input
-                    value={editMode ? firstName : newFirst}
+                    // value={editMode ? firstName : newFirst}
+                    value={firstName}
                     onChange={e => setFirstName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
@@ -236,10 +244,7 @@ export default function ProfileSetting() {
             ) : (
               <div className="inputFollwer w-full flex-shrink  px-3 right relative">
                 <button
-                  onClick={e => {
-                    e.preventDefault();
-                    setEditMode(true);
-                  }}
+                  onClick={handleClickEditMode}
                   className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-normal forhover mt-5 object-right right-5 absolute"
                 >
                   Edit Profile
