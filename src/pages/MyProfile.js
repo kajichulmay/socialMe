@@ -21,9 +21,6 @@ function MyProfile() {
             <TitleProfile />
             {/*end personalProfile */}
 
-            <Line title="create post" />
-            <AddPost />
-
             <Line title="news feed" />
             <FeedContainer />
           </div>

@@ -64,7 +64,7 @@ function Register() {
             } else {
                 setValidatePassword("");
             }
-            if (confirmPassword != password) {
+            if (confirmPassword !== password) {
                 setValidateConfirmpassword("Wrong confirm password");
             }
 
