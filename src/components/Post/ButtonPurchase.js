@@ -1,8 +1,11 @@
 import React from 'react';
-
+import axios from '../../config/axios';
 function ButtonPurchase() {
   let OmiseCard = window.OmiseCard;
 
+  const createCreditCard = async (email, aomunt, token) => {
+    await axios.post('/check-payment');
+  };
   const omiseCardfn = () => {
     OmiseCard.configure({
       publicKey: 'pkey_test_5pm8bbc928j0bc6hyvw',

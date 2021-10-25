@@ -6,15 +6,19 @@ import { useEffect, useState, useContext } from 'react';
 import validator from 'validator';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/authContext';
+import { userContext } from '../context/userContext';
 
 export default function ProfileSetting() {
+  const { myuser, setMyuser } = useContext(userContext);
+  const oldmyUser = { ...myuser };
   const [editMode, setEditMode] = useState(false);
   const [validateFirstName, setValidateFirstName] = useState(' ');
   const [validateLastName, setValidateLastName] = useState(' ');
   const [validateOldPassword, setValidateOldPassword] = useState('');
   const [validateNewPassword, setValidateNewPassword] = useState('');
   const [validateConfirmNewPassword, setValidateConfirmNewPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
+  const [firstName, setFirstName] = useState(oldmyUser.firstName);
+  console.log(firstName);
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [oldPassword, setOldPassword] = useState('');
