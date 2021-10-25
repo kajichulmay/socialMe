@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from '../../config/axios';
 function ButtonPurchase() {
+  const postId = 1;
+  const price = 60;
+  const userId = 1;
   let OmiseCard = window.OmiseCard;
-
-  const createCreditCard = async (email, aomunt, token) => {
-    await axios.post('/check-payment');
+  const createCreditCard = async (postId, tokenOmise, userId, price) => {
+    await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
   };
   const omiseCardfn = () => {
     OmiseCard.configure({
@@ -12,18 +14,21 @@ function ButtonPurchase() {
     });
 
     OmiseCard.configureButton('#purchaseBtn', {
-      amount: 100000,
-      currency: 'THB',
-      // buttonLabel: 'Pay 1000 THB',
+      publicKey: 'OMISE_PUBLIC_KEY',
+      amount: 10000,
+      frameLabel: 'Merchant Name',
+      submitLabel: 'Pay',
     });
+
     OmiseCard.attach();
   };
   const OpenOmiseCard = () => {
     OmiseCard.open({
-      amount: 10000,
+      amount: 6000,
       submitFormTarget: '#checkout-form',
-      onCreateTokenSuccess: token => {
-        console.log(token);
+
+      onCreateTokenSuccess: tokenOmise => {
+        createCreditCard(postId, tokenOmise, userId, price);
         /* Handler on token or source creation.  Use this to submit form or send ajax request to server */
       },
       onFormClosed: () => {
