@@ -35,7 +35,6 @@ function Header({ children }) {
       console.dir(err);
     }
   };
-
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">
