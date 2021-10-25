@@ -12,4 +12,3 @@ const timeStampDisplay = (rawDate) => {
 };
 
 export { timeStampDisplay };
-

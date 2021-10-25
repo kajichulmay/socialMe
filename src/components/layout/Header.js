@@ -8,9 +8,11 @@ import { useContext } from 'react';
 import { removeToken } from '../../service/localStorage';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
+
 function Header({ children }) {
   const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
+
   const handleClickLogout = async () => {
     try {
       Swal.fire({
@@ -33,7 +35,7 @@ function Header({ children }) {
       console.dir(err);
     }
   };
-  console.log(user);
+
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">

@@ -59,7 +59,9 @@ function Post(props) {
         </div>
         {/*end content of post */}
 
-        <div className="flex px-6 mt-2 ">
+
+        {/*  */}
+        <div className="flex px-6">
           <div className="flex mr-4 items-center">
             {/* display recomment */}
             <svg
