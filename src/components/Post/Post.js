@@ -24,13 +24,14 @@ function Post(props) {
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
-            <ProfilePicUi beforeSize="24" afterSize="20" url={data.profilePic} />
+            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} />
           </div>
 
           {/* name and date */}
           <div className="pl-5">
-            <p className="text-xl capitalize">{`${data.firstName} ${data.lastName}`}</p>
-            <p className="text-sm text-gray-500">{timeStampDisplay('2021-10-12 07:13:26')}</p>
+            <p className="text-xl capitalize">{`${data?.User.firstName} ${data?.User.lastName}`}</p>
+            <p className="text-sm text-gray-500">
+              {timeStampDisplay(data?.createdAt)}</p>
           </div>
         </div>
 
@@ -42,12 +43,12 @@ function Post(props) {
         <div className="py-4">
           {/*condition rendering: message and editPost */}
           {isEdit ? (
-            <EditPostForm content={data.content} setIsEdit={setIsEdit} />
+            <EditPostForm content={data.message} setIsEdit={setIsEdit} />
           ) : (
-            <p className="px-6">{data.content.message}</p>
+            <p className="px-6">{data.message}</p>
           )}
           {/* picture use slick */}
-          {data.content.picUrl ? <SimpleSlider picUrl={data.content.picUrl} /> : null}
+          {data.picUrl ? <SimpleSlider picUrl={data?.picUrl} /> : null}
         </div>
         {/*end content of post */}
 
@@ -90,7 +91,7 @@ function Post(props) {
         <Line />
 
         {/* comment section */}
-        <CommentsContainer />
+        {/* <CommentsContainer /> */}
 
         {/* button to Purchase */}
         <ButtonPurchase />

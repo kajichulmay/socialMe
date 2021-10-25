@@ -1,12 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import imageProfile from '../../mockData/image/mockProfile.png';
 import photoIcon from '../../images/photoIcon.png';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
+import { AuthContext } from '../../context/authContext';
 
 function AddPost() {
-  const { } = useContext(PostContext);
+  const { user } = useContext(AuthContext);
+  const { hdlSubmitCreatePost, newPostInput, setNewPostInput, } = useContext(PostContext);
+
+
+
+  const hdlChangeMessageInput = e => {
+    setNewPostInput(cur => ({ ...cur, message: e.target.value })
+    );
+  };
 
 
   return (
@@ -18,7 +27,7 @@ function AddPost() {
           <ProfilePicUi
             afterSize="28"
             beforeSize="32"
-            url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
+            url={user?.profilePicture}
           />
         </div>
 
@@ -26,11 +35,12 @@ function AddPost() {
         <div className=" flex justify-between
         items-end mb-5 mx-auto w-11/12">
           <div className="">
-            <p className="text-2xl pl-20 font-normal">Jenny Wilson</p>
+            <p className="text-2xl pl-20 font-normal capitalize">
+              {`${user?.firstName} ${user?.lastName}`}</p>
           </div>
 
           {/* ButtonPublic or Exclusive*/}
-          <BtnTogglePostType />
+          <BtnTogglePostType setNewPostInput={setNewPostInput} newPostInput={newPostInput} />
 
 
         </div>
@@ -41,6 +51,8 @@ function AddPost() {
             className="textInput w-full h-36 border rounded-3xl border-red-400 pt-3  shadow-lg pl-3
               focus:outline-none focus:ring-1 focus:ring-red-400 placeholder-gray-500
               placeholder-opacity-75"
+            value={newPostInput.message}
+            onChange={e => hdlChangeMessageInput(e)}
             placeholder="what on your mind..."
           />
         </div>
@@ -54,7 +66,9 @@ function AddPost() {
           </div>
 
           {/* Button Send Post */}
-          <button className="rounded-full shadow-input px-8 py-1 bg-primary-grad forhover flex items-center ">
+          <button
+            onClick={() => hdlSubmitCreatePost(newPostInput)}
+            className="rounded-full shadow-input px-8 py-1 bg-primary-grad forhover flex items-center ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 transform rotate-90 "
