@@ -13,19 +13,19 @@ import { Modal } from '@mui/material';
 function App() {
   return (
     <div className="bg-secondary w-full">
-      <Header />
-      <Content>
-        <Switch>
-          <PostContextProvider>
+      <PostContextProvider>
+        <Header />
+        <Content>
+          <Switch>
             <Route exact path="/profile-setting" component={ProfileSetting} />
             <Route exact path="/myprofile" component={MyProfile} />
             <Route exact path="/newsfeed" component={NewsFeed} />
 
             <Route exact path="/register" component={Register} />
             <Route exact path="/" component={Login} />
-          </PostContextProvider>
-        </Switch>
-      </Content>
+          </Switch>
+        </Content>
+      </PostContextProvider>
     </div>
   );
 }
