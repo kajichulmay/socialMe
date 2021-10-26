@@ -1,34 +1,54 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
-import tempProfileHeader from '../mockData/images/tempProfileHeader.png';
+import tempProfilePicture from '../images/nonePic.jpeg';
 import addRound from '../images/Add_round.png';
 import { useEffect, useState, useContext } from 'react';
 import validator from 'validator';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/authContext';
+import ProfilePicUi from '../components/ui/ProfilePicUi';
 import { userContext } from '../context/userContext';
+import axios from '../config/axios';
+import { useHistory } from 'react-router-dom';
 
 export default function ProfileSetting() {
-  const { myuser, setMyuser } = useContext(userContext);
-  const oldmyUser = { ...myuser };
+  const { user } = useContext(AuthContext);
+  const { setUserTrigged } = useContext(userContext);
   const [editMode, setEditMode] = useState(false);
   const [validateFirstName, setValidateFirstName] = useState(' ');
   const [validateLastName, setValidateLastName] = useState(' ');
   const [validateOldPassword, setValidateOldPassword] = useState('');
   const [validateNewPassword, setValidateNewPassword] = useState('');
   const [validateConfirmNewPassword, setValidateConfirmNewPassword] = useState('');
-  const [firstName, setFirstName] = useState(oldmyUser.firstName);
-  console.log(firstName);
+  const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
-  const [newFirst, setNewFirst] = useState('');
+  const [previewProfile, setPreviewProfile] = useState(null);
+  const [checkOldPassword, setCheckOldPassword] = useState('');
+  const [tempUser, setTempUser] = useState({});
+  const history = useHistory();
 
-  const handleClickSubmitProfile = e => {
+  useEffect(() => {
+    const fetchUserAccount = async () => {
+      const userAccont = await axios.get('/user/oneUser');
+      setFirstName(userAccont.data.oneUser.firstName);
+      setLastName(userAccont.data.oneUser.lastName);
+      setBirthDate(userAccont.data.oneUser.birthDate);
+      setBio(userAccont.data.oneUser.bio);
+      setProfilePicture(userAccont.data.oneUser.profilePicture);
+      setCheckOldPassword(userAccont.data.oneUser.password);
+      setTempUser(userAccont.data.oneUser);
+    };
+
+    fetchUserAccount();
+  }, []);
+
+  const handleClickSubmitProfile = async e => {
     try {
       e.preventDefault();
 
@@ -37,7 +57,6 @@ export default function ProfileSetting() {
         setValidateFirstName('First name is required');
       } else if (firstName.trim() !== '') {
         setValidateFirstName(' ');
-        // setNewFirst(...firstName);
       }
 
       // validate last name
@@ -51,121 +70,138 @@ export default function ProfileSetting() {
       if (firstName.trim() !== '' && lastName.trim() !== '') {
         setEditMode(false);
       }
+
+      const formData = new FormData();
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
+      formData.append('birthDate', birthDate);
+      formData.append('bio', bio);
+      formData.append('picture', profilePicture);
+      await axios.put(`/user/userUpdate/${user.id}`, formData);
+      setUserTrigged(cur => !cur);
     } catch (err) {
       console.dir(err);
     }
   };
+  console.log(firstName);
 
   const handleClickCancel = e => {
-    // validate first name
-    if (firstName.trim() === '') {
-      setValidateFirstName('First name is required');
-    } else if (firstName.trim() !== '') {
-      setValidateFirstName(' ');
-      setFirstName(newFirst);
-    }
-
-    // validate last name
-    if (lastName.trim() === '') {
-      setValidateLastName('Last name is required');
-    } else if (lastName.trim() !== '') {
-      setValidateLastName(' ');
-    }
-
-    // toggle to !editMode = not null
-    if (firstName.trim() !== '' && lastName.trim() !== '') {
-      setEditMode(false);
-    }
+    setEditMode(cur => !cur);
+    setPreviewProfile(null);
+    setFirstName(tempUser.firstName);
+    setLastName(tempUser.lastName);
+    setBio(tempUser.bio);
+    setBirthDate(tempUser.birthDate);
+    setProfilePicture(tempUser.profilePicture);
   };
 
-  const handleClickResetPassword = e => {
-    e.preventDefault();
+  //  RESET PASS
+  const handleClickResetPassword = async e => {
+    try {
+      e.preventDefault();
 
-    // validate current password
-    if (!oldPassword) {
-      setValidateOldPassword('Current password is required');
-    } else {
-      setValidateOldPassword('');
-    }
+      // validate current password
 
-    // validate new password
-    if (!newPassword) {
-      setValidateNewPassword('New password is required');
-    } else {
-      setValidateNewPassword('');
-    }
+      // validate new password
+      if (!password) {
+        setValidateNewPassword('New password is required');
+      }
+      // validate confirm new password
+      if (!confirmPassword) {
+        setValidateConfirmNewPassword('Confirm new password is required');
+      }
+      if (confirmPassword !== password) {
+        setValidateConfirmNewPassword('Password confirm does not match');
+      }
 
-    // validate confirm new password
-    if (!confirmNewPassword) {
-      setValidateConfirmNewPassword('Confirm new password is required');
-    } else if (confirmNewPassword !== newPassword) {
-      setValidateConfirmNewPassword('Password confirm does not match');
-    } else if (confirmNewPassword.trim() !== '') {
-      setValidateConfirmNewPassword('');
-    }
+      if (!currentPassword) {
+        setValidateOldPassword('Current password is required!!');
+      }
 
-    if (
-      oldPassword.trim() !== '' &&
-      newPassword.trim() !== '' &&
-      confirmNewPassword.trim() !== '' &&
-      newPassword === confirmNewPassword
-    ) {
-      const alert = Swal.fire({
-        title: 'Password has been reset!',
-        // text: 'Click ok to continue',
-        icon: 'success',
-        confirmButtonText: 'Back to ME!',
-      });
+      if (
+        password.trim() !== '' &&
+        confirmPassword.trim() !== '' &&
+        password === confirmPassword &&
+        currentPassword !== checkOldPassword
+      ) {
+        setValidateOldPassword('');
+        setValidateNewPassword('');
+        setValidateConfirmNewPassword('');
+
+        await axios.put(`/user/password/${user.id}`, { password, confirmPassword, currentPassword });
+
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your password has been reset',
+          showConfirmButton: false,
+          timer: 100000,
+        }).then(window.location.reload());
+      }
+    } catch (err) {
+      setValidateOldPassword(err.response.data.errCurrentPassword);
+      console.dir(err);
     }
   };
 
   const handleClickEditMode = e => {
     e.preventDefault();
-    setEditMode(true);
-    setNewFirst(firstName);
+    setEditMode(cur => !cur);
   };
+
+  // change Profilepicture
+  const handleChangeProfilePicture = e => {
+    setProfilePicture(e.target.files[0]);
+    setPreviewProfile(URL.createObjectURL(e.target.files[0]));
+  };
+
+  console.log(previewProfile);
 
   return (
     <div className="w-full px-4 pt-16 bg-secondary mt-10">
       <div className=" max-w-xl p-5 mx-auto bg-white border-50">
         <form onSubmit={handleClickSubmitProfile}>
           <div className="flex items-center">
-            <div className="w-36 h-36 rounded-full">
-              <div class="relative">
-                <img className="rounded-full" src={tempProfileHeader} />
-                <div class="absolute bottom-0 right-0">
-                  <label for="pp">
-                    <img src={addRound} id="upfile" className="w-10 h-10 cursor-pointer" />
-                  </label>
-                  <input
-                    value={profilePicture}
-                    onChange={e => {
-                      setProfilePicture(e.target.value);
-                    }}
-                    type="file"
-                    id="pp"
-                    style={{ display: 'none', visibility: 'none' }}
+            {/* ============================ */}
+            <label className={` ${editMode ? '  cursor-pointer ' : 'cursor-not-allowed '}`}>
+              <div className="w-36 h-36 rounded-full">
+                <div class="relative">
+                  <ProfilePicUi
+                    beforeSize="36"
+                    afterSize="36"
+                    className="rounded-full"
+                    url={previewProfile || profilePicture}
                   />
+                  <div class="absolute bottom-0 right-0">
+                    <img src={addRound} id="upfile" className={`w-10 h-10 ${!editMode ? ' hidden ' : ''}`} />
+                  </div>
                 </div>
               </div>
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleChangeProfilePicture}
+                disabled={!editMode ? true : false}
+              />
+            </label>
+            {/* ========================= */}
+            <div className="m-5 text-2xl font-light">
+              {firstName}&nbsp;&nbsp;{lastName}
             </div>
-            <div className="m-5 text-2xl font-light">Jenny Hemington</div>
           </div>
           <div>
             <div className="flex mt-5">
               <div className="w-1/2 mx-3">
                 <div class="relative">
                   <input
-                    // value={editMode ? firstName : newFirst}
                     value={firstName}
                     onChange={e => setFirstName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">First name</p>
@@ -180,11 +216,10 @@ export default function ProfileSetting() {
                     onChange={e => setLastName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">Last name</p>
@@ -201,11 +236,10 @@ export default function ProfileSetting() {
                     onChange={e => setBirthDate(e.target.value)}
                     readOnly={!editMode}
                     type="date"
-                    className={`text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
-                        ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
-                        : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
+                        ? 'bg-white focus:outline-none focus:ring-2 focus:ring-red-400'
+                        : 'bg-white cursor-not-allowed focus:outline-none'
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">Birth date</p>
@@ -220,11 +254,10 @@ export default function ProfileSetting() {
                     value={bio}
                     onChange={e => setBio(e.target.value)}
                     readOnly={!editMode}
-                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'focus:outline-none  cursor-not-allowed'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4  ">
                     <p className="text-red-600 text-dark text-xs font-normal h-">Biography</p>
@@ -238,19 +271,20 @@ export default function ProfileSetting() {
                 <button
                   type="button"
                   onClick={handleClickCancel}
-                  className="flex-shrink rounded-full shadow-input w-20 h-8 bg-primary-grad text-white font-normal forhover mt-5 object-right right-40 absolute"
+                  className="flex-shrink rounded-full shadow-input w-20 h-8 bg-primary-grad text-white italic font-light forhover mt-5 object-right right-40 absolute"
                 >
                   Cancel
                 </button>
-                <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-normal forhover mt-5 object-right right-5 absolute">
+                <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light forhover mt-5 object-right right-5 absolute">
                   Save change
                 </button>
               </div>
             ) : (
               <div className="inputFollwer w-full flex-shrink  px-3 right relative">
                 <button
+                  type="button"
                   onClick={handleClickEditMode}
-                  className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white font-normal forhover mt-5 object-right right-5 absolute"
+                  className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light forhover mt-5 object-right right-5 absolute"
                 >
                   Edit Profile
                 </button>
@@ -275,8 +309,8 @@ export default function ProfileSetting() {
                           <div className="mx-3 mt-5">
                             <div class="relative">
                               <input
-                                value={newPassword}
-                                onChange={e => setNewPassword(e.target.value)}
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
                                 type="password"
                                 className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                               />
@@ -291,8 +325,8 @@ export default function ProfileSetting() {
                           <div className="mx-3 mt-3">
                             <div class="relative">
                               <input
-                                value={confirmNewPassword}
-                                onChange={e => setConfirmNewPassword(e.target.value)}
+                                value={confirmPassword}
+                                onChange={e => setConfirmPassword(e.target.value)}
                                 type="password"
                                 className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                               />
@@ -307,8 +341,8 @@ export default function ProfileSetting() {
                           <div className="mx-3 mt-5">
                             <div class="relative">
                               <input
-                                value={oldPassword}
-                                onChange={e => setOldPassword(e.target.value)}
+                                value={currentPassword}
+                                onChange={e => setCurrentPassword(e.target.value)}
                                 type="password"
                                 className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                               />

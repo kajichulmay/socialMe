@@ -14,6 +14,8 @@ function Post(props) {
   const data = props.data;
   const [isEdit, setIsEdit] = useState(false);
 
+  console.log(data);
+
   return (
     <div
       className=" lg:w-4/5 w-10/12 relative mx-auto
@@ -30,13 +32,12 @@ function Post(props) {
           {/* name and date */}
           <div className="pl-5">
             <p className="text-xl capitalize">{`${data?.User.firstName} ${data?.User.lastName}`}</p>
-            <p className="text-sm text-gray-500">
-              {timeStampDisplay(data?.createdAt)}</p>
+            <p className="text-sm text-gray-500">{timeStampDisplay(data?.createdAt)}</p>
           </div>
         </div>
 
         <button className="absolute right-5 top-3">
-          <DropdownEditdelete setIsEdit={setIsEdit} />
+          <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} />
         </button>
 
         {/* content of post */}
@@ -48,7 +49,8 @@ function Post(props) {
             <p className="px-6">{data.message}</p>
           )}
           {/* picture use slick */}
-          {data.picUrl ? <SimpleSlider picUrl={data?.picUrl} /> : null}
+
+          {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} /> : null}
         </div>
         {/*end content of post */}
 
@@ -94,7 +96,7 @@ function Post(props) {
         {/* <CommentsContainer /> */}
 
         {/* button to Purchase */}
-        <ButtonPurchase />
+        <ButtonPurchase userId={data.userId} postId={data.id} />
 
         {/*end comment section */}
 

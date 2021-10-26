@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from '../../config/axios';
-function ButtonPurchase() {
-  const postId = 1;
-  const price = 60;
-  const userId = 1;
+function ButtonPurchase({ userId, postId }) {
+  const price = 6000;
   let OmiseCard = window.OmiseCard;
   const createCreditCard = async (postId, tokenOmise, userId, price) => {
     await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
@@ -15,7 +13,7 @@ function ButtonPurchase() {
 
     OmiseCard.configureButton('#purchaseBtn', {
       publicKey: 'OMISE_PUBLIC_KEY',
-      amount: 10000,
+      amount: 6000,
       frameLabel: 'Merchant Name',
       submitLabel: 'Pay',
     });
@@ -24,7 +22,7 @@ function ButtonPurchase() {
   };
   const OpenOmiseCard = () => {
     OmiseCard.open({
-      amount: 6000,
+      amount: price,
       submitFormTarget: '#checkout-form',
 
       onCreateTokenSuccess: tokenOmise => {

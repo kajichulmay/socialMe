@@ -8,7 +8,7 @@ import { PostContext } from "../../context/postContext";
 function FeedContainer({ allmypost }) {
     const { refreshFeed } = useContext(PostContext);
     const [postList, setPostList] = useState([]);
-    const postLates = postList.sort((a, b) => b.id - a.id);
+    const postLates = allmypost.sort((a, b) => b.id - a.id);
 
     console.log(`allmypost`, allmypost);
     useEffect(() => {

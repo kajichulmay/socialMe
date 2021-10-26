@@ -1,7 +1,43 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useContext, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { removeToken } from '../../service/localStorage';
+import { AuthContext } from '../../context/authContext';
+import { useHistory } from 'react-router';
+import Swal from 'sweetalert2';
 
 export default function DropdownMenu() {
+  const { user, setUser } = useContext(AuthContext);
+  const history = useHistory();
+  const [toggleSearch, setToggleSearch] = useState('hidden');
+
+  const handleClickSearch = () => {
+    setToggleSearch('');
+  };
+
+  const handleClickLogout = async () => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Logout!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          removeToken();
+          setUser(null);
+          Swal.fire('Logout!', 'Your account has been logout.', 'success');
+          history.push('/');
+        }
+      });
+    } catch (err) {
+      console.dir(err);
+    }
+  };
+
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">
@@ -13,7 +49,32 @@ export default function DropdownMenu() {
   );
 
   return (
-    <div>
+    <div className="flex">
+      <div className={`h-auto flex items-center minwidth ${toggleSearch}`}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fillRule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clipRule="evenodd"
+          />
+        </svg>
+        <input placeholder="search" type="search" className="border-b-2" />
+        <button type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-3 w-3 text-gray-400"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button>
@@ -45,6 +106,7 @@ export default function DropdownMenu() {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={handleClickSearch}
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
@@ -60,18 +122,38 @@ export default function DropdownMenu() {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                  >
-                    {active ? (
-                      <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                    ) : (
-                      <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                    )}
-                    Edit Profile
-                  </button>
+                  <NavLink to="/myprofile">
+                    <button
+                      className={`${
+                        active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    >
+                      {active ? (
+                        <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                      ) : (
+                        <ProfileInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                      )}
+                      Profile
+                    </button>
+                  </NavLink>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <NavLink to="/profile-setting">
+                    <button
+                      className={`${
+                        active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    >
+                      {active ? (
+                        <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                      ) : (
+                        <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                      )}
+                      Edit Profile
+                    </button>
+                  </NavLink>
                 )}
               </Menu.Item>
             </div>
@@ -80,7 +162,7 @@ export default function DropdownMenu() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-sub-grad text-white' : 'text-gray-900'
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -96,7 +178,7 @@ export default function DropdownMenu() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-sub-grad text-white' : 'text-gray-900'
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -113,8 +195,9 @@ export default function DropdownMenu() {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={handleClickLogout}
                     className={`${
-                      active ? 'bg-sub-grad text-white' : 'text-gray-900'
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -154,6 +237,22 @@ function SearchActiveIcon(props) {
         stroke="#ffe99b"
         strokeWidth="2"
       />
+    </svg>
+  );
+}
+
+function ProfileInactiveIcon(props) {
+  return (
+    <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke="#ff5650" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function ProfileActiveIcon(props) {
+  return (
+    <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke="#ffe99b" strokeWidth="2" />
     </svg>
   );
 }

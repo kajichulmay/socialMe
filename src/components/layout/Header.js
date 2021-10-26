@@ -6,15 +6,17 @@ import DropdownMenu from "./DropdownMenu";
 import Toggle from "./Toggle";
 import { useContext, useEffect, useState } from "react";
 import { removeToken } from "../../service/localStorage";
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import DropdownSearchusers from "../dropdown/DropdownSearchusers";
 import axios from "../../config/axios";
+import { userContext } from "../../context/userContext";
+import ProfilePicUi from "../ui/ProfilePicUi";
 
 function Header({ children }) {
     const { user, setUser } = useContext(AuthContext);
     const history = useHistory();
-
+    const { myuser, setMyuser } = useContext(userContext);
     // params
     const params = useParams();
     // state
@@ -76,7 +78,7 @@ function Header({ children }) {
 
                     {/* welcome left */}
                     <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">
-                        Welcome Guest
+                        Welcome {myuser?.firstName}
                     </div>
 
                     {/* search */}
@@ -109,15 +111,15 @@ function Header({ children }) {
 
                 <div className="flex items-center ">
                     {/* welcome right */}
-                    <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
+                    <div className="text-base text-dark font-normal flex-shrink maxwidth  ">
+                        Welcome {myuser?.firstName}
+                    </div>
 
                     {/* profile's pic */}
                     <div className="shadow-input rounded-full mx-3 maxwidth wrapper ">
-                        <img
-                            class="rounded-full h-9 w-9 cursor-pointer bounce_button "
-                            src={tempProfileHeader}
-                            alt=""
-                        />
+                        <NavLink to="/myprofile">
+                            <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} />
+                        </NavLink>
                     </div>
 
                     {/* chat */}
