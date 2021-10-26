@@ -1,6 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { removeToken } from '../../service/localStorage';
 import { AuthContext } from '../../context/authContext';
 import { useHistory } from 'react-router';
@@ -10,6 +9,13 @@ export default function DropdownMenu() {
   const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
   const [toggleSearch, setToggleSearch] = useState('hidden');
+
+  const handleClickMyProfile = () => {
+    history.push('/myprofile');
+  };
+  const handleClickProfileSetting = () => {
+    history.push('/profile-setting');
+  };
 
   const handleClickSearch = () => {
     setToggleSearch('');
@@ -123,38 +129,36 @@ export default function DropdownMenu() {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <NavLink to="/myprofile">
-                    <button
-                      className={`${
-                        active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    >
-                      {active ? (
-                        <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      ) : (
-                        <ProfileInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      )}
-                      Profile
-                    </button>
-                  </NavLink>
+                  <button
+                    onClick={handleClickMyProfile}
+                    className={`${
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
+                      <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    ) : (
+                      <ProfileInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    )}
+                    Profile
+                  </button>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <NavLink to="/profile-setting">
-                    <button
-                      className={`${
-                        active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    >
-                      {active ? (
-                        <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      ) : (
-                        <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      )}
-                      Edit Profile
-                    </button>
-                  </NavLink>
+                  <button
+                    onClick={handleClickProfileSetting}
+                    className={`${
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
+                      <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    ) : (
+                      <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    )}
+                    Edit Profile
+                  </button>
                 )}
               </Menu.Item>
             </div>

@@ -1,7 +1,6 @@
 import { AuthContext } from '../../context/authContext';
 import { PostContext } from '../../context/postContext';
 import logoHeader from '../../images/logoHeader.png';
-import tempProfileHeader from '../../mockData/images/tempProfileHeader.png';
 import DropdownNotification from '../dropdown/DropdownNotification';
 import DropdownMenu from './DropdownMenu';
 import Toggle from './Toggle';
@@ -11,15 +10,19 @@ import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
 import { userContext } from '../../context/userContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
-import { NavLink } from 'react-router-dom';
 
 function Header({ children }) {
   const { user, setUser } = useContext(AuthContext);
-  const { myuser, setMyUser, setUserTrigged } = useContext(userContext);
+  const { myuser } = useContext(userContext);
   const { togleReFeed } = useContext(PostContext);
   const history = useHistory();
 
+  const handleClickMyProfile = () => {
+    history.push('/myprofile');
+  };
+
   const handleClickMeLogo = () => {
+    history.push('/newsfeed');
     togleReFeed();
   };
 
@@ -59,11 +62,10 @@ function Header({ children }) {
     <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
       <div className="flex items-center h-full">
         {/* logo */}
-        <NavLink to="/newsfeed">
-          <button type="button" onClick={handleClickMeLogo}>
-            <img className="w-10 h-10 mx-3 cursor-pointer " src={logoHeader} alt="" />
-          </button>
-        </NavLink>
+
+        <button type="button" onClick={handleClickMeLogo}>
+          <img className="w-10 h-10 mx-3 cursor-pointer " src={logoHeader} alt="" />
+        </button>
 
         {/* welcome left */}
 
@@ -114,10 +116,11 @@ function Header({ children }) {
         )}
 
         {/* profile's pic */}
-        <div className={`shadow-input rounded-full mx-3 maxwidth wrapper ${user ? '' : 'hidden'} `}>
-          <NavLink to="/myprofile">
-            <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} />
-          </NavLink>
+        <div
+          className={`shadow-input rounded-full mx-3 maxwidth wrapper ${user ? '' : 'hidden'} cursor-pointer`}
+          onClick={handleClickMyProfile}
+        >
+          <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} />
         </div>
 
         {/* chat */}
