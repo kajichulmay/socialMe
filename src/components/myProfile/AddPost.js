@@ -8,45 +8,41 @@ import { AuthContext } from '../../context/authContext';
 
 function AddPost() {
   const { user } = useContext(AuthContext);
-  const { hdlSubmitCreatePost, newPostInput, setNewPostInput, } = useContext(PostContext);
+  const { hdlSubmitCreatePost, newPostInput, setNewPostInput } = useContext(PostContext);
 
-
-
+  console.log(user);
   const hdlChangeMessageInput = e => {
-    setNewPostInput(cur => ({ ...cur, message: e.target.value })
-    );
+    setNewPostInput(cur => ({ ...cur, message: e.target.value }));
   };
-
 
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">
-      <div className="pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
-      rounded-2xl shadow-container relative">
+      <div
+        className="pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
+      rounded-2xl shadow-container relative"
+      >
         {/* imageProfile */}
         <div className="absolute md:-top-14 md:-left-10 -top-10 -left-8 rounded-full  shadow-container">
-          <ProfilePicUi
-            afterSize="28"
-            beforeSize="32"
-            url={user?.profilePicture}
-          />
+          <ProfilePicUi afterSize="28" beforeSize="32" url={user?.profilePicture} />
         </div>
 
         {/* name and publicBtn top sector */}
-        <div className=" flex justify-between
-        items-end mb-5 mx-auto w-11/12">
+        <div
+          className=" flex justify-between
+        items-end mb-5 mx-auto w-11/12"
+        >
           <div className="">
-            <p className="text-2xl pl-20 font-normal capitalize">
-              {`${user?.firstName} ${user?.lastName}`}</p>
+            <p className="text-2xl pl-20 font-normal capitalize">{`${user?.firstName} ${user?.lastName}`}</p>
           </div>
 
           {/* ButtonPublic or Exclusive*/}
           <BtnTogglePostType setNewPostInput={setNewPostInput} newPostInput={newPostInput} />
-
-
         </div>
         {/* Content Add Post */}
-        <div className="flex justify-between items-center
-        mx-auto mb-4 w-10/12">
+        <div
+          className="flex justify-between items-center
+        mx-auto mb-4 w-10/12"
+        >
           <textarea
             className="textInput w-full h-36 border rounded-3xl border-red-400 pt-3  shadow-lg pl-3
               focus:outline-none focus:ring-1 focus:ring-red-400 placeholder-gray-500
@@ -58,8 +54,10 @@ function AddPost() {
         </div>
 
         {/* bottom btn sector */}
-        <div className="flex justify-between
-        items-center  mx-auto w-11/12">
+        <div
+          className="flex justify-between
+        items-center  mx-auto w-11/12"
+        >
           {/* Button Add Photo */}
           <div className="cursor-pointer">
             <img src={photoIcon} />
@@ -68,7 +66,8 @@ function AddPost() {
           {/* Button Send Post */}
           <button
             onClick={() => hdlSubmitCreatePost(newPostInput)}
-            className="rounded-full shadow-input px-8 py-1 bg-primary-grad forhover flex items-center ">
+            className="rounded-full shadow-input px-8 py-1 bg-primary-grad forhover flex items-center "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 transform rotate-90 "

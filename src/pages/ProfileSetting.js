@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../context/authContext';
 import ProfilePicUi from '../components/ui/ProfilePicUi';
 import { userContext } from '../context/userContext';
-import axios from 'axios';
+import axios from '../config/axios';
 import { useHistory } from 'react-router-dom';
 
 export default function ProfileSetting() {
@@ -29,6 +29,7 @@ export default function ProfileSetting() {
   const [profilePicture, setProfilePicture] = useState('');
   const [previewProfile, setPreviewProfile] = useState(null);
   const [checkOldPassword, setCheckOldPassword] = useState('');
+  const [tempUser, setTempUser] = useState({});
   const history = useHistory();
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function ProfileSetting() {
       setBio(userAccont.data.oneUser.bio);
       setProfilePicture(userAccont.data.oneUser.profilePicture);
       setCheckOldPassword(userAccont.data.oneUser.password);
+      setTempUser(userAccont.data.oneUser);
     };
 
     fetchUserAccount();
@@ -79,10 +81,16 @@ export default function ProfileSetting() {
       console.dir(err);
     }
   };
-  console.log(checkOldPassword);
+  console.log(firstName);
+
   const handleClickCancel = e => {
-    setEditMode(false);
+    setEditMode(cur => !cur);
     setPreviewProfile(null);
+    setFirstName(tempUser.firstName);
+    setLastName(tempUser.lastName);
+    setBio(tempUser.bio);
+    setBirthDate(tempUser.birthDate);
+    setProfilePicture(tempUser.profilePicture);
   };
 
   //  RESET PASS
@@ -136,7 +144,7 @@ export default function ProfileSetting() {
 
   const handleClickEditMode = e => {
     e.preventDefault();
-    setEditMode(true);
+    setEditMode(cur => !cur);
   };
 
   // change Profilepicture
@@ -276,6 +284,7 @@ export default function ProfileSetting() {
             ) : (
               <div className="inputFollwer w-full flex-shrink  px-3 right relative">
                 <button
+                  type="button"
                   onClick={handleClickEditMode}
                   className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light forhover mt-5 object-right right-5 absolute"
                 >

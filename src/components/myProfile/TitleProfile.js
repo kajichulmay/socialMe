@@ -6,6 +6,7 @@ import Line from './Line';
 import { dateOnly } from '../../service/dateService';
 import { AuthContext } from '../../context/authContext';
 import BtnEditProfile from './BtnEditProfile';
+import axios from 'axios';
 
 function TitleProfile() {
   const { user } = useContext(AuthContext);

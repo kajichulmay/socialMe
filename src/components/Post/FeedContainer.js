@@ -18,7 +18,7 @@ function FeedContainer() {
   }, [refreshFeed]);
 
   const showList = postLates.map((item, idx) => <Post key={idx} data={item} />);
-
+  console.log(postList);
   return <div>{showList}</div>;
 }
 
