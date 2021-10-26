@@ -20,7 +20,8 @@ function MyProfile() {
             {/* personalProfile */}
             <TitleProfile />
             {/*end personalProfile */}
-
+            <Line title="Create Post" />
+            <AddPost />
             <Line title="news feed" />
             <FeedContainer />
           </div>

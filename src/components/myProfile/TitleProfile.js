@@ -5,10 +5,10 @@ import BtnFollow from './BtnFollow';
 import Line from './Line';
 import { dateOnly } from '../../service/dateService';
 import { AuthContext } from '../../context/authContext';
+import BtnEditProfile from './BtnEditProfile';
 
 function TitleProfile() {
   const { user } = useContext(AuthContext);
-
 
   console.log(user);
   return (
@@ -35,21 +35,21 @@ function TitleProfile() {
             {/* user info */}
             <div className=" flex flex-col m-7 container items-center lg:items-start  ">
               {/* Name user */}
-              <div className="">
-                <p className="text-4xl font-normal capitalize">
-                  {`${user?.firstName} ${user?.lastName}`}
-                </p>
+              <div className="flex ">
+                <p className="text-4xl font-normal capitalize">{`${user?.firstName} ${user?.lastName}`}</p>
+                <BtnEditProfile />
               </div>
               {/* detail user*/}
               <div className="flex mt-2">
                 <div className=" ">
                   {/*birth Date */}
-                  {user?.birthDate ? <div className="flex items-end  ">
-                    <img src={iconCake} className="mr-4" />
-                    <span className=" boxEle capitalize">date of birth</span>
-                    <span className="text-gray-400">{dateOnly(user?.birthDate)}</span>
-                  </div>
-                    : null}
+                  {user?.birthDate ? (
+                    <div className="flex items-end  ">
+                      <img src={iconCake} className="mr-4" />
+                      <span className=" boxEle capitalize">date of birth</span>
+                      <span className="text-gray-400">{dateOnly(user?.birthDate)}</span>
+                    </div>
+                  ) : null}
 
                   {/* Email */}
                   <div className="flex items-center mt-1  ">
