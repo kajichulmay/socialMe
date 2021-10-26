@@ -4,7 +4,6 @@ import { getToken } from '../service/localStorage';
 import { AuthContext } from './authContext';
 import { SpinnerContext } from './SpinnerContext';
 
-
 const PostContext = createContext();
 const PostContextProvider = ({ children }) => {
   const { spinner, setSpinner } = useContext(SpinnerContext);
@@ -13,14 +12,12 @@ const PostContextProvider = ({ children }) => {
   // currentPost for edit and delete
   const [newPostInput, setNewPostInput] = useState({
     message: '',
-    status: 'public'
+    status: 'public',
   });
-
 
   const [refreshFeed, setRefreshFeed] = useState(false);
 
   const togleReFeed = () => setRefreshFeed(cur => !cur);
-
 
   const getAllMyPost = async () => {
     try {
@@ -33,7 +30,7 @@ const PostContextProvider = ({ children }) => {
   };
 
   // arr postList by UserId -> profile page
-  const getPostByUserId = async (userId) => {
+  const getPostByUserId = async userId => {
     // try {
     //   const res = await axios.get(`/post/${userId}`, {
     //     headers: { authorization: 'Bearer ' + getToken() }
@@ -43,10 +40,9 @@ const PostContextProvider = ({ children }) => {
     //   console.log(error);
     // }
   };
-
 
   // arr postList by follow list -> newsfeed page
-  const getPostByFollow = async (userId) => {
+  const getPostByFollow = async userId => {
     // try {
     //   const res = await axios.get(`/post/${userId}`, {
     //     headers: { authorization: 'Bearer ' + getToken() }
@@ -57,21 +53,20 @@ const PostContextProvider = ({ children }) => {
     // }
   };
 
-
   // createPost -> addPost component
-  const hdlSubmitCreatePost = async (infoCreatePost) => {
+  const hdlSubmitCreatePost = async infoCreatePost => {
     if (!infoCreatePost.message.trim()) return window.alert('pls input message');
     try {
       setSpinner(true);
       const formData = new FormData();
-      formData.append("userId", user.id);
-      formData.append("message", infoCreatePost.message);
-      formData.append("status", infoCreatePost.status);
+      formData.append('userId', user.id);
+      formData.append('message', infoCreatePost.message);
+      formData.append('status', infoCreatePost.status);
       await axios.post('/post', formData);
       setNewPostInput(cur => ({
         ...cur,
         message: '',
-        status: 'public'
+        status: 'public',
       }));
       setSpinner(false);
       togleReFeed();
@@ -91,7 +86,6 @@ const PostContextProvider = ({ children }) => {
     // } catch (error) {
     //   console.log(error);
     // }
-
   };
 
   // del post -> Post component
@@ -108,16 +102,26 @@ const PostContextProvider = ({ children }) => {
     // }
   };
 
-
-  return <PostContext.Provider value={{
-    hdlSubmitCreatePost, hdlDeletePost,
-    getPostByUserId, getPostByFollow, getAllMyPost,
-    newPostInput, setNewPostInput,
-    hdlEditPost, hdlDeletePost,
-    refreshFeed, setRefreshFeed, togleReFeed
-  }}>
-    {children}
-  </PostContext.Provider>;
+  return (
+    <PostContext.Provider
+      value={{
+        hdlSubmitCreatePost,
+        hdlDeletePost,
+        getPostByUserId,
+        getPostByFollow,
+        getAllMyPost,
+        newPostInput,
+        setNewPostInput,
+        hdlEditPost,
+        hdlDeletePost,
+        refreshFeed,
+        setRefreshFeed,
+        togleReFeed,
+      }}
+    >
+      {children}
+    </PostContext.Provider>
+  );
 };
 
 export { PostContext, PostContextProvider };
