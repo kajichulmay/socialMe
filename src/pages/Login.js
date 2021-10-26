@@ -26,12 +26,11 @@ function Login() {
     useEffect(() => {
         const fetchusers = async () => {
             const res = await axios.get("/user");
+            // console.log(res.data.allUser);
             setAllusers(res.data.allUser);
         };
         fetchusers();
     }, []);
-
-    // console.log(allusers);
 
     // history
     const history = useHistory();
@@ -59,7 +58,7 @@ function Login() {
                         password: response.googleId,
                         confirmPassword: response.googleId,
                         profilePicture: response.profileObj.imageUrl,
-                        googleId: response.googleId,
+                        isGoogle: true,
                     });
                 }
 
