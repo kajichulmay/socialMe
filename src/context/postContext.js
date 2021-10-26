@@ -25,7 +25,7 @@ const PostContextProvider = ({ children }) => {
   const getAllMyPost = async () => {
     try {
       const res = await axios.get(`/post/mypost`);
-      console.log(res.data);
+      // console.log(res.data);
       // setPostListByUserId(cur => ({ ...cur, ...res.data }));
     } catch (error) {
       console.log(error);
@@ -67,6 +67,8 @@ const PostContextProvider = ({ children }) => {
       formData.append("userId", user.id);
       formData.append("message", infoCreatePost.message);
       formData.append("status", infoCreatePost.status);
+      // img
+      // formData.append("imageUrl", );
       await axios.post('/post', formData);
       setNewPostInput(cur => ({
         ...cur,
@@ -95,17 +97,13 @@ const PostContextProvider = ({ children }) => {
   };
 
   // del post -> Post component
-  const hdlDeletePost = async () => {
+  const hdlDeletePost = async (currentPostId) => {
     console.log('delete post');
-    // try {
-
-    //   await axios.delete(`/post/${currentPostId}`, {
-    //     headers: { authorization: 'Bearer ' + getToken() }
-    //   });
-
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await axios.delete(`/post/${currentPostId}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 

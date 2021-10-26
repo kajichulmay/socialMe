@@ -11,10 +11,9 @@ function ImagePost(props) {
     });
   };
 
-
   return (
     <>
-      <div className="bg-red-500" >
+      <div className="bg-gray-500" >
         {/* if private  add className  filter  blur-3xl */}
         <img src={props.picUrl}
           className="w-full object-cover"

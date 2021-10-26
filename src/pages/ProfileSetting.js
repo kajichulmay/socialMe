@@ -188,11 +188,10 @@ export default function ProfileSetting() {
                     onChange={e => setFirstName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">First name</p>
@@ -207,11 +206,10 @@ export default function ProfileSetting() {
                     onChange={e => setLastName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">Last name</p>
@@ -228,11 +226,10 @@ export default function ProfileSetting() {
                     onChange={e => setBirthDate(e.target.value)}
                     readOnly={!editMode}
                     type="date"
-                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'bg-white focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'bg-white cursor-not-allowed focus:outline-none'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">Birth date</p>
@@ -247,11 +244,10 @@ export default function ProfileSetting() {
                     value={bio}
                     onChange={e => setBio(e.target.value)}
                     readOnly={!editMode}
-                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'focus:outline-none  cursor-not-allowed'
-                    }`}
+                      }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4  ">
                     <p className="text-red-600 text-dark text-xs font-normal h-">Biography</p>

@@ -9,13 +9,27 @@ import { AuthContext } from '../../context/authContext';
 function AddPost() {
   const { user } = useContext(AuthContext);
   const { hdlSubmitCreatePost, newPostInput, setNewPostInput, } = useContext(PostContext);
+  const [picPost, setPicPost] = useState([]);
+  const [previewPicPost, setPreviewPicPost] = useState([]);
 
-
+  const handleChangeInputPic = e => {
+    // setPicPost(e.target.files[0]);
+    const clonePreviewPic = [...previewPicPost];
+    clonePreviewPic.push(URL.createObjectURL(e.target.files[0]));
+    // console.log(clonePreviewPic);
+    setPreviewPicPost(clonePreviewPic);
+  };
+  // console.log(picPost);
+  console.log(previewPicPost);
 
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value })
     );
   };
+
+
+
+
 
 
   return (
@@ -42,7 +56,6 @@ function AddPost() {
           {/* ButtonPublic or Exclusive*/}
           <BtnTogglePostType setNewPostInput={setNewPostInput} newPostInput={newPostInput} />
 
-
         </div>
         {/* Content Add Post */}
         <div className="flex justify-between items-center
@@ -57,13 +70,34 @@ function AddPost() {
           />
         </div>
 
+        {/* {picList} */}
+        <div className="mx-auto w-11/12 "
+        >
+          <div className="flex justify-center lg:justify-start flex-wrap ">
+            {
+              previewPicPost.map((item, idx) =>
+                <img src={item} className=" p-1
+              object-cover lg:w-60 lg:h-60 w-2/3" />
+
+              )
+            }
+          </div>
+        </div>
+
+
+
         {/* bottom btn sector */}
         <div className="flex justify-between
         items-center  mx-auto w-11/12">
           {/* Button Add Photo */}
-          <div className="cursor-pointer">
+          <label className="cursor-pointer" onChange={handleChangeInputPic}>
+            <input type="file" id="" multiple className="hidden" />
             <img src={photoIcon} />
-          </div>
+          </label>
+          {/* <div className="cursor-pointer">
+            <input type="file" name="" id="" multiple />
+            <img src={photoIcon} />
+          </div> */}
 
           {/* Button Send Post */}
           <button
@@ -81,7 +115,7 @@ function AddPost() {
         </div>
         {/*end bottom btn sector */}
       </div>
-    </div>
+    </div >
   );
 }
 

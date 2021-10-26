@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../config/axios';
 import React, { useEffect, useState, useContext } from 'react';
 import Post from '../Post/Post';
 import { PostContext } from '../../context/postContext';
