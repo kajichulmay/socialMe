@@ -10,7 +10,6 @@ function AddPost() {
   const { user } = useContext(AuthContext);
   const { hdlSubmitCreatePost, newPostInput, setNewPostInput } = useContext(PostContext);
 
-  console.log(user);
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
   };
