@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/authContext';
 
 function AddPost() {
   const { user } = useContext(AuthContext);
-  const { hdlSubmitCreatePost, newPostInput, setNewPostInput, } = useContext(PostContext);
+  const { hdlSubmitCreatePost, newPostInput, setNewPostInput } = useContext(PostContext);
   const [picPost, setPicPost] = useState([]);
   const [previewPicPost, setPreviewPicPost] = useState([]);
 
@@ -20,7 +20,6 @@ function AddPost() {
     setPreviewPicPost(clonePreviewPic);
   };
   // console.log(picPost);
-  console.log(previewPicPost);
 
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
@@ -65,20 +64,17 @@ function AddPost() {
         </div>
 
         {/* {picList} */}
-        <div className="mx-auto w-11/12 "
-        >
+        <div className="mx-auto w-11/12 ">
           <div className="flex justify-center lg:justify-start flex-wrap ">
-            {
-              previewPicPost.map((item, idx) =>
-                <img src={item} className=" p-1
-              object-cover lg:w-60 lg:h-60 w-2/3" />
-
-              )
-            }
+            {previewPicPost.map((item, idx) => (
+              <img
+                src={item}
+                className=" p-1
+              object-cover lg:w-60 lg:h-60 w-2/3"
+              />
+            ))}
           </div>
         </div>
-
-
 
         {/* bottom btn sector */}
         <div
@@ -112,7 +108,7 @@ function AddPost() {
         </div>
         {/*end bottom btn sector */}
       </div>
-    </div >
+    </div>
   );
 }
 

@@ -15,7 +15,7 @@ const UserContextProvider = ({ children }) => {
 
     fetchUserAccount();
   }, [userTrigged]);
-  console.log(myuser);
+
   return <userContext.Provider value={{ myuser, setMyUser, setUserTrigged }}>{children}</userContext.Provider>;
 };
 

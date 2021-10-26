@@ -59,9 +59,9 @@ const PostContextProvider = ({ children }) => {
     try {
       setSpinner(true);
       const formData = new FormData();
-      formData.append("userId", user.id);
-      formData.append("message", infoCreatePost.message);
-      formData.append("status", infoCreatePost.status);
+      formData.append('userId', user.id);
+      formData.append('message', infoCreatePost.message);
+      formData.append('status', infoCreatePost.status);
       // img
       // formData.append("imageUrl", );
       await axios.post('/post', formData);
@@ -91,10 +91,11 @@ const PostContextProvider = ({ children }) => {
   };
 
   // del post -> Post component
-  const hdlDeletePost = async (currentPostId) => {
+  const hdlDeletePost = async currentPostId => {
     console.log('delete post');
     try {
       await axios.delete(`/post/${currentPostId}`);
+      togleReFeed();
     } catch (error) {
       console.log(error);
     }

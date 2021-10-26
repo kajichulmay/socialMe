@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import { timeStampDisplay } from '../../service/dateService';
-function CommentBox() {
+import axios from '../../config/axios';
+import { useParams } from 'react-router';
+function CommentBox({ postId }) {
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    const fetchAllCommentInPost = async () => {
+      const allComment = await axios.get(`/comment`);
+      setComment(allComment.data);
+    };
+    fetchAllCommentInPost();
+  }, []);
+
+  console.log(comment);
   return (
     <>
       {/* comment container */}
@@ -45,9 +58,7 @@ function CommentBox() {
               <img src={portrait} className="rounded-full shadow-input" />
             </div>
 
-
             <div className="comment-container">
-
               <div>
                 <p>
                   Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
@@ -57,7 +68,6 @@ function CommentBox() {
               </div>
               {/* end owner comment */}
             </div>
-
           </div>
         </div>
       </div>

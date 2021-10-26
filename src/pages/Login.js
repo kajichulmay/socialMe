@@ -49,6 +49,7 @@ function Login() {
   const responseGoogle = async response => {
     try {
       const test = allusers.findIndex(item => item.googleId === response.googleId);
+      console.log(test);
       let res;
       if (response?.profileObj) {
         if (test === -1) {
@@ -59,16 +60,15 @@ function Login() {
             password: response.googleId,
             confirmPassword: response.googleId,
             profilePicture: response.profileObj.imageUrl,
-            isGoogle: true,
+            googleId: response.googleId,
           });
         }
-
-        if (test != -1 || res.data.message === 'you account has been created') {
+        if (test !== 1 || res.data.message === 'you account has been created') {
           const res2 = await axios.post('/login', {
             email: response.profileObj.email,
             password: response.googleId,
           });
-          console.log(response);
+
           setToken(res2.data.token);
           setUser(jwtDecode(res2.data.token));
           history.push('/newsfeed');

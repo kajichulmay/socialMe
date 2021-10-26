@@ -14,7 +14,7 @@ function Post(props) {
   const data = props.data;
   const [isEdit, setIsEdit] = useState(false);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div
@@ -93,14 +93,14 @@ function Post(props) {
         <Line />
 
         {/* comment section */}
-        {/* <CommentsContainer /> */}
+        <CommentsContainer postId={data.id} />
 
         {/* button to Purchase */}
         <ButtonPurchase userId={data.userId} postId={data.id} />
 
         {/*end comment section */}
 
-        <InputAddComment />
+        <InputAddComment postId={data.id} />
       </div>
     </div>
   );

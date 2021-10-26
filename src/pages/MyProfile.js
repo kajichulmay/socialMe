@@ -18,7 +18,7 @@ function MyProfile() {
     const fetchMyuserAccount = async () => {
       try {
         const myAccount = await axios.get('/user/oneUser');
-        console.log('dsdsd', myAccount.data);
+        // console.log('dsdsd', myAccount.data);
         setMyAccountUser(myAccount.data.oneUser);
       } catch (err) {
         console.dir(err);
