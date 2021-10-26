@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../context/authContext';
 import ProfilePicUi from '../components/ui/ProfilePicUi';
 import { userContext } from '../context/userContext';
-import axios from 'axios';
+import axios from '../config/axios';
 import { useHistory } from 'react-router-dom';
 
 export default function ProfileSetting() {
   const { user } = useContext(AuthContext);
+  const { setUserTrigged } = useContext(userContext);
   const [editMode, setEditMode] = useState(false);
   const [validateFirstName, setValidateFirstName] = useState(' ');
   const [validateLastName, setValidateLastName] = useState(' ');
@@ -29,6 +30,7 @@ export default function ProfileSetting() {
   const [profilePicture, setProfilePicture] = useState('');
   const [previewProfile, setPreviewProfile] = useState(null);
   const [checkOldPassword, setCheckOldPassword] = useState('');
+  const [tempUser, setTempUser] = useState({});
   const history = useHistory();
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function ProfileSetting() {
       setBio(userAccont.data.oneUser.bio);
       setProfilePicture(userAccont.data.oneUser.profilePicture);
       setCheckOldPassword(userAccont.data.oneUser.password);
+      setTempUser(userAccont.data.oneUser);
     };
 
     fetchUserAccount();
@@ -75,14 +78,21 @@ export default function ProfileSetting() {
       formData.append('bio', bio);
       formData.append('picture', profilePicture);
       await axios.put(`/user/userUpdate/${user.id}`, formData);
+      setUserTrigged(cur => !cur);
     } catch (err) {
       console.dir(err);
     }
   };
-  console.log(checkOldPassword);
+  console.log(firstName);
+
   const handleClickCancel = e => {
-    setEditMode(false);
+    setEditMode(cur => !cur);
     setPreviewProfile(null);
+    setFirstName(tempUser.firstName);
+    setLastName(tempUser.lastName);
+    setBio(tempUser.bio);
+    setBirthDate(tempUser.birthDate);
+    setProfilePicture(tempUser.profilePicture);
   };
 
   //  RESET PASS
@@ -119,14 +129,14 @@ export default function ProfileSetting() {
         setValidateConfirmNewPassword('');
 
         await axios.put(`/user/password/${user.id}`, { password, confirmPassword, currentPassword });
+
         Swal.fire({
           position: 'center',
           icon: 'success',
           title: 'Your password has been reset',
           showConfirmButton: false,
-          timer: 3000,
-        });
-        window.location.reload();
+          timer: 100000,
+        }).then(window.location.reload());
       }
     } catch (err) {
       setValidateOldPassword(err.response.data.errCurrentPassword);
@@ -136,7 +146,7 @@ export default function ProfileSetting() {
 
   const handleClickEditMode = e => {
     e.preventDefault();
-    setEditMode(true);
+    setEditMode(cur => !cur);
   };
 
   // change Profilepicture
@@ -272,6 +282,7 @@ export default function ProfileSetting() {
             ) : (
               <div className="inputFollwer w-full flex-shrink  px-3 right relative">
                 <button
+                  type="button"
                   onClick={handleClickEditMode}
                   className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light forhover mt-5 object-right right-5 absolute"
                 >

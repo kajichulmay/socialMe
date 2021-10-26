@@ -14,7 +14,7 @@ function FeedContainer() {
       .get('/post/mypost')
       // .then(result => console.log(result.data))
       .then(result => setPostList([...result.data.myPostList]))
-      .catch(err => window.alert(err));
+      .catch(err => console.log(err));
   }, [refreshFeed]);
 
   const showList = postLates.map((item, idx) => <Post key={idx} data={item} />);
