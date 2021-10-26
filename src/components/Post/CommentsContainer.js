@@ -1,10 +1,10 @@
 import React from 'react';
 import CommentBox from '../Post/CommentBox';
 
-function CommentsContainer({ postId }) {
+function CommentsContainer({ comment }) {
   return (
     <>
-      <CommentBox postId={postId} />
+      <CommentBox comment={comment} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
@@ -9,13 +9,23 @@ import Line from '../myProfile/Line';
 import CommentsContainer from '../Post/CommentsContainer';
 import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
+import axios from '../../config/axios';
 
 function Post(props) {
   const data = props.data;
   const [isEdit, setIsEdit] = useState(false);
 
-  // console.log(data);
+  const [comment, setComment] = useState([]);
 
+  useEffect(() => {
+    const fetchAllCommentInPost = async () => {
+      const allComment = await axios.get(`/comment`);
+      setComment(allComment.data.comment);
+    };
+    fetchAllCommentInPost();
+  }, []);
+  console.log(comment);
+  const filtercomment = [...comment].filter(item => item.postId === data.id);
   return (
     <div
       className=" lg:w-4/5 w-10/12 relative mx-auto
@@ -92,8 +102,9 @@ function Post(props) {
 
         <Line />
 
-        {/* comment section */}
-        <CommentsContainer postId={data.id} />
+        {filtercomment.map(item => (
+          <CommentsContainer key={item.id} comment={item} />
+        ))}
 
         {/* button to Purchase */}
         <ButtonPurchase userId={data.userId} postId={data.id} />

@@ -6,20 +6,9 @@ import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
 
-function AddPost() {
+function AddPost({ oneUser }) {
   const { user } = useContext(AuthContext);
   const { hdlSubmitCreatePost, newPostInput, setNewPostInput } = useContext(PostContext);
-  const [picPost, setPicPost] = useState([]);
-  const [previewPicPost, setPreviewPicPost] = useState([]);
-
-  const handleChangeInputPic = e => {
-    // setPicPost(e.target.files[0]);
-    const clonePreviewPic = [...previewPicPost];
-    clonePreviewPic.push(URL.createObjectURL(e.target.files[0]));
-    // console.log(clonePreviewPic);
-    setPreviewPicPost(clonePreviewPic);
-  };
-  // console.log(picPost);
 
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
@@ -33,7 +22,15 @@ function AddPost() {
       >
         {/* imageProfile */}
         <div className="absolute md:-top-14 md:-left-10 -top-10 -left-8 rounded-full  shadow-container">
-          <ProfilePicUi afterSize="28" beforeSize="32" url={user?.profilePicture} />
+          {oneUser?.profilePicture ? (
+            <ProfilePicUi afterSize="28" beforeSize="32" url={oneUser?.profilePicture} />
+          ) : (
+            <ProfilePicUi
+              afterSize="28"
+              beforeSize="32"
+              url="https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png"
+            />
+          )}
         </div>
 
         {/* name and publicBtn top sector */}
@@ -42,7 +39,7 @@ function AddPost() {
         items-end mb-5 mx-auto w-11/12"
         >
           <div className="">
-            <p className="text-2xl pl-20 font-normal capitalize">{`${user?.firstName} ${user?.lastName}`}</p>
+            <p className="text-2xl pl-20 font-normal capitalize">{`${oneUser?.firstName} ${oneUser?.lastName}`}</p>
           </div>
 
           {/* ButtonPublic or Exclusive*/}
@@ -63,33 +60,15 @@ function AddPost() {
           />
         </div>
 
-        {/* {picList} */}
-        <div className="mx-auto w-11/12 ">
-          <div className="flex justify-center lg:justify-start flex-wrap ">
-            {previewPicPost.map((item, idx) => (
-              <img
-                src={item}
-                className=" p-1
-              object-cover lg:w-60 lg:h-60 w-2/3"
-              />
-            ))}
-          </div>
-        </div>
-
         {/* bottom btn sector */}
         <div
           className="flex justify-between
         items-center  mx-auto w-11/12"
         >
           {/* Button Add Photo */}
-          <label className="cursor-pointer" onChange={handleChangeInputPic}>
-            <input type="file" id="" multiple className="hidden" />
+          <div className="cursor-pointer">
             <img src={photoIcon} />
-          </label>
-          {/* <div className="cursor-pointer">
-            <input type="file" name="" id="" multiple />
-            <img src={photoIcon} />
-          </div> */}
+          </div>
 
           {/* Button Send Post */}
           <button

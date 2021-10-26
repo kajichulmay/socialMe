@@ -26,12 +26,11 @@ function Login() {
   useEffect(() => {
     const fetchusers = async () => {
       const res = await axios.get('/user');
+      // console.log(res.data.allUser);
       setAllusers(res.data.allUser);
     };
     fetchusers();
   }, []);
-
-  // console.log(allusers);
 
   // history
   const history = useHistory();
@@ -49,7 +48,6 @@ function Login() {
   const responseGoogle = async response => {
     try {
       const test = allusers.findIndex(item => item.googleId === response.googleId);
-      console.log(test);
       let res;
       if (response?.profileObj) {
         if (test === -1) {
@@ -63,13 +61,14 @@ function Login() {
             googleId: response.googleId,
           });
         }
-        if (test !== 1 || res.data.message === 'you account has been created') {
+
+        if (test != -1 || res.data.message === 'you account has been created') {
           const res2 = await axios.post('/login', {
             email: response.profileObj.email,
             password: response.googleId,
           });
-
-          setToken(res2.data.token);
+          console.log(response);
+          setToken(response.tokenId);
           setUser(jwtDecode(res2.data.token));
           history.push('/newsfeed');
         }
