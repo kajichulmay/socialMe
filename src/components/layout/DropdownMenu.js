@@ -66,6 +66,22 @@ export default function DropdownMenu() {
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
+                      <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    ) : (
+                      <ProfileInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    )}
+                    Profile
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
                       <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
                     ) : (
                       <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -80,7 +96,7 @@ export default function DropdownMenu() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-sub-grad text-white' : 'text-gray-900'
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -96,7 +112,7 @@ export default function DropdownMenu() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-sub-grad text-white' : 'text-gray-900'
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -114,7 +130,7 @@ export default function DropdownMenu() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-sub-grad text-white' : 'text-gray-900'
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -154,6 +170,22 @@ function SearchActiveIcon(props) {
         stroke="#ffe99b"
         strokeWidth="2"
       />
+    </svg>
+  );
+}
+
+function ProfileInactiveIcon(props) {
+  return (
+    <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke="#ff5650" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function ProfileActiveIcon(props) {
+  return (
+    <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke="#ffe99b" strokeWidth="2" />
     </svg>
   );
 }
