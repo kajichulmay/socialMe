@@ -56,12 +56,21 @@ function Header({ children }) {
         <img className="w-10 h-10 mx-3 cursor-pointer " src={logoHeader} alt="" />
 
         {/* welcome left */}
-        <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">
-          Welcome {myuser?.firstName}
-        </div>
+
+        {user ? (
+          <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">
+            Welcome {myuser?.firstName}
+          </div>
+        ) : (
+          <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">Welcome Guest</div>
+        )}
 
         {/* search */}
-        <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible  ">
+        <div
+          className={`bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible ${
+            user ? '' : 'hidden'
+          }`}
+        >
           <div className="flex items-center rounded-full  bg-white h-full  ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,13 +94,17 @@ function Header({ children }) {
           </div>
         </div>
       </div>
-
-      <div className="flex items-center ">
+      <div className={`${user ? 'hidden' : ''} text-dark maxwidth`}>Welcome Guest</div>
+      <div className={`flex items-center ${user ? '' : 'hidden'}`}>
         {/* welcome right */}
-        <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome {myuser?.firstName}</div>
+        {user ? (
+          <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome {myuser?.firstName}</div>
+        ) : (
+          <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
+        )}
 
         {/* profile's pic */}
-        <div className="shadow-input rounded-full mx-3 maxwidth wrapper ">
+        <div className={`shadow-input rounded-full mx-3 maxwidth wrapper ${user ? '' : 'hidden'} `}>
           <NavLink to="/myprofile">
             <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} />
           </NavLink>
