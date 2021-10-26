@@ -8,9 +8,13 @@ import { useContext } from 'react';
 import { removeToken } from '../../service/localStorage';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
+import { userContext } from '../../context/userContext';
+import ProfilePicUi from '../ui/ProfilePicUi';
+import { NavLink } from 'react-router-dom';
 
 function Header({ children }) {
   const { user, setUser } = useContext(AuthContext);
+  const { myuser, setMyUser, setUserTrigged } = useContext(userContext);
   const history = useHistory();
 
   const handleClickLogout = async () => {
@@ -52,7 +56,9 @@ function Header({ children }) {
         <img className="w-10 h-10 mx-3 cursor-pointer " src={logoHeader} alt="" />
 
         {/* welcome left */}
-        <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">Welcome Guest</div>
+        <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">
+          Welcome {myuser?.firstName}
+        </div>
 
         {/* search */}
         <div className="bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible  ">
@@ -82,11 +88,13 @@ function Header({ children }) {
 
       <div className="flex items-center ">
         {/* welcome right */}
-        <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
+        <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome {myuser?.firstName}</div>
 
         {/* profile's pic */}
         <div className="shadow-input rounded-full mx-3 maxwidth wrapper ">
-          <img class="rounded-full h-9 w-9 cursor-pointer bounce_button " src={tempProfileHeader} alt="" />
+          <NavLink to="/myprofile">
+            <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} />
+          </NavLink>
         </div>
 
         {/* chat */}

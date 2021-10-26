@@ -5,6 +5,7 @@ const userContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const [myuser, setMyUser] = useState();
+  const [userTrigged, setUserTrigged] = useState(false);
 
   useEffect(() => {
     const fetchUserAccount = async () => {
@@ -13,9 +14,9 @@ const UserContextProvider = ({ children }) => {
     };
 
     fetchUserAccount();
-  }, []);
+  }, [userTrigged]);
   console.log(myuser);
-  return <userContext.Provider value={{ myuser, setMyUser }}>{children}</userContext.Provider>;
+  return <userContext.Provider value={{ myuser, setMyUser, setUserTrigged }}>{children}</userContext.Provider>;
 };
 
 export { userContext, UserContextProvider };

@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 
 export default function ProfileSetting() {
   const { user } = useContext(AuthContext);
+  const { setUserTrigged } = useContext(userContext);
   const [editMode, setEditMode] = useState(false);
   const [validateFirstName, setValidateFirstName] = useState(' ');
   const [validateLastName, setValidateLastName] = useState(' ');
@@ -77,6 +78,7 @@ export default function ProfileSetting() {
       formData.append('bio', bio);
       formData.append('picture', profilePicture);
       await axios.put(`/user/userUpdate/${user.id}`, formData);
+      setUserTrigged(cur => !cur);
     } catch (err) {
       console.dir(err);
     }
@@ -127,14 +129,14 @@ export default function ProfileSetting() {
         setValidateConfirmNewPassword('');
 
         await axios.put(`/user/password/${user.id}`, { password, confirmPassword, currentPassword });
+
         Swal.fire({
           position: 'center',
           icon: 'success',
           title: 'Your password has been reset',
           showConfirmButton: false,
-          timer: 3000,
-        });
-        window.location.reload();
+          timer: 100000,
+        }).then(window.location.reload());
       }
     } catch (err) {
       setValidateOldPassword(err.response.data.errCurrentPassword);
