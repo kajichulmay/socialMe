@@ -7,13 +7,16 @@ import route from './config/route';
 import { AuthContext } from './context/authContext';
 import { useContext } from 'react';
 
+import { DarkContext } from './context/DarkContext';
+
 function App() {
   const { user } = useContext(AuthContext);
+  const { dark } = useContext(DarkContext);
   const role = user ? 'user' : 'guest';
   const history = useHistory();
 
   return (
-    <div className="bg-secondary w-full">
+    <div className={`${dark ? 'dark-bg dark-html' : 'bg-secondary'} full-height w-full outline-black`}>
       <PostContextProvider>
         <Header />
         <Content>

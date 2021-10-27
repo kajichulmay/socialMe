@@ -206,10 +206,20 @@ input:focus {
 /* darkmode*/
 
 .dark-bg {
-  /* background-color: rgb(14, 24, 39); */
-  /* background-color: rgb(53, 53, 53); */
-  /* background-color: rgb(53, 54, 58); */
-  background-color: rgb(32, 33, 36);
-  /* background-color: rgb(61, 64, 67); */
-  /* background-color: rgb(44, 44, 44); */
+  background-color: rgba(24, 24, 24);
+}
+
+.dark-bg2 {
+  /* background-color: rgba(48, 48, 48); */
+  /* background-color: rgba(54, 54, 54); */
+  /* background-color: rgba(53, 54, 58); */
+  background-color: rgba(53, 54, 58);
+}
+
+.dark-bg-none-alpha {
+  background-color: rgb(24, 24, 24);
+}
+
+.dark-text {
+  color: rgba(255, 255, 255, 0.9);
 }

@@ -1,14 +1,21 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { DarkContext } from '../../context/DarkContext';
 
 export default function DropdownNotification() {
+  const { dark } = useContext(DarkContext);
   return (
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button>
-            <div className=" flex items-center justify-center bg-white hover:bg-gray-200 rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  maxwidth">
+            <div
+              // className=" flex items-center justify-center bg-white hover:bg-gray-200 rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  maxwidth"
+              className={`${
+                dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
+              } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
+            >
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad " viewBox="0 0 24 24">
                   <path

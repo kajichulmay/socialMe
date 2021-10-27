@@ -1,20 +1,19 @@
+import addRound from '../images/Add_round.png';
+import Swal from 'sweetalert2';
+import ProfilePicUi from '../components/ui/ProfilePicUi';
+import axios from '../config/axios';
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
-import tempProfilePicture from '../images/nonePic.jpeg';
-import addRound from '../images/Add_round.png';
 import { useEffect, useState, useContext } from 'react';
-import validator from 'validator';
-import Swal from 'sweetalert2';
-import { AuthContext } from '../context/authContext';
-import ProfilePicUi from '../components/ui/ProfilePicUi';
-import { userContext } from '../context/userContext';
-import axios from '../config/axios';
 import { useHistory } from 'react-router-dom';
-import Chatbox from '../components/chatbox/Chatbox';
+import { AuthContext } from '../context/authContext';
+import { userContext } from '../context/userContext';
+import { DarkContext } from '../context/DarkContext';
 
 export default function ProfileSetting() {
   const { user } = useContext(AuthContext);
   const { setUserTrigged } = useContext(userContext);
+  const { dark, darkTextOnly, darkTextDark, darkBg2 } = useContext(DarkContext);
   const [editMode, setEditMode] = useState(false);
   const [validateFirstName, setValidateFirstName] = useState(' ');
   const [validateLastName, setValidateLastName] = useState(' ');
@@ -33,6 +32,7 @@ export default function ProfileSetting() {
   const [checkOldPassword, setCheckOldPassword] = useState('');
   const [tempUser, setTempUser] = useState({});
   const history = useHistory();
+  const [openLowerForm, SetOpenLowerForm] = useState(false);
 
   useEffect(() => {
     const fetchUserAccount = async () => {
@@ -48,6 +48,16 @@ export default function ProfileSetting() {
 
     fetchUserAccount();
   }, []);
+
+  const handleOpenLowerForm = () => {
+    if (!openLowerForm) {
+      SetOpenLowerForm(true);
+      console.log('true');
+    } else {
+      SetOpenLowerForm(false);
+      console.log('false');
+    }
+  };
 
   const handleClickSubmitProfile = async e => {
     try {
@@ -156,11 +166,15 @@ export default function ProfileSetting() {
     setPreviewProfile(URL.createObjectURL(e.target.files[0]));
   };
 
-  console.log(previewProfile);
+  const dark2 = dark ? 'dark-bg2' : 'bg-white';
 
   return (
-    <div className="w-full px-4 pt-16 bg-secondary mt-10">
-      <div className=" max-w-xl p-5 mx-auto bg-white border-50">
+    <div
+      className={`w-full px-4 pt-16 mt-10 ${openLowerForm ? 'h-full' : 'h-screen'}  ${
+        dark ? 'dark-bg' : 'bg-secondary'
+      }`}
+    >
+      <div className={`${dark ? 'dark-bg2' : 'bg-white'} max-w-xl p-5 mx-auto border-50`}>
         <form onSubmit={handleClickSubmitProfile}>
           <div className="flex items-center">
             {/* ============================ */}
@@ -186,7 +200,7 @@ export default function ProfileSetting() {
               />
             </label>
             {/* ========================= */}
-            <div className="m-5 text-2xl font-light">
+            <div className={`m-5 text-2xl font-light ${darkTextOnly}`}>
               {firstName}&nbsp;&nbsp;{lastName}
             </div>
           </div>
@@ -203,10 +217,10 @@ export default function ProfileSetting() {
                       editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                    } ${dark2} ${darkTextOnly} `}
                   />
-                  <div class="absolute top-2 p-1 bg-white left-4 ">
-                    <p className="text-red-600 text-dark text-xs font-normal">First name</p>
+                  <div class={`absolute top-2 p-1 bg-white left-4 ${dark ? 'dark-bg2' : 'bg-white'}`}>
+                    <p className={`${darkTextDark} text-xs font-normal`}>First name</p>
                   </div>
                 </div>
                 <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateFirstName}</p>
@@ -222,10 +236,10 @@ export default function ProfileSetting() {
                       editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    }`}
+                    } ${dark2} ${darkTextOnly}`}
                   />
-                  <div class="absolute top-2 p-1 bg-white left-4 ">
-                    <p className="text-red-600 text-dark text-xs font-normal">Last name</p>
+                  <div class={`absolute top-2 p-1 bg-white left-4 ${dark2}`}>
+                    <p className={`${darkTextDark} text-xs font-normal`}>Last name</p>
                   </div>
                 </div>
                 <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateLastName}</p>
@@ -243,10 +257,10 @@ export default function ProfileSetting() {
                       editMode
                         ? 'bg-white focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'bg-white cursor-not-allowed focus:outline-none'
-                    }`}
+                    } ${dark2} ${darkTextOnly}`}
                   />
-                  <div class="absolute top-2 p-1 bg-white left-4 ">
-                    <p className="text-red-600 text-dark text-xs font-normal">Birth date</p>
+                  <div class={`absolute top-2 p-1 bg-white left-4 ${dark2}`}>
+                    <p className={`${darkTextDark} text-xs font-normal`}>Birth date</p>
                   </div>
                 </div>
               </div>
@@ -262,10 +276,10 @@ export default function ProfileSetting() {
                       editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'focus:outline-none  cursor-not-allowed'
-                    }`}
+                    }  ${dark2} ${darkTextOnly}`}
                   />
-                  <div class="absolute top-2 p-1 bg-white left-4  ">
-                    <p className="text-red-600 text-dark text-xs font-normal h-">Biography</p>
+                  <div class={`absolute top-2 p-1 bg-white left-4 ${dark2}`}>
+                    <p className={`${darkTextDark} text-xs font-normal`}>Biography</p>
                   </div>
                 </div>
               </div>
@@ -298,7 +312,7 @@ export default function ProfileSetting() {
           </div>
         </form>
         <div>
-          <div className="mt-5">
+          <div className="mt-5" onClick={handleOpenLowerForm}>
             <Disclosure>
               {({ open }) => (
                 <>
@@ -317,9 +331,9 @@ export default function ProfileSetting() {
                                 value={password}
                                 onChange={e => setPassword(e.target.value)}
                                 type="password"
-                                className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
                               />
-                              <div class="absolute top-2 p-1 bg-white left-4 ">
+                              <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
                                 <p className="text-red-600 text-dark text-xs font-normal">New password</p>
                               </div>
                             </div>
@@ -333,9 +347,9 @@ export default function ProfileSetting() {
                                 value={confirmPassword}
                                 onChange={e => setConfirmPassword(e.target.value)}
                                 type="password"
-                                className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
                               />
-                              <div class="absolute top-2 p-1 bg-white left-4 ">
+                              <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
                                 <p className="text-red-600 text-dark text-xs font-normal">Confirm new password</p>
                               </div>
                             </div>
@@ -349,9 +363,9 @@ export default function ProfileSetting() {
                                 value={currentPassword}
                                 onChange={e => setCurrentPassword(e.target.value)}
                                 type="password"
-                                className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
                               />
-                              <div class="absolute top-2 p-1 bg-white left-4 ">
+                              <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
                                 <p className="text-red-600 text-dark text-xs font-normal">Current password</p>
                               </div>
                             </div>
