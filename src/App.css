@@ -194,3 +194,11 @@ input:focus {
     height: 92vh;
   }
 }
+
+.textarea-none {
+  resize: none;
+  height: 50px;
+  overflow-y: hidden;
+  /* border: 2px solid black; */
+  border-top: solid 1px rgb(238, 231, 235);
+}
