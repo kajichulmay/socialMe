@@ -59,7 +59,7 @@ function Header({ children }) {
   );
 
   return (
-    <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
+    <div className="flex dark-bg items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
       <div className="flex items-center h-full">
         {/* logo */}
 
