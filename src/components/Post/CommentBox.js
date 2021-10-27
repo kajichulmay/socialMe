@@ -29,6 +29,7 @@ function CommentBox({ comment }) {
               <div>
                 <p>{comment.message}</p>
               </div>
+              {/*end content post */}
             </div>
           </div>
         </div>

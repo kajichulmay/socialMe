@@ -17,6 +17,9 @@ function AddPost({ oneUser }) {
   const [picPost, setPicPost] = useState([]);
   const [previewPicPost, setPreviewPicPost] = useState([]);
 
+  const [validateMsgPost, setValidateMsgPost] = useState(null);
+
+
 
 
   // set previewPic and dataPic for createpost
@@ -35,8 +38,10 @@ function AddPost({ oneUser }) {
   };
 
   const hdlClickCreatePost = async () => {
+    if (!newPostInput.message.trim()) return setValidateMsgPost('please input message');
     try {
       await hdlSubmitCreatePost(newPostInput, picPost);
+      setValidateMsgPost(null);
       setNewPostInput(cur => ({
         ...cur,
         message: '',
@@ -93,6 +98,10 @@ function AddPost({ oneUser }) {
             onChange={e => hdlChangeMessageInput(e)}
             placeholder="what on your mind..."
           />
+          {
+            validateMsgPost && <p className="pl-10 capitalize text-red-600 mt-2 mb-5">{validateMsgPost}</p>
+          }
+
         </div>
 
         {/* {picList} */}

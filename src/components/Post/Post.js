@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
 import InputAddComment from './InputAddComment';
@@ -64,7 +63,7 @@ function Post(props) {
           {/* picture use slick */}
           {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
         </div>
-        {/*end content of post */}
+        {/*end content of post */} = = = = = = = = = =
 
         {/*  */}
         <div className="flex px-6">
@@ -104,13 +103,15 @@ function Post(props) {
 
         <Line />
 
-        {filtercomment.map(item => (
-          <CommentsContainer key={item.id} comment={item} />
-        ))}
-
         {/* button to Purchase */}
         <ButtonPurchase userId={data.userId} postId={data.id} />
 
+
+        {/* comment section */}
+
+        {filtercomment.map(item => (
+          <CommentsContainer key={item.id} comment={item} />
+        ))}
         {/*end comment section */}
 
         <InputAddComment postId={data.id} />

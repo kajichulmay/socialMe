@@ -49,7 +49,7 @@ const PostContextProvider = ({ children }) => {
 
   // createPost -> addPost component
   const hdlSubmitCreatePost = async (infoCreatePost, picPost) => {
-    if (!infoCreatePost.message.trim()) return window.alert('pls input message');
+    // if (!infoCreatePost.message.trim()) return window.alert('pls input message');
     try {
       setSpinner(true);
       const formData = new FormData();
@@ -58,14 +58,7 @@ const PostContextProvider = ({ children }) => {
       formData.append("status", infoCreatePost.status);
       picPost.forEach(item => formData.append("picPostUrl", item));
       await axios.post('/post', formData);
-      // setNewPostInput(cur => ({
-      //   ...cur,
-      //   message: '',
-      //   status: 'public',
-      // }));
       setSpinner(false);
-      // setPicPost([]);
-      // setPreviewPicPost([]);
       togleReFeed();
     } catch (error) {
       window.alert(error);
