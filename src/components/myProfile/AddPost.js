@@ -6,7 +6,7 @@ import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
 
-function AddPost({ oneUser }) {
+function AddPost({ oneUser, setToggleUpdatePost }) {
   const { user } = useContext(AuthContext);
   const { hdlSubmitCreatePost, newPostInput, setNewPostInput } = useContext(PostContext);
 

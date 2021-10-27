@@ -13,6 +13,7 @@ function MyProfile() {
   // state
   const [oneUser, setOneUser] = useState({});
   const [allmypost, setAllmypost] = useState([]);
+  const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
   // params
   const { id } = useParams();
 
@@ -20,12 +21,18 @@ function MyProfile() {
   useEffect(() => {
     const fetchOneuser = async () => {
       const res = await axios.get(`/user/otherUser/${id}`);
-      const mypost = await axios.get(`/post/${id}`);
       setOneUser(res.data.getOtherUser);
-      setAllmypost(mypost.data.myPostList);
     };
     fetchOneuser();
   }, [id]);
+
+  useEffect(() => {
+    const fetchMypost = async () => {
+      const mypost = await axios.get(`/post/${id}`);
+      setAllmypost(mypost.data.myPostList);
+    };
+    fetchMypost();
+  }, [toggleUpdatePost, id]);
 
   // spinner
   const { spinner } = useContext(SpinnerContext);
@@ -44,7 +51,7 @@ function MyProfile() {
             {/*end personalProfile */}
 
             {user?.id === oneUser?.id && <Line title="create post" />}
-            {user?.id === oneUser?.id && <AddPost oneUser={oneUser} />}
+            {user?.id === oneUser?.id && <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />}
 
             <Line title="news feed" />
             <FeedContainer allmypost={allmypost} />

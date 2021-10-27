@@ -16,6 +16,7 @@ function Post(props) {
   const [isEdit, setIsEdit] = useState(false);
 
   const [comment, setComment] = useState([]);
+  const [toggleStateComment, setToggleStateComment] = useState(false);
 
   useEffect(() => {
     const fetchAllCommentInPost = async () => {
@@ -23,9 +24,8 @@ function Post(props) {
       setComment(allComment.data.comment);
     };
     fetchAllCommentInPost();
-  }, []);
-  console.log(comment);
-  const filtercomment = [...comment].filter(item => item.postId === data.id);
+  }, [toggleStateComment]);
+
   return (
     <div
       className=" lg:w-4/5 w-10/12 relative mx-auto
@@ -102,16 +102,18 @@ function Post(props) {
 
         <Line />
 
-        {filtercomment.map(item => (
-          <CommentsContainer key={item.id} comment={item} />
-        ))}
+        <CommentsContainer postId={data.id} comment={comment} />
 
         {/* button to Purchase */}
         <ButtonPurchase userId={data.userId} postId={data.id} />
 
         {/*end comment section */}
 
-        <InputAddComment postId={data.id} />
+        <InputAddComment
+          postId={data.id}
+          profilePic={data?.User.profilePicture}
+          setToggleStateComment={setToggleStateComment}
+        />
       </div>
     </div>
   );
