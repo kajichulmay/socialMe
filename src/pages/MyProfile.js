@@ -9,15 +9,18 @@ import { SpinnerContext } from '../context/SpinnerContext';
 import axios from '../config/axios';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
+import { userContext } from '../context/userContext';
 function MyProfile() {
   // state
   const [oneUser, setOneUser] = useState({});
   const [allmypost, setAllmypost] = useState([]);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
+  const { spinner } = useContext(SpinnerContext);
+  const { user } = useContext(AuthContext);
+  const { myuser } = useContext(userContext);
   // params
   const params = useParams();
   const { userId } = params;
-  console.log('params', params);
 
   // fetch
   useEffect(() => {
@@ -38,8 +41,7 @@ function MyProfile() {
   }, [toggleUpdatePost, userId]);
 
   // spinner
-  const { spinner } = useContext(SpinnerContext);
-  const { user } = useContext(AuthContext);
+  console.log(`allmypost`, allmypost);
 
   return (
     <div className="w-full lg:flex justify-center h-screen ">
@@ -53,8 +55,8 @@ function MyProfile() {
             <TitleProfile oneUser={oneUser} />
             {/*end personalProfile */}
 
-            {user?.id === oneUser?.id && <Line title="create post" />}
-            {user?.id === oneUser?.id && <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />}
+            {myuser?.id === oneUser?.id && <Line title="create post" />}
+            {myuser?.id === oneUser?.id && <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />}
 
             <Line title="news feed" />
             <FeedContainer allmypost={allmypost} setToggleUpdatePost={setToggleUpdatePost} />

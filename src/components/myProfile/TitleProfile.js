@@ -7,11 +7,13 @@ import { dateOnly } from '../../service/dateService';
 import { AuthContext } from '../../context/authContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnEditProfile from './BtnEditProfile';
+import { userContext } from '../../context/userContext';
 
 function TitleProfile({ oneUser }) {
   const { user } = useContext(AuthContext);
-  console.log('oneUser', oneUser);
-  console.log(user);
+  const { myuser } = useContext(userContext);
+  // console.log('oneUser', oneUser);
+  // console.log(user);
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
@@ -69,8 +71,8 @@ function TitleProfile({ oneUser }) {
                 </div>
                 {/*btn follow */}
                 <div className="absolute top-2 right-2 ">
-                  {user?.id === oneUser?.id || <BtnFollow />}
-                  <BtnEditProfile />
+                  {myuser?.id === oneUser?.id || <BtnFollow />}
+                  {myuser?.id !== oneUser?.id || <BtnEditProfile />}
                 </div>
               </div>
             </div>
@@ -88,7 +90,7 @@ function TitleProfile({ oneUser }) {
           )}
           {/*end biography */}
         </div>
-        ;{/*end user info */}
+        {/*end user info */}
       </div>
     </>
   );

@@ -26,7 +26,7 @@ function Post(props) {
     };
     fetchAllCommentInPost();
   }, [toggleStateComment]);
-
+  console.log(data);
   return (
     <div
       className={`lg:w-4/5 w-10/12 relative mx-auto
@@ -103,19 +103,14 @@ function Post(props) {
 
         <Line />
 
-        <CommentsContainer postId={data.id} comment={comment} />
+        <CommentsContainer postId={data.id} comment={comment} setToggleStateComment={setToggleStateComment} />
 
         {/* button to Purchase */}
         <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} />
 
         {/*end comment section */}
 
-        <InputAddComment
-          postId={data.id}
-          profilePic={data?.User.profilePicture}
-          setToggleStateComment={setToggleStateComment}
-          userId={data?.User.id}
-        />
+        <InputAddComment postId={data.id} setToggleStateComment={setToggleStateComment} />
       </div>
     </div>
   );

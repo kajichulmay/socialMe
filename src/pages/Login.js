@@ -71,8 +71,9 @@ function Login() {
             password: response.googleId,
           });
           console.log(response);
-          setToken(response.tokenId);
+          setToken(res2.data.token);
           setUser(jwtDecode(res2.data.token));
+          setUserTrigged(cur => !cur);
           history.push('/newsfeed');
         }
       }
