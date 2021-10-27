@@ -86,10 +86,11 @@ const PostContextProvider = ({ children }) => {
   };
 
   // del post -> Post component
-  const hdlDeletePost = async (currentPostId) => {
+  const hdlDeletePost = async currentPostId => {
     console.log('delete post');
     try {
       await axios.delete(`/post/${currentPostId}`);
+      togleReFeed();
     } catch (error) {
       console.log(error);
     }

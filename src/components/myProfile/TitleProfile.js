@@ -1,19 +1,17 @@
-import React, { useContext } from 'react';
-import iconCake from '../../../src/images/iconCake.png';
-import iconEmail from '../../images/IconEmail.png';
-import BtnFollow from './BtnFollow';
-import Line from './Line';
-import { dateOnly } from '../../service/dateService';
-// import { AuthContext } from '../../context/authContext';
+import React, { useContext } from "react";
+import iconCake from "../../../src/images/iconCake.png";
+import iconEmail from "../../images/IconEmail.png";
+import BtnFollow from "./BtnFollow";
+import Line from "./Line";
+import { dateOnly } from "../../service/dateService";
+import { AuthContext } from "../../context/authContext";
+import ProfilePicUi from "../ui/ProfilePicUi";
 import BtnEditProfile from './BtnEditProfile';
-// import axios from 'axios';
 
-function TitleProfile(props) {
-  // const { user } = useContext(AuthContext);
-  const { myAccountUser } = props;
+function TitleProfile({ oneUser }) {
+  const { user } = useContext(AuthContext);
 
-
-
+  console.log(user);
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
@@ -23,14 +21,22 @@ function TitleProfile(props) {
             {/* ProfilePic */}
             <div className=" rounded-full mt-5 lg:mt-0 lg:self-start ">
               <div className="bg-primary-grad rounded-full w-44 h-44 flex justify-center items-center   ">
-                <div
-                  className="bg-primary-grad  rounded-full border-4 p-20 border-white "
-                  style={{
-                    backgroundImage: `url(${myAccountUser?.profilePicture})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                ></div>
+                {oneUser.profilePicture ? (
+                  <div
+                    className="bg-primary-grad  rounded-full border-4 p-20 border-white "
+                    style={{
+                      backgroundImage: `url(${oneUser.profilePicture})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
+                ) : (
+                  <ProfilePicUi
+                    beforeSize="48"
+                    afterSize="48"
+                    url="https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png"
+                  />
+                )}
               </div>
             </div>
             {/*end ProfilePic  */}
@@ -38,19 +44,20 @@ function TitleProfile(props) {
             {/* user info */}
             <div className=" flex flex-col m-7 container items-center lg:items-start  ">
               {/* Name user */}
-              <div className="flex ">
-                <p className="text-4xl font-normal capitalize">{`${myAccountUser?.firstName} ${myAccountUser?.lastName}`}</p>
-
+              <div className="">
+                <p className="text-4xl font-normal capitalize">
+                  {`${oneUser?.firstName} ${oneUser?.lastName}`}
+                </p>
               </div>
               {/* detail user*/}
               <div className="flex mt-2">
                 <div className=" ">
                   {/*birth Date */}
-                  {myAccountUser?.birthDate ? (
+                  {oneUser?.birthDate ? (
                     <div className="flex items-end  ">
                       <img src={iconCake} className="mr-4" />
                       <span className=" boxEle capitalize">date of birth</span>
-                      <span className="text-gray-400">{dateOnly(myAccountUser?.birthDate)}</span>
+                      <span className="text-gray-400">{dateOnly(oneUser?.birthDate)}</span>
                     </div>
                   ) : null}
 
@@ -58,30 +65,31 @@ function TitleProfile(props) {
                   <div className="flex items-center mt-1  ">
                     <img src={iconEmail} className="mr-4" />
                     <span className=" boxEle ">Email address</span>
-                    <span className="text-gray-400">{myAccountUser?.email}</span>
+                    <span className="text-gray-400">{oneUser?.email}</span>
                   </div>
                 </div>
                 {/*btn follow */}
                 <div className="absolute top-2 right-2 ">
-                  {/* <BtnFollow /> */}
+                  {user?.id === oneUser.id || <BtnFollow />}
                   <BtnEditProfile />
                 </div>
+
               </div>
             </div>
             {/*end user info */}
           </div>
 
           {/* bottom section biography */}
-          {myAccountUser?.bio ?
+          {oneUser?.bio && (
             <div className="-mt-8">
               <Line title="about me" self="center" />
-              <div className="pb-8 px-8 text-gray-500 text-center">
-                <p>{myAccountUser.bio}</p>
+              <div className="pb-8 px-8 text-gray-500">
+                <p>{oneUser.bio}</p>
               </div>
-            </div> : null
-          }
+            </div>
+          )}
           {/*end biography */}
-        </div>
+        </div>;
         {/*end user info */}
       </div>
     </>

@@ -5,13 +5,11 @@ import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
 
-function AddPost(props) {
-  const { myAccountUser } = props;
-  const { user } = useContext(AuthContext);
-  const { hdlSubmitCreatePost,
-    // newPostInput, setNewPostInput,
-    // previewPicPost, setPreviewPicPost, picPost, setPicPost
-  } = useContext(PostContext);
+function AddPost({ oneUser }) {
+  // const { user } = useContext(AuthContext);
+  const { hdlSubmitCreatePost, } = useContext(PostContext);
+
+
   const [newPostInput, setNewPostInput] = useState({
     message: '',
     status: 'public',
@@ -30,6 +28,7 @@ function AddPost(props) {
     clonePreviewPic.push(URL.createObjectURL(e.target.files[0]));
     setPreviewPicPost(clonePreviewPic);
   };
+
 
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
@@ -58,7 +57,15 @@ function AddPost(props) {
       >
         {/* imageProfile */}
         <div className="absolute md:-top-14 md:-left-10 -top-10 -left-8 rounded-full  shadow-container">
-          <ProfilePicUi afterSize="28" beforeSize="32" url={myAccountUser?.profilePicture} />
+          {oneUser?.profilePicture ? (
+            <ProfilePicUi afterSize="28" beforeSize="32" url={oneUser?.profilePicture} />
+          ) : (
+            <ProfilePicUi
+              afterSize="28"
+              beforeSize="32"
+              url="https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png"
+            />
+          )}
         </div>
 
         {/* name and publicBtn top sector */}
@@ -67,7 +74,7 @@ function AddPost(props) {
         items-end mb-5 mx-auto w-11/12"
         >
           <div className="">
-            <p className="text-2xl pl-20 font-normal capitalize">{`${myAccountUser?.firstName} ${myAccountUser?.lastName}`}</p>
+            <p className="text-2xl pl-20 font-normal capitalize">{`${oneUser?.firstName} ${oneUser?.lastName}`}</p>
           </div>
 
           {/* ButtonPublic or Exclusive*/}
@@ -129,7 +136,7 @@ function AddPost(props) {
         </div>
         {/*end bottom btn sector */}
       </div>
-    </div >
+    </div>
   );
 }
 
