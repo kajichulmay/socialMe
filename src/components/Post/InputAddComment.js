@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import { userContext } from '../../context/userContext';
-function InputAddComment({ postId }) {
+function InputAddComment({ postId, profilePic, setToggleStateComment, userId }) {
   const [message, setMessage] = useState('');
   const [userComment, setUserComment] = useState();
 
@@ -19,6 +19,7 @@ function InputAddComment({ postId }) {
   const handleClickcreateComment = async postId => {
     try {
       await axios.post(`/comment/create`, { commentUserId: userComment.id, message, postId });
+      setToggleStateComment(cur => !cur);
       setMessage('');
     } catch (err) {
       console.dir(err);
@@ -29,7 +30,7 @@ function InputAddComment({ postId }) {
       {/*input comment section */}
       <div className=" mt-4 w-11/12 flex mx-auto  items-center">
         <div class="mr-2">
-          <ProfilePicUi url={portrait} afterSize={12} beforeSize={12} />
+          <ProfilePicUi url={profilePic} afterSize={12} beforeSize={12} id={userId} />
           {/* <img src={portrait} className="rounded-full" /> */}
         </div>
         <div className="w-full relative">

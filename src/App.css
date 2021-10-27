@@ -1,5 +1,5 @@
 * {
-  font-family: "IBM Plex Sans Thai", sans-serif;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -40,7 +40,7 @@ input:focus {
   width: 100%;
 }
 .icon-grad {
-  fill: url("#iconGrad");
+  fill: url('#iconGrad');
 }
 
 /* text area */
@@ -148,6 +148,10 @@ input:focus {
   /* border: none; */
 }
 
+/* dark */
+.darkBg {
+  background-color: rgb(46, 46, 49);
+}
 .private {
   box-shadow: 6px 6px 10px rgb(255, 130, 80);
   /* border: 2px solid red; */

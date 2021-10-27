@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import iconCake from "../../../src/images/iconCake.png";
-import iconEmail from "../../images/IconEmail.png";
-import BtnFollow from "./BtnFollow";
-import Line from "./Line";
-import { dateOnly } from "../../service/dateService";
-import { AuthContext } from "../../context/authContext";
-import ProfilePicUi from "../ui/ProfilePicUi";
+import React, { useContext } from 'react';
+import iconCake from '../../../src/images/iconCake.png';
+import iconEmail from '../../images/IconEmail.png';
+import BtnFollow from './BtnFollow';
+import Line from './Line';
+import { dateOnly } from '../../service/dateService';
+import { AuthContext } from '../../context/authContext';
+import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnEditProfile from './BtnEditProfile';
 
 function TitleProfile({ oneUser }) {
   const { user } = useContext(AuthContext);
-
-  console.log(user);
+  // console.log('oneUser', oneUser);
+  // console.log(user);
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
@@ -21,13 +21,13 @@ function TitleProfile({ oneUser }) {
             {/* ProfilePic */}
             <div className=" rounded-full mt-5 lg:mt-0 lg:self-start ">
               <div className="bg-primary-grad rounded-full w-44 h-44 flex justify-center items-center   ">
-                {oneUser.profilePicture ? (
+                {oneUser?.profilePicture ? (
                   <div
                     className="bg-primary-grad  rounded-full border-4 p-20 border-white "
                     style={{
-                      backgroundImage: `url(${oneUser.profilePicture})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
+                      backgroundImage: `url(${oneUser?.profilePicture})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
                     }}
                   ></div>
                 ) : (
@@ -35,6 +35,7 @@ function TitleProfile({ oneUser }) {
                     beforeSize="48"
                     afterSize="48"
                     url="https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png"
+                    id={oneUser?.id}
                   />
                 )}
               </div>
@@ -45,22 +46,20 @@ function TitleProfile({ oneUser }) {
             <div className=" flex flex-col m-7 container items-center lg:items-start  ">
               {/* Name user */}
               <div className="">
-                <p className="text-4xl font-normal capitalize">
-                  {`${oneUser?.firstName} ${oneUser?.lastName}`}
-                </p>
+                <p className="text-4xl font-normal capitalize">{`${oneUser?.firstName} ${oneUser?.lastName}`}</p>
               </div>
               {/* detail user*/}
               <div className="flex mt-2">
                 <div className=" ">
                   {/*birth Date */}
 
-                  {oneUser?.birthDate ?
+                  {oneUser?.birthDate ? (
                     <div className="flex items-end  ">
                       <img src={iconCake} className="mr-4" />
                       <span className=" boxEle capitalize">date of birth</span>
                       <span className="text-gray-400">{dateOnly(oneUser?.birthDate)}</span>
-                    </div> : null
-                  }
+                    </div>
+                  ) : null}
                   {/* Email */}
                   <div className="flex items-center mt-1  ">
                     <img src={iconEmail} className="mr-4" />
@@ -70,10 +69,9 @@ function TitleProfile({ oneUser }) {
                 </div>
                 {/*btn follow */}
                 <div className="absolute top-2 right-2 ">
-                  {user?.id === oneUser.id || <BtnFollow />}
+                  {user?.id === oneUser?.id || <BtnFollow />}
                   <BtnEditProfile />
                 </div>
-
               </div>
             </div>
             {/*end user info */}
@@ -89,7 +87,7 @@ function TitleProfile({ oneUser }) {
             </div>
           )}
           {/*end biography */}
-        </div>;
+        </div>
         {/*end user info */}
       </div>
     </>

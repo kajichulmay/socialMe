@@ -9,36 +9,40 @@ import CommentsContainer from '../Post/CommentsContainer';
 import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
 import axios from '../../config/axios';
+import LikeContainer from './LikeContainer';
 
 function Post(props) {
-  const data = props.data;
+  const { setToggleUpdatePost, data } = props;
+
   const [isEdit, setIsEdit] = useState(false);
 
   const [comment, setComment] = useState([]);
+  const [toggleStateComment, setToggleStateComment] = useState(false);
 
   useEffect(() => {
     const fetchAllCommentInPost = async () => {
       const allComment = await axios.get(`/comment`);
+      // console.log(allComment.data.comment);
       setComment(allComment.data.comment);
     };
     fetchAllCommentInPost();
-  }, []);
-  console.log(comment);
-  const filtercomment = [...comment].filter(item => item.postId === data.id);
+  }, [toggleStateComment]);
+
+  // console.log('below is post by user id');
+  // console.log(data);
+
   return (
     <div
-      className={
-        `lg:w-4/5 w-10/12 relative mx-auto
+      className={`lg:w-4/5 w-10/12 relative mx-auto
     my-16 py-6  rounded-3xl  
-    ${data.status === 'public' ? 'shadow-container' : 'private'}`
-      }
+    ${data.status === 'public' ? 'shadow-container' : 'private'}`}
     >
       {/* post section */}
       <div className="post-section">
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
-            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} />
+            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} id={data?.userId} />
           </div>
 
           {/* name and date */}
@@ -49,41 +53,29 @@ function Post(props) {
         </div>
 
         <button className="absolute right-5 top-3">
-          <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} />
+          <DropdownEditdelete setIsEdit={setIsEdit} postId={data?.id} setToggleUpdatePost={setToggleUpdatePost} />
         </button>
 
         {/* content of post */}
         <div className="py-4">
           {/*condition rendering: message and editPost */}
           {isEdit ? (
-            <EditPostForm content={data.message} setIsEdit={setIsEdit} />
+            <EditPostForm message={data?.message} postId={data?.id} setIsEdit={setIsEdit}
+              setToggleUpdatePost={setToggleUpdatePost}
+            />
           ) : (
-            <p className="px-6">{data.message}</p>
+            <p className="px-6">{data?.message}</p>
           )}
           {/* picture use slick */}
-          {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
+          {data?.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
         </div>
-        {/*end content of post */} = = = = = = = = = =
+        {/*end content of post */}
 
         {/*  */}
         <div className="flex px-6">
-          <div className="flex mr-4 items-center">
-            {/* display recomment */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              className="h-8 w-8 mr-2 text-red-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <p className="text-dark">145 recommend</p>
-          </div>
-          {/* display comment */}
+          {/* display recomment */}
+          <LikeContainer likes={data?.Likes} postId={data?.id} setToggleUpdatePost={setToggleUpdatePost} />
+          {/* display amount comment */}
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,24 +89,24 @@ function Post(props) {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-dark">12 comment</p>
+            <p className="text-dark">{comment.length} comment</p>
           </div>
         </div>
 
         <Line />
-
-        {/* button to Purchase */}
-        <ButtonPurchase userId={data.userId} postId={data.id} />
-
-
-        {/* comment section */}
-
-        {filtercomment.map(item => (
-          <CommentsContainer key={item.id} comment={item} />
-        ))}
-        {/*end comment section */}
-
-        <InputAddComment postId={data.id} />
+        {data.status === 'private' ?
+          <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} />
+          :
+          <>
+            <CommentsContainer postId={data.id} comment={comment} />
+            <InputAddComment
+              postId={data.id}
+              profilePic={data?.User.profilePicture}
+              setToggleStateComment={setToggleStateComment}
+              userId={data?.User.id}
+            />
+          </>
+        }
       </div>
     </div>
   );

@@ -3,24 +3,32 @@ import axios from '../../config/axios';
 
 function EditPostForm(props) {
 
-  //  state: toggle editForm
-  const { setIsEdit, message } = props;
 
-  const initialMsg = message;
-  const [newMsg, setNewMsg] = useState(initialMsg);
+  const { setIsEdit, message, postId, setToggleUpdatePost } = props;
+  const [newMsg, setNewMsg] = useState(message);
 
   // content from state
 
-  // const hdlClickSubmitEditMsg = async () => {
-  //   await axios.put()
-  // };
+  const hdlClickSubmitEditMsg = async () => {
+    try {
+      const body = {
+        message: newMsg
+      };
+      await axios.put(`/post/${postId}`, body);
+      setNewMsg(message);
+      setIsEdit(false);
+      setToggleUpdatePost(cur => !cur);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const hdlChangeMsg = (e) => {
     setNewMsg(e.target.value);
   };
 
   const hdlClickCancel = () => {
-    setNewMsg(initialMsg);
+    setNewMsg(message);
     setIsEdit(false);
   };
 
@@ -44,7 +52,9 @@ function EditPostForm(props) {
           className="capitalize w-1/2 rounded-full shadow-input py-1 text-lg whiteBtnHover text-red-400">
           cancel
         </button>
-        <button className="capitalize w-1/2 rounded-full shadow-input py-1 ml-4 text-lg   bg-primary-grad text-white forhover">
+        <button
+          onClick={hdlClickSubmitEditMsg}
+          className="capitalize w-1/2 rounded-full shadow-input py-1 ml-4 text-lg   bg-primary-grad text-white forhover">
           edit
         </button>
       </div>

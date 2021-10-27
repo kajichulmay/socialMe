@@ -5,10 +5,9 @@ import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
 
-function AddPost({ oneUser }) {
+function AddPost({ oneUser, setToggleUpdatePost }) {
   // const { user } = useContext(AuthContext);
-  const { hdlSubmitCreatePost, } = useContext(PostContext);
-
+  const { hdlSubmitCreatePost } = useContext(PostContext);
 
   const [newPostInput, setNewPostInput] = useState({
     message: '',
@@ -32,7 +31,6 @@ function AddPost({ oneUser }) {
     setPreviewPicPost(clonePreviewPic);
   };
 
-
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
   };
@@ -49,6 +47,7 @@ function AddPost({ oneUser }) {
       }));
       setPicPost([]);
       setPreviewPicPost([]);
+      setToggleUpdatePost(cur => !cur);
     } catch (error) {
       console.log(error);
     }
@@ -63,12 +62,13 @@ function AddPost({ oneUser }) {
         {/* imageProfile */}
         <div className="absolute md:-top-14 md:-left-10 -top-10 -left-8 rounded-full  shadow-container">
           {oneUser?.profilePicture ? (
-            <ProfilePicUi afterSize="28" beforeSize="32" url={oneUser?.profilePicture} />
+            <ProfilePicUi afterSize="28" beforeSize="32" url={oneUser?.profilePicture} id={oneUser?.id} />
           ) : (
             <ProfilePicUi
               afterSize="28"
               beforeSize="32"
               url="https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png"
+              id={oneUser?.id}
             />
           )}
         </div>
@@ -105,15 +105,11 @@ function AddPost({ oneUser }) {
         </div>
 
         {/* {picList} */}
-        <div className="mx-auto w-11/12 "
-        >
+        <div className="mx-auto w-11/12 ">
           <div className="flex justify-center lg:justify-start flex-wrap ">
-            {
-              previewPicPost.map((item, idx) =>
-                <img key={idx} src={item}
-                  className=" p-1 object-cover lg:w-60 lg:h-60 w-2/3" />
-              )
-            }
+            {previewPicPost.map((item, idx) => (
+              <img key={idx} src={item} className=" p-1 object-cover lg:w-60 lg:h-60 w-2/3" />
+            ))}
           </div>
         </div>
 

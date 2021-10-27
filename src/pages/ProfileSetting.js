@@ -10,6 +10,7 @@ import ProfilePicUi from '../components/ui/ProfilePicUi';
 import { userContext } from '../context/userContext';
 import axios from '../config/axios';
 import { useHistory } from 'react-router-dom';
+import Chatbox from '../components/chatbox/Chatbox';
 
 export default function ProfileSetting() {
   const { user } = useContext(AuthContext);

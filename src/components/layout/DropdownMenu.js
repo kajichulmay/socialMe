@@ -1,18 +1,32 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { removeToken } from '../../service/localStorage';
 import { AuthContext } from '../../context/authContext';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
+import { userContext } from '../../context/userContext';
+import DropdownSearchusers from '../dropdown/DropdownSearchusers';
 
-export default function DropdownMenu() {
+export default function DropdownMenu({ alluser }) {
+  // state
+  const [search, setSearch] = useState('');
   const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
   const [toggleSearch, setToggleSearch] = useState('hidden');
+  const { myuser } = useContext(userContext);
+  const handleClickMyProfile = () => {
+    history.push(`/myprofile/${myuser.id}`);
+  };
+  const handleClickProfileSetting = () => {
+    history.push('/profile-setting');
+  };
 
   const handleClickSearch = () => {
     setToggleSearch('');
+  };
+
+  const handleClickCloseSearch = () => {
+    setToggleSearch('hidden');
   };
 
   const handleClickLogout = async () => {
@@ -50,6 +64,7 @@ export default function DropdownMenu() {
 
   return (
     <div className="flex">
+      {search && <DropdownSearchusers alluser={alluser} search={search} setSearch={setSearch} />}
       <div className={`h-auto flex items-center minwidth ${toggleSearch}`}>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor">
           <path
@@ -58,19 +73,22 @@ export default function DropdownMenu() {
             clipRule="evenodd"
           />
         </svg>
-        <input placeholder="search" type="search" className="border-b-2" />
-        <button type="button">
+        <input
+          placeholder="search"
+          type="search"
+          className="border-b-2"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        <button type="button" onClick={handleClickCloseSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-3 w-3 text-gray-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
           </svg>
         </button>
       </div>
@@ -122,38 +140,36 @@ export default function DropdownMenu() {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <NavLink to="/myprofile">
-                    <button
-                      className={`${
-                        active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    >
-                      {active ? (
-                        <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      ) : (
-                        <ProfileInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      )}
-                      Profile
-                    </button>
-                  </NavLink>
+                  <button
+                    onClick={handleClickMyProfile}
+                    className={`${
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
+                      <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    ) : (
+                      <ProfileInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    )}
+                    Profile
+                  </button>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <NavLink to="/profile-setting">
-                    <button
-                      className={`${
-                        active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    >
-                      {active ? (
-                        <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      ) : (
-                        <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      )}
-                      Edit Profile
-                    </button>
-                  </NavLink>
+                  <button
+                    onClick={handleClickProfileSetting}
+                    className={`${
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
+                      <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    ) : (
+                      <EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    )}
+                    Edit Profile
+                  </button>
                 )}
               </Menu.Item>
             </div>
