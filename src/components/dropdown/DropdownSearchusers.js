@@ -1,15 +1,16 @@
-import React from "react";
-import { useHistory } from "react-router";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { userContext } from "../../context/userContext";
 import ProfilePicUi from "../ui/ProfilePicUi";
 
 function DropdownSearchusers({ alluser, search, setSearch }) {
     const findUser = [...alluser]
         .filter(item => item.firstName.toLowerCase().includes(search.toLowerCase()))
         .splice(0, 8);
-
+    const { setUserTrigged } = useContext(userContext);
     const history = useHistory();
     return (
-        <div className="w-96 shadow-md fixed top-16 left-16 rounded-2xl bg-white z-50 ">
+        <div className="w-96 shadow-md fixed top-16 right-0 rounded-2xl bg-white z-50 lg:left-16">
             {findUser.map(item => (
                 <div
                     className="flex items-center p-2 border-b-2 cursor-pointer"

@@ -1,67 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import { timeStampDisplay } from '../../service/dateService';
-function CommentBox() {
+import axios from '../../config/axios';
+import { useParams } from 'react-router-dom';
+import CommentOwner from './CommentOwner';
+import CommentFriends from './CommentFriends';
+function CommentBox({ postId, comment }) {
+  const filterOwner = [...comment].filter(item => item.postId === postId);
+
   return (
-    <>
+    <div className="content-section mt-4 flex flex-col mx-auto px-4 ">
+      {/* owner comment */}
+      {filterOwner.map(item => (
+        <CommentOwner
+          key={item.id}
+          firstName={item.commentUser.firstName}
+          lastName={item.commentUser.lastName}
+          timeCreate={item.createdAt}
+          profile={item.commentUser.profilePicture}
+          message={item.message}
+          userIdComment={item.commentUserId}
+          userId={item.commentUser.id}
+        />
+      ))}
       {/* comment container */}
-      <div className="content-section mt-4 flex flex-col  px-4">
-        {/* comment */}
-        <div className="lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8">
-          <div className="pl-16 flex justify-end items-center">
-            <p className="mr-2 text-lg">Firstname Lastname</p>
-            <p className="text-sm text-gray-500">{timeStampDisplay('2021-10-12 07:13:26')}</p>
-          </div>
-          <div className="relative py-6 px-14 shadow-container rounded-3xl ">
-            <div class="absolute -left-8 -top-8">
-              {/* <img src={portrait} className="rounded-full shadow-input" /> */}
-              <ProfilePicUi beforeSize="20" afterSize="20" url={portrait} />
-            </div>
-
-            {/* name and date */}
-            <div className="comment-container">
-              {/* content post */}
-              <div>
-                <p>
-                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
-                  enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-                </p>
-                img
-              </div>
-            </div>
-          </div>
-        </div>
-        {/*end comment */}
-
-        {/* owner comment */}
-        <div className="lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8 lg:self-end">
-          <div className="flex items-center">
-            <p className="mr-2 text-lg">Firstname Lastname</p>
-            <p className="text-sm text-gray-500">10/28/2020 14:38pm</p>
-          </div>
-          <div className="bg-white relative py-6 px-14 shadow-container rounded-3xl ">
-            <div class="absolute -right-8 -top-8 w-20 h-20">
-              <img src={portrait} className="rounded-full shadow-input" />
-            </div>
-
-
-            <div className="comment-container">
-
-              <div>
-                <p>
-                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis
-                  enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-                </p>
-                <img src="../../images/mockPicPost.png" alt="" />
-              </div>
-              {/* end owner comment */}
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

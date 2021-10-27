@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChatBox from "../myProfile/ChatBox";
 import DropdownEditdelete from "../dropdown/DropdownEditdelete";
 import SimpleSlider from "./SimpleSlider";
@@ -9,24 +9,41 @@ import Line from "../myProfile/Line";
 import CommentsContainer from "../Post/CommentsContainer";
 import EditPostForm from "../Post/EditPostForm";
 import { timeStampDisplay } from "../../service/dateService";
+import axios from "../../config/axios";
 
 function Post(props) {
-    const data = props.data;
+    const { setToggleUpdatePost, data } = props;
+
     const [isEdit, setIsEdit] = useState(false);
 
-    console.log(data);
+    const [comment, setComment] = useState([]);
+    const [toggleStateComment, setToggleStateComment] = useState(false);
+
+    useEffect(() => {
+        const fetchAllCommentInPost = async () => {
+            const allComment = await axios.get(`/comment`);
+            setComment(allComment.data.comment);
+        };
+        fetchAllCommentInPost();
+    }, [toggleStateComment]);
 
     return (
         <div
-            className=" lg:w-4/5 w-10/12 relative mx-auto
-    my-16 py-6 shadow-container rounded-3xl "
+            className={`lg:w-4/5 w-10/12 relative mx-auto
+    my-16 py-6  rounded-3xl  
+    ${data.status === "public" ? "shadow-container" : "private"}`}
         >
             {/* post section */}
             <div className="post-section">
                 {/* display profile */}
                 <div class="ml-14">
                     <div class="absolute -left-8 -top-8">
-                        <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} />
+                        <ProfilePicUi
+                            beforeSize="24"
+                            afterSize="20"
+                            url={data?.User.profilePicture}
+                            id={data?.userId}
+                        />
                     </div>
 
                     {/* name and date */}
@@ -37,7 +54,11 @@ function Post(props) {
                 </div>
 
                 <button className="absolute right-5 top-3">
-                    <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} />
+                    <DropdownEditdelete
+                        setIsEdit={setIsEdit}
+                        postId={data.id}
+                        setToggleUpdatePost={setToggleUpdatePost}
+                    />
                 </button>
 
                 {/* content of post */}
@@ -49,8 +70,7 @@ function Post(props) {
                         <p className="px-6">{data.message}</p>
                     )}
                     {/* picture use slick */}
-
-                    {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} /> : null}
+                    {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
                 </div>
                 {/*end content of post */}
 
@@ -92,15 +112,19 @@ function Post(props) {
 
                 <Line />
 
-                {/* comment section */}
-                <CommentsContainer />
+                <CommentsContainer postId={data.id} comment={comment} />
 
                 {/* button to Purchase */}
-                <ButtonPurchase userId={data.userId} postId={data.id} />
+                <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} />
 
                 {/*end comment section */}
 
-                <InputAddComment />
+                <InputAddComment
+                    postId={data.id}
+                    profilePic={data?.User.profilePicture}
+                    setToggleStateComment={setToggleStateComment}
+                    userId={data?.User.id}
+                />
             </div>
         </div>
     );

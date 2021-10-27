@@ -1,26 +1,53 @@
-import React from 'react';
+import axios from '../../config/axios';
+import React, { useState, useContext, useEffect } from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
-function InputAddComment() {
+import { userContext } from '../../context/userContext';
+function InputAddComment({ postId, profilePic, setToggleStateComment, userId }) {
+  const [message, setMessage] = useState('');
+  const [userComment, setUserComment] = useState();
+
+  useEffect(() => {
+    const fetchUserAccount = async () => {
+      const userAccont = await axios.get('/user/oneUser');
+      setUserComment(userAccont.data.oneUser);
+    };
+
+    fetchUserAccount();
+  }, []);
+
+  const handleClickcreateComment = async postId => {
+    try {
+      await axios.post(`/comment/create`, { commentUserId: userComment.id, message, postId });
+      setToggleStateComment(cur => !cur);
+      setMessage('');
+    } catch (err) {
+      console.dir(err);
+    }
+  };
   return (
     <>
       {/*input comment section */}
       <div className=" mt-4 w-11/12 flex mx-auto  items-center">
         <div class="mr-2">
-          <ProfilePicUi url={portrait} afterSize={12} beforeSize={12} />
+          <ProfilePicUi url={profilePic} afterSize={12} beforeSize={12} id={userId} />
           {/* <img src={portrait} className="rounded-full" /> */}
         </div>
         <div className="w-full relative">
-
           <input
             type="text"
             className="border w-full rounded-full border-red-400 shadow-input pl-5 p-1
           focus:outline-none focus:ring-2 focus:ring--300 animate-pulse "
             placeholder="Write a  comment..."
+            onChange={e => setMessage(e.target.value)}
+            value={message}
           />
 
-          <button className="absolute right-0 h-full forhover
-          bg-primary-grad forhover rounded-full shadow-lgm-auto px-6">
+          <button
+            className="absolute right-0 h-full forhover
+          bg-primary-grad forhover rounded-full shadow-lgm-auto px-6"
+            onClick={() => handleClickcreateComment(postId)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 transform rotate-90 text-white"
