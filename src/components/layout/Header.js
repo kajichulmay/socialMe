@@ -133,10 +133,10 @@ function Header({ children }) {
               </svg>
               <input
                 className={` w-60 text-base  rounded-full outline-none h-full maxwidth ${
-                  dark ? 'dark-bg-none-alpha placeholder-white' : 'bg-white'
+                  dark ? 'dark-bg-none-alpha placeholder-white focus:text-white ' : 'bg-white'
                 }`}
                 type="text"
-                placeholder="search people"
+                placeholder="Search ME"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />

@@ -5,17 +5,19 @@ import BtnFollow from './BtnFollow';
 import Line from './Line';
 import { dateOnly } from '../../service/dateService';
 import { AuthContext } from '../../context/authContext';
+import { DarkContext } from '../../context/DarkContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnEditProfile from './BtnEditProfile';
 
 function TitleProfile({ oneUser }) {
   const { user } = useContext(AuthContext);
+  const { dark } = useContext(DarkContext);
   console.log('oneUser', oneUser);
   console.log(user);
   return (
     <>
-      <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
-        <div className="bg-white profile-title w-full shadow-container relative">
+      <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto">
+        <div className={`${dark ? 'dark-bg' : ''} profile-title w-full shadow-container relative`}>
           {/* top section */}
           <div className="flex flex-col lg:flex-row justify-center items-center">
             {/* ProfilePic */}
@@ -23,7 +25,9 @@ function TitleProfile({ oneUser }) {
               <div className="bg-primary-grad rounded-full w-44 h-44 flex justify-center items-center   ">
                 {oneUser?.profilePicture ? (
                   <div
-                    className="bg-primary-grad  rounded-full border-4 p-20 border-white "
+                    className={`bg-primary-grad  rounded-full border-4 p-20 ${
+                      dark ? 'border-gray-800' : 'border-white'
+                    } `}
                     style={{
                       backgroundImage: `url(${oneUser?.profilePicture})`,
                       backgroundSize: 'cover',

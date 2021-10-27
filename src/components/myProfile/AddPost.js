@@ -4,10 +4,12 @@ import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
+import { DarkContext } from '../../context/DarkContext';
 
 function AddPost({ oneUser, setToggleUpdatePost }) {
   // const { user } = useContext(AuthContext);
   const { hdlSubmitCreatePost } = useContext(PostContext);
+  const { dark, darkBg2 } = useContext(DarkContext);
 
   const [newPostInput, setNewPostInput] = useState({
     message: '',
@@ -49,7 +51,7 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">
       <div
-        className={`pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
+        className={`pt-4 pb-6 w-3/4 flex flex-col ${dark ? 'dark-bg' : 'bg-white'} justify-center
       rounded-2xl relative ${newPostInput.status === 'public' ? 'shadow-container' : 'private'}`}
       >
         {/* imageProfile */}
@@ -84,9 +86,9 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
         mx-auto mb-4 w-10/12"
         >
           <textarea
-            className="textInput w-full h-36 border rounded-3xl border-red-400 pt-3  shadow-lg pl-3
-              focus:outline-none focus:ring-1 focus:ring-red-400 placeholder-gray-500
-              placeholder-opacity-75"
+            className={`textInput w-full h-36 border rounded-3xl border-red-400 pt-3  shadow-lg pl-3
+              focus:outline-none focus:ring-1 focus:ring-red-400 
+              placeholder-opacity-75 ${dark ? 'dark-bg placeholder-gray-200' : 'placeholder-gray-500'}`}
             value={newPostInput.message}
             onChange={e => hdlChangeMessageInput(e)}
             placeholder="what on your mind..."

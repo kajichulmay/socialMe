@@ -6,11 +6,11 @@ const DarkContextProvider = ({ children }) => {
 
   const darkTextOnly = dark ? 'dark-text' : '';
   const darkTextDark = dark ? 'dark-text' : 'text-dark';
-
+  const darkBg = dark ? 'dark-bg dark-text' : '';
   const darkBg2 = dark ? 'dark-bg2' : '';
 
   return (
-    <DarkContext.Provider value={{ dark, setDark, darkTextOnly, darkTextDark, darkBg2 }}>
+    <DarkContext.Provider value={{ dark, setDark, darkTextOnly, darkTextDark, darkBg2, darkBg }}>
       {children}
     </DarkContext.Provider>
   );

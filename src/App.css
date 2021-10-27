@@ -149,9 +149,7 @@ input:focus {
 }
 
 /* dark */
-.darkBg {
-  background-color: rgb(46, 46, 49);
-}
+
 .private {
   box-shadow: 6px 6px 10px rgb(255, 130, 80);
   /* border: 2px solid red; */
