@@ -1,40 +1,64 @@
 import React, { useContext, useState } from 'react';
-import imageProfile from '../../mockData/image/mockProfile.png';
 import photoIcon from '../../images/photoIcon.png';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnTogglePostType from './BtnTogglePostType';
 import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
 
-function AddPost() {
+function AddPost(props) {
+  const { myAccountUser } = props;
   const { user } = useContext(AuthContext);
-  const { hdlSubmitCreatePost, newPostInput, setNewPostInput, } = useContext(PostContext);
+  const { hdlSubmitCreatePost,
+    // newPostInput, setNewPostInput,
+    // previewPicPost, setPreviewPicPost, picPost, setPicPost
+  } = useContext(PostContext);
+  const [newPostInput, setNewPostInput] = useState({
+    message: '',
+    status: 'public',
+  });
   const [picPost, setPicPost] = useState([]);
   const [previewPicPost, setPreviewPicPost] = useState([]);
 
+
+
+  // set previewPic and dataPic for createpost
   const handleChangeInputPic = e => {
-    // setPicPost(e.target.files[0]);
+    const clonePicPost = [...picPost];
+    clonePicPost.push(e.target.files[0]);
+    setPicPost(clonePicPost);
     const clonePreviewPic = [...previewPicPost];
     clonePreviewPic.push(URL.createObjectURL(e.target.files[0]));
-    // console.log(clonePreviewPic);
     setPreviewPicPost(clonePreviewPic);
   };
-  // console.log(picPost);
-  console.log(previewPicPost);
 
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
   };
 
+  const hdlClickCreatePost = async () => {
+    try {
+      await hdlSubmitCreatePost(newPostInput, picPost);
+      setNewPostInput(cur => ({
+        ...cur,
+        message: '',
+        status: 'public',
+      }));
+      setPicPost([]);
+      setPreviewPicPost([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">
       <div
-        className="pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
-      rounded-2xl shadow-container relative"
+        className={`pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
+      rounded-2xl relative ${newPostInput.status === 'public' ? 'shadow-container' : 'private'}`}
       >
         {/* imageProfile */}
         <div className="absolute md:-top-14 md:-left-10 -top-10 -left-8 rounded-full  shadow-container">
-          <ProfilePicUi afterSize="28" beforeSize="32" url={user?.profilePicture} />
+          <ProfilePicUi afterSize="28" beforeSize="32" url={myAccountUser?.profilePicture} />
         </div>
 
         {/* name and publicBtn top sector */}
@@ -43,7 +67,7 @@ function AddPost() {
         items-end mb-5 mx-auto w-11/12"
         >
           <div className="">
-            <p className="text-2xl pl-20 font-normal capitalize">{`${user?.firstName} ${user?.lastName}`}</p>
+            <p className="text-2xl pl-20 font-normal capitalize">{`${myAccountUser?.firstName} ${myAccountUser?.lastName}`}</p>
           </div>
 
           {/* ButtonPublic or Exclusive*/}
@@ -70,15 +94,12 @@ function AddPost() {
           <div className="flex justify-center lg:justify-start flex-wrap ">
             {
               previewPicPost.map((item, idx) =>
-                <img src={item} className=" p-1
-              object-cover lg:w-60 lg:h-60 w-2/3" />
-
+                <img key={idx} src={item}
+                  className=" p-1 object-cover lg:w-60 lg:h-60 w-2/3" />
               )
             }
           </div>
         </div>
-
-
 
         {/* bottom btn sector */}
         <div
@@ -90,14 +111,10 @@ function AddPost() {
             <input type="file" id="" multiple className="hidden" />
             <img src={photoIcon} />
           </label>
-          {/* <div className="cursor-pointer">
-            <input type="file" name="" id="" multiple />
-            <img src={photoIcon} />
-          </div> */}
 
           {/* Button Send Post */}
           <button
-            onClick={() => hdlSubmitCreatePost(newPostInput)}
+            onClick={hdlClickCreatePost}
             className="rounded-full shadow-input px-8 py-1 bg-primary-grad forhover flex items-center "
           >
             <svg

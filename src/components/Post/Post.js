@@ -14,12 +14,15 @@ function Post(props) {
   const data = props.data;
   const [isEdit, setIsEdit] = useState(false);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div
-      className=" lg:w-4/5 w-10/12 relative mx-auto
-    my-16 py-6 shadow-container rounded-3xl "
+      className={
+        `lg:w-4/5 w-10/12 relative mx-auto
+    my-16 py-6  rounded-3xl  
+    ${data.status === 'public' ? 'shadow-container' : 'private'}`
+      }
     >
       {/* post section */}
       <div className="post-section">
@@ -49,8 +52,7 @@ function Post(props) {
             <p className="px-6">{data.message}</p>
           )}
           {/* picture use slick */}
-
-          {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} /> : null}
+          {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
         </div>
         {/*end content of post */}
 
@@ -91,16 +93,14 @@ function Post(props) {
         </div>
 
         <Line />
-
-        {/* comment section */}
-        {/* <CommentsContainer /> */}
-
-        {/* button to Purchase */}
-        <ButtonPurchase userId={data.userId} postId={data.id} />
-
-        {/*end comment section */}
-
-        <InputAddComment />
+        {data.status === 'public' ?
+          <>
+            <CommentsContainer />
+            <InputAddComment />
+          </>
+          :
+          <ButtonPurchase userId={data.userId} postId={data.id} />
+        }
       </div>
     </div>
   );

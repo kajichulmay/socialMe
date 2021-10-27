@@ -9,14 +9,8 @@ const PostContextProvider = ({ children }) => {
   const { spinner, setSpinner } = useContext(SpinnerContext);
   const { user } = useContext(AuthContext);
 
-  // currentPost for edit and delete
-  const [newPostInput, setNewPostInput] = useState({
-    message: '',
-    status: 'public',
-  });
 
   const [refreshFeed, setRefreshFeed] = useState(false);
-
   const togleReFeed = () => setRefreshFeed(cur => !cur);
 
   const getAllMyPost = async () => {
@@ -54,7 +48,7 @@ const PostContextProvider = ({ children }) => {
   };
 
   // createPost -> addPost component
-  const hdlSubmitCreatePost = async infoCreatePost => {
+  const hdlSubmitCreatePost = async (infoCreatePost, picPost) => {
     if (!infoCreatePost.message.trim()) return window.alert('pls input message');
     try {
       setSpinner(true);
@@ -62,15 +56,16 @@ const PostContextProvider = ({ children }) => {
       formData.append("userId", user.id);
       formData.append("message", infoCreatePost.message);
       formData.append("status", infoCreatePost.status);
-      // img
-      // formData.append("imageUrl", );
+      picPost.forEach(item => formData.append("picPostUrl", item));
       await axios.post('/post', formData);
-      setNewPostInput(cur => ({
-        ...cur,
-        message: '',
-        status: 'public',
-      }));
+      // setNewPostInput(cur => ({
+      //   ...cur,
+      //   message: '',
+      //   status: 'public',
+      // }));
       setSpinner(false);
+      // setPicPost([]);
+      // setPreviewPicPost([]);
       togleReFeed();
     } catch (error) {
       window.alert(error);
@@ -108,8 +103,6 @@ const PostContextProvider = ({ children }) => {
         getPostByUserId,
         getPostByFollow,
         getAllMyPost,
-        newPostInput,
-        setNewPostInput,
         hdlEditPost,
         hdlDeletePost,
         refreshFeed,

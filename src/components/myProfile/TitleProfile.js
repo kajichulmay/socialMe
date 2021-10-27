@@ -4,13 +4,16 @@ import iconEmail from '../../images/IconEmail.png';
 import BtnFollow from './BtnFollow';
 import Line from './Line';
 import { dateOnly } from '../../service/dateService';
-import { AuthContext } from '../../context/authContext';
+// import { AuthContext } from '../../context/authContext';
 import BtnEditProfile from './BtnEditProfile';
-import axios from 'axios';
+// import axios from 'axios';
 
 function TitleProfile(props) {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const { myAccountUser } = props;
+
+
+
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
@@ -37,7 +40,7 @@ function TitleProfile(props) {
               {/* Name user */}
               <div className="flex ">
                 <p className="text-4xl font-normal capitalize">{`${myAccountUser?.firstName} ${myAccountUser?.lastName}`}</p>
-                <BtnEditProfile />
+
               </div>
               {/* detail user*/}
               <div className="flex mt-2">
@@ -59,19 +62,24 @@ function TitleProfile(props) {
                   </div>
                 </div>
                 {/*btn follow */}
-                <BtnFollow />
+                <div className="absolute top-2 right-2 ">
+                  {/* <BtnFollow /> */}
+                  <BtnEditProfile />
+                </div>
               </div>
             </div>
             {/*end user info */}
           </div>
 
           {/* bottom section biography */}
-          {/* <div className="-mt-8">
-            <Line title="about me" self="center" />
-            <div className="pb-8 px-8 text-gray-500">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptate quam ipsam, inventore corrupti, nemo eveniet obcaecati, temporibus repudiandae quae nisi dignissimos iure ex perferendis qui! Eveniet commodi quam dolorem. Officia porro incidunt, laborum eaque error autem harum cupiditate. Quasi accusantium, velit numquam blanditiis tempora assumenda modi voluptatibus id aperiam.</p>
-            </div>
-          </div> */}
+          {myAccountUser?.bio ?
+            <div className="-mt-8">
+              <Line title="about me" self="center" />
+              <div className="pb-8 px-8 text-gray-500 text-center">
+                <p>{myAccountUser.bio}</p>
+              </div>
+            </div> : null
+          }
           {/*end biography */}
         </div>
         {/*end user info */}

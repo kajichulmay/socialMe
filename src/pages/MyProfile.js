@@ -18,7 +18,7 @@ function MyProfile() {
     const fetchMyuserAccount = async () => {
       try {
         const myAccount = await axios.get('/user/oneUser');
-        console.log('dsdsd', myAccount.data);
+        // console.log('dsdsd', myAccount.data);
         setMyAccountUser(myAccount.data.oneUser);
       } catch (err) {
         console.dir(err);
@@ -39,7 +39,7 @@ function MyProfile() {
             <TitleProfile myAccountUser={myAccountUser} />
             {/*end personalProfile */}
             <Line title="Create Post" />
-            <AddPost />
+            <AddPost myAccountUser={myAccountUser} />
             <Line title="news feed" />
             <FeedContainer />
           </div>

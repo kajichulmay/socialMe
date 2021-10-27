@@ -21,10 +21,10 @@ export default function DropdownEditdelete(props) {
             });
             if (isConfirmed) {
                 hdlDeletePost(postId);
-                togleReFeed();
-                window.alert('deteled success');
-                return;
             }
+            window.alert('deteled success');
+            togleReFeed();
+            return;
         } catch (error) {
             console.log(error);
         }
