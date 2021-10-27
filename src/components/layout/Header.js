@@ -70,7 +70,7 @@ function Header({ children }) {
         {/* welcome left */}
 
         {user ? (
-          <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">
+          <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden  ">
             Welcome {myuser?.firstName}
           </div>
         ) : (
@@ -110,7 +110,9 @@ function Header({ children }) {
       <div className={`flex items-center ${user ? '' : 'hidden'}`}>
         {/* welcome right */}
         {user ? (
-          <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome {myuser?.firstName}</div>
+          <div className="text-base text-dark font-normal flex-shrink maxwidth  dark:text-red-300">
+            Welcome {myuser?.firstName}
+          </div>
         ) : (
           <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
         )}
