@@ -4,14 +4,18 @@ import { removeToken } from '../../service/localStorage';
 import { AuthContext } from '../../context/authContext';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
+import { userContext } from '../../context/userContext';
+import DropdownSearchusers from '../dropdown/DropdownSearchusers';
 
-export default function DropdownMenu() {
+export default function DropdownMenu({ alluser }) {
+  // state
+  const [search, setSearch] = useState('');
   const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
   const [toggleSearch, setToggleSearch] = useState('hidden');
-
+  const { myuser } = useContext(userContext);
   const handleClickMyProfile = () => {
-    history.push('/myprofile');
+    history.push(`/myprofile/${myuser.id}`);
   };
   const handleClickProfileSetting = () => {
     history.push('/profile-setting');
@@ -60,6 +64,7 @@ export default function DropdownMenu() {
 
   return (
     <div className="flex">
+      {search && <DropdownSearchusers alluser={alluser} search={search} setSearch={setSearch} />}
       <div className={`h-auto flex items-center minwidth ${toggleSearch}`}>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor">
           <path
@@ -68,7 +73,13 @@ export default function DropdownMenu() {
             clipRule="evenodd"
           />
         </svg>
-        <input placeholder="search" type="search" className="border-b-2" />
+        <input
+          placeholder="search"
+          type="search"
+          className="border-b-2"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
         <button type="button" onClick={handleClickCloseSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

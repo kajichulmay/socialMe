@@ -12,10 +12,12 @@ import { timeStampDisplay } from '../../service/dateService';
 import axios from '../../config/axios';
 
 function Post(props) {
-  const data = props.data;
+  const { setToggleUpdatePost, data } = props;
+
   const [isEdit, setIsEdit] = useState(false);
 
   const [comment, setComment] = useState([]);
+  const [toggleStateComment, setToggleStateComment] = useState(false);
 
   useEffect(() => {
     const fetchAllCommentInPost = async () => {
@@ -23,23 +25,20 @@ function Post(props) {
       setComment(allComment.data.comment);
     };
     fetchAllCommentInPost();
-  }, []);
-  console.log(comment);
-  const filtercomment = [...comment].filter(item => item.postId === data.id);
+  }, [toggleStateComment]);
+
   return (
     <div
-      className={
-        `lg:w-4/5 w-10/12 relative mx-auto
+      className={`lg:w-4/5 w-10/12 relative mx-auto
     my-16 py-6  rounded-3xl  
-    ${data.status === 'public' ? 'shadow-container' : 'private'}`
-      }
+    ${data.status === 'public' ? 'shadow-container' : 'private'}`}
     >
       {/* post section */}
       <div className="post-section">
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
-            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} />
+            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} id={data?.userId} />
           </div>
 
           {/* name and date */}
@@ -50,7 +49,7 @@ function Post(props) {
         </div>
 
         <button className="absolute right-5 top-3">
-          <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} />
+          <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} setToggleUpdatePost={setToggleUpdatePost} />
         </button>
 
         {/* content of post */}
@@ -104,16 +103,19 @@ function Post(props) {
 
         <Line />
 
-        {filtercomment.map(item => (
-          <CommentsContainer key={item.id} comment={item} />
-        ))}
+        <CommentsContainer postId={data.id} comment={comment} />
 
         {/* button to Purchase */}
-        <ButtonPurchase userId={data.userId} postId={data.id} />
+        <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} />
 
         {/*end comment section */}
 
-        <InputAddComment postId={data.id} />
+        <InputAddComment
+          postId={data.id}
+          profilePic={data?.User.profilePicture}
+          setToggleStateComment={setToggleStateComment}
+          userId={data?.User.id}
+        />
       </div>
     </div>
   );
