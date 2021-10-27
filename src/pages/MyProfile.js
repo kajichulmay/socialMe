@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Chatbox from '../components/myProfile/ChatBox';
 import AddPost from '../components/myProfile/AddPost';
 import Line from '../components/myProfile/Line';
@@ -7,41 +7,47 @@ import FeedContainer from '../components/Post/FeedContainer';
 import Spinner from '../components/spinner/Spinner';
 import { SpinnerContext } from '../context/SpinnerContext';
 import axios from '../config/axios';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
-import { userContext } from '../context/userContext';
 function MyProfile() {
+  // state
+  const [oneUser, setOneUser] = useState({});
+  const [allmypost, setAllmypost] = useState([]);
+  // params
+  const { id } = useParams();
+
+  // fetch
+  useEffect(() => {
+    const fetchOneuser = async () => {
+      const res = await axios.get(`/user/otherUser/${id}`);
+      const mypost = await axios.get(`/post/${id}`);
+      setOneUser(res.data.getOtherUser);
+      setAllmypost(mypost.data.myPostList);
+    };
+    fetchOneuser();
+  }, [id]);
+
+  // spinner
   const { spinner } = useContext(SpinnerContext);
   const { user } = useContext(AuthContext);
-  const [myAccountUser, setMyAccountUser] = useState();
-
-  useEffect(() => {
-    const fetchMyuserAccount = async () => {
-      try {
-        const myAccount = await axios.get('/user/oneUser');
-        console.log('dsdsd', myAccount.data);
-        setMyAccountUser(myAccount.data.oneUser);
-      } catch (err) {
-        console.dir(err);
-      }
-    };
-    fetchMyuserAccount();
-  }, []);
 
   return (
     <div className="w-full lg:flex justify-center h-screen ">
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
-      <div class="w-full flex overflow-hidden ">
+      <div class="w-full flex overflow-hidden outline-black">
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
           <div class="py-8 lg:px-8 px-0 mt-10">
             {/* personalProfile */}
-            <TitleProfile myAccountUser={myAccountUser} />
+            <TitleProfile oneUser={oneUser} />
             {/*end personalProfile */}
-            <Line title="Create Post" />
-            <AddPost />
+
+            {user?.id === oneUser?.id && <Line title="create post" />}
+            {user?.id === oneUser?.id && <AddPost oneUser={oneUser} />}
+
             <Line title="news feed" />
-            <FeedContainer />
+            <FeedContainer allmypost={allmypost} />
           </div>
         </div>
         {/* <!-- Fixed sidebar --> */}

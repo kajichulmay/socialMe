@@ -1,11 +1,11 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useContext } from "react";
 import Swal from 'sweetalert2';
+import { PostContext } from "../../context/postContext";
 
 export default function DropdownEditdelete(props) {
-    const { setIsEdit } = props;
-
-
+    const { hdlDeletePost, togleReFeed } = useContext(PostContext);
+    const { setIsEdit, postId } = props;
 
     const handleClickDelPost = async () => {
         try {
@@ -19,7 +19,12 @@ export default function DropdownEditdelete(props) {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Delete!',
             });
-            console.log(isConfirmed);
+            if (isConfirmed) {
+                hdlDeletePost(postId);
+            }
+            window.alert('deteled success');
+            togleReFeed();
+            return;
         } catch (error) {
             console.log(error);
         }

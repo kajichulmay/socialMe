@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
@@ -9,15 +9,30 @@ import Line from '../myProfile/Line';
 import CommentsContainer from '../Post/CommentsContainer';
 import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
+import axios from '../../config/axios';
 
 function Post(props) {
   const data = props.data;
   const [isEdit, setIsEdit] = useState(false);
 
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    const fetchAllCommentInPost = async () => {
+      const allComment = await axios.get(`/comment`);
+      setComment(allComment.data.comment);
+    };
+    fetchAllCommentInPost();
+  }, []);
+  console.log(comment);
+  const filtercomment = [...comment].filter(item => item.postId === data.id);
   return (
     <div
-      className=" lg:w-4/5 w-10/12 relative mx-auto
-    my-16 py-6 shadow-container rounded-3xl "
+      className={
+        `lg:w-4/5 w-10/12 relative mx-auto
+    my-16 py-6  rounded-3xl  
+    ${data.status === 'public' ? 'shadow-container' : 'private'}`
+      }
     >
       {/* post section */}
       <div className="post-section">
@@ -35,7 +50,7 @@ function Post(props) {
         </div>
 
         <button className="absolute right-5 top-3">
-          <DropdownEditdelete setIsEdit={setIsEdit} />
+          <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} />
         </button>
 
         {/* content of post */}
@@ -47,7 +62,7 @@ function Post(props) {
             <p className="px-6">{data.message}</p>
           )}
           {/* picture use slick */}
-          {data.picUrl ? <SimpleSlider picUrl={data?.picUrl} /> : null}
+          {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
         </div>
         {/*end content of post */}
 
@@ -89,15 +104,16 @@ function Post(props) {
 
         <Line />
 
-        {/* comment section */}
-        {/* <CommentsContainer /> */}
+        {filtercomment.map(item => (
+          <CommentsContainer key={item.id} comment={item} />
+        ))}
 
         {/* button to Purchase */}
         <ButtonPurchase userId={data.userId} postId={data.id} />
 
         {/*end comment section */}
 
-        <InputAddComment />
+        <InputAddComment postId={data.id} />
       </div>
     </div>
   );

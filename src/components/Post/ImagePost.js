@@ -1,29 +1,33 @@
 import React from 'react';
-import imgSlide1 from '../../mockData/image/slide1.jpg';
 import Swal from 'sweetalert2';
 function ImagePost(props) {
+  const { picUrl, status, setPhotoIdx, setIsOpen, idx } = props;
+  // const hdlClickOpenModalPicture = (src) => {
+  //   if (props.status === 'private') return;
+  //   Swal.fire({
+  //     imageUrl: src,
+  //     showConfirmButton: false,
+  //     keydownListenerCapture: true
+  //   });
+  // };
 
-  const hdlClickOpenModalPicture = (src) => {
-    console.log('open modal');
-    Swal.fire({
-      imageUrl: src,
-      showConfirmButton: false,
-    });
+  const hdlClickOpenModal = () => {
+    if (props.status === 'private') return;
+    setPhotoIdx(idx);
+    setIsOpen(true);
   };
-
 
   return (
     <>
-      <div className="bg-red-500" >
+      <div className="bg-gray-500" >
         {/* if private  add className  filter  blur-3xl */}
-        <img src={props.picUrl}
-          className="w-full object-cover"
+        <img src={picUrl}
+          className={`w-full object-cover ${status === 'private' ? 'blur' : ''}`}
           style={{
             height: '500px'
           }}
-          onClick={() => hdlClickOpenModalPicture(props.picUrl)}
+          onClick={hdlClickOpenModal}
         />
-        {/* <img src={props.picUrl} className="w-full  filter  blur-3xl " /> */}
       </div>
     </>
   );
