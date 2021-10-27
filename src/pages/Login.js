@@ -9,8 +9,11 @@ import validator from 'validator';
 
 import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
+import { userContext } from '../context/userContext';
 
 function Login() {
+  const { setUserTrigged } = useContext(userContext);
+
   // state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -105,6 +108,7 @@ function Login() {
         });
         setToken(res.data.token);
         setUser(jwtDecode(res.data.token));
+        setUserTrigged(cur => !cur);
         history.push('/newsfeed');
       }
     } catch (err) {

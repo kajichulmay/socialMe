@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import iconLock from '../../images/iconLock.png';
 import ImagePost from './ImagePost';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 function SimpleSlider(props) {
 
-  const { picUrl } = props;
+  const { picUrl, status } = props;
+
+  const [photoIdx, setPhotoIdx] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   // console.log(picUrl);
 
   const settings = {
@@ -15,20 +20,43 @@ function SimpleSlider(props) {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
 
   };
 
 
   return (
     <div className="w-full  my-5 relative ">
-      {/* <div className="absolute  z-10 right-1/2 top-1/2  ">
+      {status === 'private' ? <div className="absolute  z-10 right-1/2 top-1/2  ">
         <img src={iconLock} className="origin-center transform translate-x-6 animate-pulse" />
-      </div> */}
+      </div> : null
+      }
 
       <Slider {...settings}>
         {picUrl ?
-          picUrl.map(item => <ImagePost picUrl={item} />) : null}
+          picUrl.map((item, idx) => <ImagePost idx={idx}
+            setIsOpen={setIsOpen} setPhotoIdx={setPhotoIdx} picUrl={item} status={status} />) : null}
       </Slider>
+
+      {isOpen && (
+        <Lightbox
+          mainSrc={picUrl[photoIdx]}
+          nextSrc={picUrl[(photoIdx + 1) % picUrl.length]}
+          prevSrc={picUrl[(photoIdx + picUrl.length - 1) % picUrl.length]}
+          onCloseRequest={(e) => {
+            e.preventDefault();
+            setIsOpen(false);
+          }
+          }
+          onMovePrevRequest={() =>
+            setPhotoIdx((photoIdx + picUrl.length - 1) % picUrl.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIdx((photoIdx + 1) % picUrl.length)
+          }
+        />
+      )}
     </div>
   );
 }

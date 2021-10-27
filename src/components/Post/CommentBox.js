@@ -21,6 +21,7 @@ function CommentBox({ postId, comment }) {
           profile={item.commentUser.profilePicture}
           message={item.message}
           userIdComment={item.commentUserId}
+          userId={item.commentUser.id}
         />
       ))}
       {/* comment container */}

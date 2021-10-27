@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import imageProfile from '../../mockData/image/mockProfile.png';
 import photoIcon from '../../images/photoIcon.png';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnTogglePostType from './BtnTogglePostType';
@@ -7,28 +6,62 @@ import { PostContext } from '../../context/postContext';
 import { AuthContext } from '../../context/authContext';
 
 function AddPost({ oneUser, setToggleUpdatePost }) {
-  const { user } = useContext(AuthContext);
-  const { hdlSubmitCreatePost, newPostInput, setNewPostInput } = useContext(PostContext);
+  // const { user } = useContext(AuthContext);
+  const { hdlSubmitCreatePost } = useContext(PostContext);
+
+  const [newPostInput, setNewPostInput] = useState({
+    message: '',
+    status: 'public',
+  });
+  const [picPost, setPicPost] = useState([]);
+  const [previewPicPost, setPreviewPicPost] = useState([]);
+
+  // set previewPic and dataPic for createpost
+  const handleChangeInputPic = e => {
+    const clonePicPost = [...picPost];
+    clonePicPost.push(e.target.files[0]);
+    setPicPost(clonePicPost);
+    const clonePreviewPic = [...previewPicPost];
+    clonePreviewPic.push(URL.createObjectURL(e.target.files[0]));
+    setPreviewPicPost(clonePreviewPic);
+  };
 
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
   };
 
+  const hdlClickCreatePost = async () => {
+    try {
+      await hdlSubmitCreatePost(newPostInput, picPost);
+      setNewPostInput(cur => ({
+        ...cur,
+        message: '',
+        status: 'public',
+      }));
+      setPicPost([]);
+      setPreviewPicPost([]);
+      setToggleUpdatePost(cur => !cur);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">
       <div
-        className="pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
-      rounded-2xl shadow-container relative"
+        className={`pt-4 pb-6 w-3/4 flex flex-col bg-white justify-center
+      rounded-2xl relative ${newPostInput.status === 'public' ? 'shadow-container' : 'private'}`}
       >
         {/* imageProfile */}
         <div className="absolute md:-top-14 md:-left-10 -top-10 -left-8 rounded-full  shadow-container">
           {oneUser?.profilePicture ? (
-            <ProfilePicUi afterSize="28" beforeSize="32" url={oneUser?.profilePicture} />
+            <ProfilePicUi afterSize="28" beforeSize="32" url={oneUser?.profilePicture} id={oneUser?.id} />
           ) : (
             <ProfilePicUi
               afterSize="28"
               beforeSize="32"
               url="https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png"
+              id={oneUser?.id}
             />
           )}
         </div>
@@ -60,19 +93,29 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
           />
         </div>
 
+        {/* {picList} */}
+        <div className="mx-auto w-11/12 ">
+          <div className="flex justify-center lg:justify-start flex-wrap ">
+            {previewPicPost.map((item, idx) => (
+              <img key={idx} src={item} className=" p-1 object-cover lg:w-60 lg:h-60 w-2/3" />
+            ))}
+          </div>
+        </div>
+
         {/* bottom btn sector */}
         <div
           className="flex justify-between
         items-center  mx-auto w-11/12"
         >
           {/* Button Add Photo */}
-          <div className="cursor-pointer">
+          <label className="cursor-pointer" onChange={handleChangeInputPic}>
+            <input type="file" id="" multiple className="hidden" />
             <img src={photoIcon} />
-          </div>
+          </label>
 
           {/* Button Send Post */}
           <button
-            onClick={() => hdlSubmitCreatePost(newPostInput)}
+            onClick={hdlClickCreatePost}
             className="rounded-full shadow-input px-8 py-1 bg-primary-grad forhover flex items-center "
           >
             <svg
