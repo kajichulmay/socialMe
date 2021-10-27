@@ -53,14 +53,14 @@ function TitleProfile({ oneUser }) {
               <div className="flex mt-2">
                 <div className=" ">
                   {/*birth Date */}
-                  {oneUser?.birthDate ? (
+
+                  {oneUser?.birthDate ?
                     <div className="flex items-end  ">
                       <img src={iconCake} className="mr-4" />
                       <span className=" boxEle capitalize">date of birth</span>
                       <span className="text-gray-400">{dateOnly(oneUser?.birthDate)}</span>
-                    </div>
-                  ) : null}
-
+                    </div> : null
+                  }
                   {/* Email */}
                   <div className="flex items-center mt-1  ">
                     <img src={iconEmail} className="mr-4" />
