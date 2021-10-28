@@ -41,7 +41,7 @@ function NewsFeed() {
   // console.log(`all`, all);
 
   return (
-    <div className="w-full lg:flex justify-center h-screen ">
+    <div className="2xl:container w-full lg:flex justify-center h-screen ">
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">
         {/* <!-- Scrollable container --> */}
