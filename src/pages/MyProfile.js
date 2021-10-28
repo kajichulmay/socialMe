@@ -47,7 +47,7 @@ function MyProfile() {
     <div className="w-full lg:flex justify-center h-screen ">
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
-      <div class="w-full flex overflow-hidden outline-black">
+      <div class="w-full flex overflow-hidden ">
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
           <div class="py-8 lg:px-8 px-0 mt-10">

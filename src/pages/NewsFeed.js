@@ -24,6 +24,7 @@ function NewsFeed() {
     };
     fetchOneuser();
   }, [id]);
+
   return (
     <div className="w-full lg:flex justify-center h-screen ">
       {/* <!-- Scroll wrapper --> */}

@@ -42,6 +42,9 @@ input:focus {
 .icon-grad {
   fill: url('#iconGrad');
 }
+.hoverBtnMyProfile:hover {
+  background-color: rgba(223, 215, 215, 0.37);
+}
 
 /* text area */
 

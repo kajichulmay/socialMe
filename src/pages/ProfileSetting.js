@@ -33,6 +33,7 @@ export default function ProfileSetting() {
   const [checkOldPassword, setCheckOldPassword] = useState('');
   const [tempUser, setTempUser] = useState({});
   const history = useHistory();
+  const { myuser } = useContext(userContext);
 
   useEffect(() => {
     const fetchUserAccount = async () => {
@@ -156,8 +157,6 @@ export default function ProfileSetting() {
     setPreviewProfile(URL.createObjectURL(e.target.files[0]));
   };
 
-  console.log(previewProfile);
-
   return (
     <div className="w-full px-4 pt-16 bg-secondary mt-10">
       <div className=" max-w-xl p-5 mx-auto bg-white border-50">
@@ -199,10 +198,11 @@ export default function ProfileSetting() {
                     onChange={e => setFirstName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
+                      editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                      }`}
+                    }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">First name</p>
@@ -217,10 +217,11 @@ export default function ProfileSetting() {
                     onChange={e => setLastName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
+                      editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                      }`}
+                    }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">Last name</p>
@@ -237,10 +238,11 @@ export default function ProfileSetting() {
                     onChange={e => setBirthDate(e.target.value)}
                     readOnly={!editMode}
                     type="date"
-                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
+                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
+                      editMode
                         ? 'bg-white focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'bg-white cursor-not-allowed focus:outline-none'
-                      }`}
+                    }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4 ">
                     <p className="text-red-600 text-dark text-xs font-normal">Birth date</p>
@@ -255,10 +257,11 @@ export default function ProfileSetting() {
                     value={bio}
                     onChange={e => setBio(e.target.value)}
                     readOnly={!editMode}
-                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${editMode
+                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${
+                      editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'focus:outline-none  cursor-not-allowed'
-                      }`}
+                    }`}
                   />
                   <div class="absolute top-2 p-1 bg-white left-4  ">
                     <p className="text-red-600 text-dark text-xs font-normal h-">Biography</p>
@@ -294,78 +297,86 @@ export default function ProfileSetting() {
           </div>
         </form>
         <div>
-          <div className="mt-5">
-            <Disclosure>
-              {({ open }) => (
-                <>
-                  <Disclosure.Button className="flex justify-between w-auto px-4 py-2 text-xs text-left text-dark-thin font-thin ">
-                    <ChevronUpIcon className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
-                    <span>Change password ?</span>
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                    <form onSubmit={handleClickResetPassword} className="mt-10 mb-10 ">
-                      <div className=" w-1/3">Reset your password</div>
-                      <div className="w-full flex ">
-                        <div className="w-1/2">
-                          <div className="mx-3 mt-5">
-                            <div class="relative">
-                              <input
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                                className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
-                              />
-                              <div class="absolute top-2 p-1 bg-white left-4 ">
-                                <p className="text-red-600 text-dark text-xs font-normal">New password</p>
+          <div className="mt-5 p-3">
+            {!myuser?.googleId && (
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-auto px-4 py-2 text-xs text-left text-dark-thin font-thin ">
+                      <ChevronUpIcon className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
+                      <span>Change password ?</span>
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                      <form onSubmit={handleClickResetPassword} className="mt-10 mb-10 ">
+                        <div className=" w-1/3">Reset your password</div>
+                        <div className="w-full flex ">
+                          <div className="w-1/2">
+                            <div className="mx-3 mt-5">
+                              <div class="relative">
+                                <input
+                                  value={password}
+                                  onChange={e => setPassword(e.target.value)}
+                                  type="password"
+                                  className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                />
+                                <div class="absolute top-2 p-1 bg-white left-4 ">
+                                  <p className="text-red-600 text-dark text-xs font-normal">New password</p>
+                                </div>
                               </div>
+                              {validateNewPassword && (
+                                <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateNewPassword}</p>
+                              )}
                             </div>
-                            {validateNewPassword && (
-                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateNewPassword}</p>
-                            )}
+                            <div className="mx-3 mt-3">
+                              <div class="relative">
+                                <input
+                                  value={confirmPassword}
+                                  onChange={e => setConfirmPassword(e.target.value)}
+                                  type="password"
+                                  className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                />
+                                <div class="absolute top-2 p-1 bg-white left-4 ">
+                                  <p className="text-red-600 text-dark text-xs font-normal">Confirm new password</p>
+                                </div>
+                              </div>
+                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateConfirmNewPassword}</p>
+                            </div>
                           </div>
-                          <div className="mx-3 mt-3">
-                            <div class="relative">
-                              <input
-                                value={confirmPassword}
-                                onChange={e => setConfirmPassword(e.target.value)}
-                                type="password"
-                                className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
-                              />
-                              <div class="absolute top-2 p-1 bg-white left-4 ">
-                                <p className="text-red-600 text-dark text-xs font-normal">Confirm new password</p>
+                          <div className="w-1/2">
+                            <div className="mx-3 mt-5">
+                              <div class="relative">
+                                <input
+                                  value={currentPassword}
+                                  onChange={e => setCurrentPassword(e.target.value)}
+                                  type="password"
+                                  className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                                />
+                                <div class="absolute top-2 p-1 bg-white left-4 ">
+                                  <p className="text-red-600 text-dark text-xs font-normal">Current password</p>
+                                </div>
                               </div>
+                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
                             </div>
-                            <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateConfirmNewPassword}</p>
+                            <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-20">
+                              <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
+                                Reset password
+                              </button>
+                              {alert}
+                            </div>
                           </div>
                         </div>
-                        <div className="w-1/2">
-                          <div className="mx-3 mt-5">
-                            <div class="relative">
-                              <input
-                                value={currentPassword}
-                                onChange={e => setCurrentPassword(e.target.value)}
-                                type="password"
-                                className="w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
-                              />
-                              <div class="absolute top-2 p-1 bg-white left-4 ">
-                                <p className="text-red-600 text-dark text-xs font-normal">Current password</p>
-                              </div>
-                            </div>
-                            <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
-                          </div>
-                          <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-20">
-                            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
-                              Reset password
-                            </button>
-                            {alert}
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </Disclosure.Panel>
-                </>
-              )}
-            </Disclosure>
+                      </form>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+            )}
+            <button
+              className="flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5  "
+              onClick={() => history.push(`/myprofile/${myuser?.id}`)}
+            >
+              Back to My Profile
+            </button>
           </div>
         </div>
       </div>

@@ -83,7 +83,7 @@ function TitleProfile({ oneUser }) {
           {oneUser?.bio && (
             <div className="-mt-8">
               <Line title="about me" self="center" />
-              <div className="pb-8 px-8 text-gray-500">
+              <div className="pb-8 px-8 text-gray-500 break-words ">
                 <p>{oneUser.bio}</p>
               </div>
             </div>
