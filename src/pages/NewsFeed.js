@@ -42,7 +42,7 @@ function NewsFeed() {
           <div class="py-8 lg:px-8 px-0 mt-10">
             {/* feed container */}
             <Line title="Post someting About me" />
-            <AddPost oneUser={oneUser} />
+            <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />
             <Line title="news feed" />
             <PostNewfeedsContainer allPost={allPost} setToggleUpdatePost={setToggleUpdatePost} />
             {/*news feed container */}
