@@ -17,7 +17,7 @@ function MyProfile() {
   // params
   const params = useParams();
   const { userId } = params;
-  // console.log('params', params);
+  console.log('params', params);
 
   // fetch
   useEffect(() => {

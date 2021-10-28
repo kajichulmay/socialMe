@@ -194,3 +194,22 @@ input:focus {
     height: 92vh;
   }
 }
+
+.textarea-none {
+  resize: none;
+  height: 50px;
+  overflow-y: hidden;
+  /* border: 2px solid black; */
+  border-top: solid 1px rgb(238, 231, 235);
+}
+
+/* darkmode*/
+
+.dark-bg {
+  /* background-color: rgb(14, 24, 39); */
+  /* background-color: rgb(53, 53, 53); */
+  /* background-color: rgb(53, 54, 58); */
+  background-color: rgb(32, 33, 36);
+  /* background-color: rgb(61, 64, 67); */
+  /* background-color: rgb(44, 44, 44); */
+}
