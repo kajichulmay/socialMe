@@ -115,15 +115,13 @@ function Header({ children }) {
               user ? '' : 'hidden'
             }`}
           >
-            <div
-              className={`flex items-center rounded-full  bg-white h-full  ${dark ? 'dark-bg-none-alpha' : 'bg-white'}`}
-            >
+            <div className={`flex items-center rounded-full  bg-white h-full  ${dark ? 'dark-bg' : 'bg-white'}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 mx-5"
-                fill={`${dark ? '#181818' : '#fff'}`}
+                fill={`${dark ? '#282828' : '#fff'}`}
                 viewBox="0 0 24 24"
-                stroke="#FF4949"
+                stroke="#ffaa72"
               >
                 <path
                   strokeLinecap="round"
@@ -134,7 +132,7 @@ function Header({ children }) {
               </svg>
               <input
                 className={` w-60 text-base  rounded-full outline-none h-full maxwidth ${
-                  dark ? 'dark-bg-none-alpha placeholder-white focus:text-white ' : 'bg-white'
+                  dark ? 'dark-bg placeholder-white focus:text-white ' : 'bg-white'
                 }`}
                 type="text"
                 placeholder="Search ME"
