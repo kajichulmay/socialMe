@@ -54,6 +54,7 @@ function Header({ children }) {
         confirmButtonText: 'Logout!',
       }).then(result => {
         if (result.isConfirmed) {
+          setDark(false);
           removeToken();
           setUser(null);
           Swal.fire('Logout!', 'Your account has been logout.', 'success');

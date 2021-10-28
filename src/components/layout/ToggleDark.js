@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/authContext';
 import { DarkContext } from '../../context/DarkContext';
+import { userContext } from '../../context/userContext';
 
 export default function ToggleDark() {
   const { dark, setDark } = useContext(DarkContext);
-
+  const { myuser, setUserTrigged } = useContext(userContext);
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">

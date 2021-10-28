@@ -123,7 +123,7 @@ function Login() {
 
   return (
     <div
-      className={`w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16 ${dark ? 'dark-bg' : ''}`}
+      className={`h w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16 ${dark ? 'dark-bg' : ''}`}
     >
       {/* main login container */}
       <div

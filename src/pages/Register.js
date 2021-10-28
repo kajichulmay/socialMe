@@ -96,7 +96,7 @@ function Register() {
   };
 
   return (
-    <div className={`w-full justify-center mt-0 flex lg:h-full lg:mt-20 ${dark ? 'dark-bg' : ''} h`}>
+    <div className={` w-full justify-center mt-0 flex lg:h-full lg:mt-20 ${dark ? 'dark-bg' : ''} h`}>
       {spinner && <Spinner />}
       <div
         className={`shadow-lg w-full flex flex-col ${
