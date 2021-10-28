@@ -49,15 +49,15 @@ export default function ProfileSetting() {
     fetchUserAccount();
   }, []);
 
-  const handleOpenLowerForm = () => {
-    if (!openLowerForm) {
-      SetOpenLowerForm(true);
-      console.log('true');
-    } else {
-      SetOpenLowerForm(false);
-      console.log('false');
-    }
-  };
+  // const handleOpenLowerForm = () => {
+  //   if (!openLowerForm) {
+  //     SetOpenLowerForm(true);
+  //     console.log('true');
+  //   } else {
+  //     SetOpenLowerForm(false);
+  //     console.log('false');
+  //   }
+  // };
 
   const handleClickSubmitProfile = async e => {
     try {
@@ -169,11 +169,7 @@ export default function ProfileSetting() {
   const dark2 = dark ? 'dark-bg2' : 'bg-white';
 
   return (
-    <div
-      className={`w-full px-4 pt-16 mt-10 ${openLowerForm ? 'h-full' : 'h-screen'}  ${
-        dark ? 'dark-bg' : 'bg-secondary'
-      }`}
-    >
+    <div className={`w-full px-4 pt-16 mt-10  ${dark ? 'dark-bg' : 'bg-secondary'}`}>
       <div className={`${dark ? 'dark-bg2' : 'bg-white'} max-w-xl p-5 mx-auto border-50`}>
         <form onSubmit={handleClickSubmitProfile}>
           <div className="flex items-center">
@@ -312,7 +308,8 @@ export default function ProfileSetting() {
           </div>
         </form>
         <div>
-          <div className="mt-5 p-3" onClick={handleOpenLowerForm}>
+          {/* <div className="mt-5 p-3" onClick={handleOpenLowerForm}> */}
+          <div className="mt-5 p-3">
             <Disclosure>
               {({ open }) => (
                 <>
@@ -371,7 +368,7 @@ export default function ProfileSetting() {
                             </div>
                             <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
                           </div>
-                          <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-20">
+                          <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-10">
                             <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
                               Reset password
                             </button>

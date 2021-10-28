@@ -5,6 +5,7 @@ import axios from '../config/axios';
 import { setToken } from '../service/localStorage';
 import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../context/authContext';
+import { DarkContext } from '../context/DarkContext';
 import validator from 'validator';
 
 import ReactDOM from 'react-dom';
@@ -13,6 +14,7 @@ import { userContext } from '../context/userContext';
 
 function Login() {
   const { setUserTrigged } = useContext(userContext);
+  const { dark } = useContext(DarkContext);
 
   // state
   const [email, setEmail] = useState('');
@@ -119,7 +121,9 @@ function Login() {
   };
 
   return (
-    <div className="w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16">
+    <div
+      className={`w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16 ${dark ? 'dark-bg' : ''}`}
+    >
       {/* main login container */}
       <div
         className="shadow-lg w-full flex flex-col bg-white
