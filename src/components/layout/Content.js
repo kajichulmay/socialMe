@@ -5,7 +5,10 @@ function Content({ children }) {
   const { dark } = useContext(DarkContext);
   // return <div className={` 2xl:container 2xl:mx-auto flex ${dark ? 'dark-bg' : 'bg-secondary'}`}>{children}</div>;
   return (
-    <div className={` 2xl:container 2xl:mx-auto h-screen flex ${dark ? 'dark-bg' : 'bg-secondary'}`}>{children}</div>
+    <div className={` 2xl:container 2xl:mx-auto  lg:h-screen flex ${dark ? 'dark-bg' : 'bg-secondary'}`}>
+      {/* // <div className={` 2xl:container 2xl:mx-auto  lg:h-full flex ${dark ? 'dark-bg' : 'bg-secondary'}`}> */}
+      {children}
+    </div>
   );
 }
 

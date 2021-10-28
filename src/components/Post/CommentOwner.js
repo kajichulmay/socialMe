@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { timeStampDisplay } from '../../service/dateService';
+import { DarkContext } from '../../context/DarkContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 
 function CommentOwner({ firstName, lastName, timeCreate, profile, message, userIdComment }) {
   const { userId } = useParams();
+  const { dark } = useContext(DarkContext);
 
   return (
     <div
@@ -18,7 +20,7 @@ function CommentOwner({ firstName, lastName, timeCreate, profile, message, userI
         </p>
         <p className="text-sm text-gray-500">{timeStampDisplay(timeCreate)}</p>
       </div>
-      <div className="bg-white relative py-6 px-14 shadow-container rounded-3xl ">
+      <div className={`${dark ? 'dark-bg2-6' : ''} relative py-6 px-14 shadow-container rounded-3xl`}>
         <div class={`${userIdComment === +userId ? 'absolute -right-8 -top-8 w-20 h-20' : 'absolute -left-8 -top-8'}`}>
           <ProfilePicUi beforeSize="20" afterSize="20" url={profile} id={userIdComment} />
         </div>

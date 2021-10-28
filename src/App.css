@@ -174,12 +174,19 @@ input:focus {
   }
 }
 
+.h {
+  height: max-content;
+}
+
 @media screen and (max-width: 1024px) {
   .maxwidth {
     display: none;
   }
   .profile-title {
     border-radius: 0;
+  }
+  .h {
+    height: 100vh;
   }
 }
 
@@ -221,6 +228,10 @@ input:focus {
   background-color: rgba(66, 66, 66);
 }
 
+.dark-bg2-6 {
+  background-color: rgba(99, 99, 99);
+}
+
 .dark-bg3 {
   background-color: rgba(114, 115, 117);
 }
@@ -239,8 +250,4 @@ input:focus {
 
 .dark-bga {
   background-color: rgba(0, 0, 0, 0.45);
-}
-
-.h {
-  height: max-content;
 }

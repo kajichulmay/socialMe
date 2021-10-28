@@ -49,15 +49,15 @@ export default function ProfileSetting() {
     fetchUserAccount();
   }, []);
 
-  // const handleOpenLowerForm = () => {
-  //   if (!openLowerForm) {
-  //     SetOpenLowerForm(true);
-  //     console.log('true');
-  //   } else {
-  //     SetOpenLowerForm(false);
-  //     console.log('false');
-  //   }
-  // };
+  const handleOpenLowerForm = () => {
+    if (!openLowerForm) {
+      SetOpenLowerForm(true);
+      console.log('true');
+    } else {
+      SetOpenLowerForm(false);
+      console.log('false');
+    }
+  };
 
   const handleClickSubmitProfile = async e => {
     try {
@@ -169,7 +169,7 @@ export default function ProfileSetting() {
   const dark2 = dark ? 'dark-bg2' : 'bg-white';
 
   return (
-    <div className={`w-full px-4 pt-16 mt-10  ${dark ? 'dark-bg' : 'bg-secondary'}`}>
+    <div className={`w-full px-4 pt-16 mt-10  h   ${dark ? 'dark-bg' : 'bg-secondary'}`}>
       <div className={`${dark ? 'dark-bg2' : 'bg-white'} max-w-xl p-5 mx-auto border-50`}>
         <form onSubmit={handleClickSubmitProfile}>
           <div className="flex items-center">
@@ -308,79 +308,80 @@ export default function ProfileSetting() {
           </div>
         </form>
         <div>
-          {/* <div className="mt-5 p-3" onClick={handleOpenLowerForm}> */}
-          <div className="mt-5 p-3">
-            <Disclosure>
-              {({ open }) => (
-                <>
-                  <Disclosure.Button className="flex justify-between w-auto px-4 py-2 text-xs text-left text-dark-thin font-thin ">
-                    <ChevronUpIcon className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
-                    <span>Change password ?</span>
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                    <form onSubmit={handleClickResetPassword} className="mt-10 mb-10 ">
-                      <div className=" w-1/3">Reset your password</div>
-                      <div className="w-full flex ">
-                        <div className="w-1/2">
-                          <div className="mx-3 mt-5">
-                            <div class="relative">
-                              <input
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                                className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
-                              />
-                              <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
-                                <p className="text-red-600 text-dark text-xs font-normal">New password</p>
+          <div className="mt-5 p-3" onClick={handleOpenLowerForm}>
+            <div className="mt-5 p-3">
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-auto px-4 py-2 text-xs text-left text-dark-thin font-thin ">
+                      <ChevronUpIcon className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
+                      <span>Change password ?</span>
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                      <form onSubmit={handleClickResetPassword} className="mt-10 mb-10 ">
+                        <div className=" w-1/2">Reset your password</div>
+                        <div className="w-full flex ">
+                          <div className="w-1/2">
+                            <div className="mx-3 mt-5">
+                              <div class="relative">
+                                <input
+                                  value={password}
+                                  onChange={e => setPassword(e.target.value)}
+                                  type="password"
+                                  className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
+                                />
+                                <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
+                                  <p className="text-red-600 text-dark text-xs font-normal">New password</p>
+                                </div>
                               </div>
+                              {validateNewPassword && (
+                                <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateNewPassword}</p>
+                              )}
                             </div>
-                            {validateNewPassword && (
-                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateNewPassword}</p>
-                            )}
+                            <div className="mx-3 mt-3">
+                              <div class="relative">
+                                <input
+                                  value={confirmPassword}
+                                  onChange={e => setConfirmPassword(e.target.value)}
+                                  type="password"
+                                  className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
+                                />
+                                <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
+                                  <p className="text-red-600 text-dark text-xs font-normal">Confirm new password</p>
+                                </div>
+                              </div>
+                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateConfirmNewPassword}</p>
+                            </div>
                           </div>
-                          <div className="mx-3 mt-3">
-                            <div class="relative">
-                              <input
-                                value={confirmPassword}
-                                onChange={e => setConfirmPassword(e.target.value)}
-                                type="password"
-                                className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
-                              />
-                              <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
-                                <p className="text-red-600 text-dark text-xs font-normal">Confirm new password</p>
+                          <div className="w-1/2">
+                            <div className="mx-3 mt-5">
+                              <div class="relative">
+                                <input
+                                  value={currentPassword}
+                                  onChange={e => setCurrentPassword(e.target.value)}
+                                  type="password"
+                                  className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
+                                />
+                                <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
+                                  <p className="text-red-600 text-dark text-xs font-normal">Current password</p>
+                                </div>
                               </div>
+                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
                             </div>
-                            <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateConfirmNewPassword}</p>
+                            <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-10">
+                              <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
+                                Reset password
+                              </button>
+                              {alert}
+                            </div>
                           </div>
                         </div>
-                        <div className="w-1/2">
-                          <div className="mx-3 mt-5">
-                            <div class="relative">
-                              <input
-                                value={currentPassword}
-                                onChange={e => setCurrentPassword(e.target.value)}
-                                type="password"
-                                className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
-                              />
-                              <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
-                                <p className="text-red-600 text-dark text-xs font-normal">Current password</p>
-                              </div>
-                            </div>
-                            <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
-                          </div>
-                          <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-10">
-                            <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
-                              Reset password
-                            </button>
-                            {alert}
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </Disclosure.Panel>
-                </>
-              )}
-            </Disclosure>
+                      </form>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+            </div>
           </div>
         </div>
       </div>
