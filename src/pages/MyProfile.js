@@ -18,7 +18,7 @@ function MyProfile() {
     const params = useParams();
     const { userId } = params;
     console.log("params", params);
-
+    console.log(allmypost);
     // fetch
     useEffect(() => {
         const fetchOneuser = async () => {
@@ -30,8 +30,10 @@ function MyProfile() {
     }, [userId]);
 
     useEffect(() => {
+        console.log(`testtt`);
         const fetchMypost = async () => {
             const mypost = await axios.get(`/post/${userId}`);
+            console.log("mypost", mypost.data);
             setAllmypost(mypost.data.myPostList);
         };
         fetchMypost();
