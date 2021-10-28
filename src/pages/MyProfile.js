@@ -10,6 +10,7 @@ import axios from '../config/axios';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { DarkContext } from '../context/DarkContext';
+import { userContext } from '../context/userContext';
 function MyProfile() {
   // state
   const [oneUser, setOneUser] = useState({});
@@ -22,7 +23,6 @@ function MyProfile() {
   // params
   const params = useParams();
   const { userId } = params;
-  console.log('params', params);
 
   // fetch
   useEffect(() => {
@@ -37,6 +37,7 @@ function MyProfile() {
   useEffect(() => {
     const fetchMypost = async () => {
       const mypost = await axios.get(`/post/${userId}`);
+
       setAllmypost(mypost.data.myPostList);
     };
     fetchMypost();
@@ -44,13 +45,13 @@ function MyProfile() {
 
   // spinner
   const { spinner } = useContext(SpinnerContext);
-  const { user } = useContext(AuthContext);
+  const { myuser } = useContext(userContext);
 
   return (
     <div className={`w-full lg:flex justify-center h-full ${darkBg}`}>
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
-      <div class="w-full flex overflow-hidden outline-black">
+      <div class="w-full flex overflow-hidden ">
         {/* <!-- Scrollable container --> */}
         <div class="w-full overflow-y-scroll">
           <div class="py-8 lg:px-8 px-0 mt-10">
@@ -58,8 +59,8 @@ function MyProfile() {
             <TitleProfile oneUser={oneUser} />
             {/*end personalProfile */}
 
-            {user?.id === oneUser?.id && <Line title="create post" />}
-            {user?.id === oneUser?.id && <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />}
+            {myuser?.id === oneUser?.id && <Line title="create post" />}
+            {myuser?.id === oneUser?.id && <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />}
 
             <Line title="news feed" />
             <FeedContainer allmypost={allmypost} setToggleUpdatePost={setToggleUpdatePost} />

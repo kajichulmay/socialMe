@@ -33,6 +33,7 @@ export default function ProfileSetting() {
   const [tempUser, setTempUser] = useState({});
   const history = useHistory();
   const [openLowerForm, SetOpenLowerForm] = useState(false);
+  const { myuser } = useContext(userContext);
 
   useEffect(() => {
     const fetchUserAccount = async () => {
@@ -57,6 +58,10 @@ export default function ProfileSetting() {
       SetOpenLowerForm(false);
       console.log('false');
     }
+  };
+  const handleClickBackMyProfile = () => {
+    history.push(`/myprofile/${myuser?.id}`);
+    window.location.reload();
   };
 
   const handleClickSubmitProfile = async e => {
@@ -309,7 +314,7 @@ export default function ProfileSetting() {
         </form>
         <div>
           <div className="mt-5 p-3" onClick={handleOpenLowerForm}>
-            <div className="mt-5 p-3">
+            {!myuser?.googleId && (
               <Disclosure>
                 {({ open }) => (
                   <>
@@ -381,7 +386,13 @@ export default function ProfileSetting() {
                   </>
                 )}
               </Disclosure>
-            </div>
+            )}
+            <button
+              className="flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5  "
+              onClick={handleClickBackMyProfile}
+            >
+              Back to My Profile
+            </button>
           </div>
         </div>
       </div>

@@ -1,19 +1,17 @@
 import React from 'react';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import mockFriendsChat from './../../mockData/image/mockFriendsChat.png';
-function FirendsList() {
+function FirendsList({ firstName, lastName, profilePicture, idFriend }) {
   return (
     <div
       className="my-2 w-10/12 flex
     items-center cursor-pointer  mb-2"
     >
-      <ProfilePicUi
-        beforeSize="16"
-        afterSize="16"
-        url="https://www.brighttv.co.th/wp-content/uploads/2021/07/68cfcbafe7074cac914f2556f67ca76e.jpeg"
-      />
+      <ProfilePicUi beforeSize="16" afterSize="16" url={profilePicture} id={idFriend} />
       {/* <img src={mockFriendsChat} className="mr-5" /> */}
-      <span className="font-light text-lg ml-5">Cody Fisher</span>
+      <span className="font-light text-lg ml-5">
+        {firstName} {lastName}
+      </span>
     </div>
   );
 }

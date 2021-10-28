@@ -1,10 +1,10 @@
 import React from 'react';
 import CommentBox from '../Post/CommentBox';
 
-function CommentsContainer({ postId, comment }) {
+function CommentsContainer({ postId, comment, setToggleStateComment }) {
   return (
     <>
-      <CommentBox postId={postId} comment={comment} />
+      <CommentBox postId={postId} comment={comment} setToggleStateComment={setToggleStateComment} />
     </>
   );
 }

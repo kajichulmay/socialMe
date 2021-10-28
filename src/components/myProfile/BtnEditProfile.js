@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { DarkContext } from '../../context/DarkContext';
+import editIcon from '../../images/settingIcon.png';
 
 function BtnEditProfile() {
   const { dark } = useContext(DarkContext);
@@ -16,6 +17,7 @@ function BtnEditProfile() {
         flex justify-center items-center`}
     >
       Edit Profile
+      <img src={editIcon} className="ml-1" />
     </button>
   );
 }

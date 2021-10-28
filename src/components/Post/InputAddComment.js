@@ -3,10 +3,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import { userContext } from '../../context/userContext';
+import { useParams } from 'react-router-dom';
 import { DarkContext } from '../../context/DarkContext';
-function InputAddComment({ postId, profilePic, setToggleStateComment, userId }) {
+function InputAddComment({ postId, setToggleStateComment }) {
   const [message, setMessage] = useState('');
   const [userComment, setUserComment] = useState();
+  const { userId } = useParams();
 
   const { dark } = useContext(DarkContext);
 
@@ -17,7 +19,7 @@ function InputAddComment({ postId, profilePic, setToggleStateComment, userId }) 
     };
 
     fetchUserAccount();
-  }, []);
+  }, [userId]);
 
   const handleClickcreateComment = async postId => {
     try {
@@ -28,13 +30,13 @@ function InputAddComment({ postId, profilePic, setToggleStateComment, userId }) 
       console.dir(err);
     }
   };
+
   return (
     <>
       {/*input comment section */}
       <div className=" mt-4 w-11/12 flex mx-auto  items-center">
         <div class="mr-2">
-          <ProfilePicUi url={profilePic} afterSize={12} beforeSize={12} id={userId} />
-          {/* <img src={portrait} className="rounded-full" /> */}
+          <ProfilePicUi url={userComment?.profilePicture} afterSize={12} beforeSize={12} id={userComment?.id} />
         </div>
         <div className="w-full relative">
           <input

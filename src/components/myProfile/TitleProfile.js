@@ -8,12 +8,16 @@ import { AuthContext } from '../../context/authContext';
 import { DarkContext } from '../../context/DarkContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import BtnEditProfile from './BtnEditProfile';
+import { userContext } from '../../context/userContext';
 
 function TitleProfile({ oneUser }) {
   const { user } = useContext(AuthContext);
   const { dark } = useContext(DarkContext);
   console.log('oneUser', oneUser);
   console.log(user);
+  const { myuser } = useContext(userContext);
+  // console.log('oneUser', oneUser);
+
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto">
@@ -64,6 +68,7 @@ function TitleProfile({ oneUser }) {
                       <span className="text-gray-400">{dateOnly(oneUser?.birthDate)}</span>
                     </div>
                   ) : null}
+
                   {/* Email */}
                   <div className="flex items-center mt-1  ">
                     <img src={iconEmail} className="mr-4" />
@@ -73,8 +78,7 @@ function TitleProfile({ oneUser }) {
                 </div>
                 {/*btn follow */}
                 <div className="absolute top-2 right-2 ">
-                  {user?.id === oneUser?.id || <BtnFollow />}
-                  <BtnEditProfile />
+                  {myuser?.id === oneUser?.id ? <BtnEditProfile /> : <BtnFollow oneUser={oneUser} />}
                 </div>
               </div>
             </div>
@@ -85,14 +89,14 @@ function TitleProfile({ oneUser }) {
           {oneUser?.bio && (
             <div className="-mt-8">
               <Line title="about me" self="center" />
-              <div className="pb-8 px-8 text-gray-500">
+              <div className="pb-8 px-8 text-gray-500 break-words ">
                 <p>{oneUser.bio}</p>
               </div>
             </div>
           )}
           {/*end biography */}
         </div>
-        ;{/*end user info */}
+        {/*end user info */}
       </div>
     </>
   );

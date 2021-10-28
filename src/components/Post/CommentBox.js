@@ -6,7 +6,7 @@ import axios from '../../config/axios';
 import { useParams } from 'react-router-dom';
 import CommentOwner from './CommentOwner';
 import CommentFriends from './CommentFriends';
-function CommentBox({ postId, comment }) {
+function CommentBox({ postId, comment, setToggleStateComment }) {
   const filterOwner = [...comment].filter(item => item.postId === postId);
 
   return (
@@ -17,11 +17,13 @@ function CommentBox({ postId, comment }) {
           key={item.id}
           firstName={item.commentUser.firstName}
           lastName={item.commentUser.lastName}
-          timeCreate={item.createdAt}
+          time={item.updatedAt}
           profile={item.commentUser.profilePicture}
           message={item.message}
           userIdComment={item.commentUserId}
           userId={item.commentUser.id}
+          id={item.id}
+          setToggleStateComment={setToggleStateComment}
         />
       ))}
       {/* comment container */}

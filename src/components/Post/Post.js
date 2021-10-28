@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
 import InputAddComment from './InputAddComment';
@@ -11,6 +10,8 @@ import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
 import { DarkContext } from '../../context/DarkContext';
 import axios from '../../config/axios';
+import LikeContainer from './LikeContainer';
+import { user } from '../../service/localStorage';
 
 function Post(props) {
   const { setToggleUpdatePost, data } = props;
@@ -24,10 +25,26 @@ function Post(props) {
   useEffect(() => {
     const fetchAllCommentInPost = async () => {
       const allComment = await axios.get(`/comment`);
+      // console.log(allComment.data.comment);
       setComment(allComment.data.comment);
     };
     fetchAllCommentInPost();
   }, [toggleStateComment]);
+
+  // Has user bought this post yet?
+
+  console.log(data);
+  const isPurchase = data?.OrderItemPosts.findIndex(item => item?.userId === user?.id) > -1;
+
+  const isPublicAndPurchase = data?.status === 'public' || isPurchase;
+
+  const isOwnerPost = user?.id === data?.userId;
+
+  // console.log(isOwnerPost);
+  // console.log(isPurchase);
+  // console.log('postId', data.id, data.status === 'public' || isPurchase);
+  // console.log(data.status !== 'public');
+  // console.log(data.status !== 'public' && isPurchase);
 
   return (
     <div
@@ -50,42 +67,49 @@ function Post(props) {
           </div>
         </div>
 
-        <button className="absolute right-5 top-3">
-          <DropdownEditdelete setIsEdit={setIsEdit} postId={data.id} setToggleUpdatePost={setToggleUpdatePost} />
-        </button>
+        {isOwnerPost ? (
+          <button className="absolute right-5 top-3">
+            <DropdownEditdelete setIsEdit={setIsEdit} postId={data?.id} setToggleUpdatePost={setToggleUpdatePost} />
+          </button>
+        ) : null}
 
         {/* content of post */}
         <div className="py-4">
           {/*condition rendering: message and editPost */}
           {isEdit ? (
-            <EditPostForm content={data.message} setIsEdit={setIsEdit} />
+            <EditPostForm
+              message={data?.message}
+              postId={data?.id}
+              setIsEdit={setIsEdit}
+              setToggleUpdatePost={setToggleUpdatePost}
+            />
           ) : (
-            <p className="px-6">{data.message}</p>
+            <p className="px-6">{data?.message}</p>
           )}
           {/* picture use slick */}
-          {data.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
+          {data?.picturePost ? (
+            <SimpleSlider
+              isOwnerPost={isOwnerPost}
+              isPurchase={isPurchase}
+              picUrl={data?.picturePost}
+              status={data?.status}
+            />
+          ) : null}
         </div>
         {/*end content of post */}
 
         {/*  */}
         <div className="flex px-6">
-          <div className="flex mr-4 items-center">
-            {/* display recomment */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              className="h-8 w-8 mr-2 text-red-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <p className="text-dark">145 recommend</p>
-          </div>
-          {/* display comment */}
+          {/* display recomment */}
+          <LikeContainer
+            setToggleUpdatePost={setToggleUpdatePost}
+            isOwnerPost={isOwnerPost}
+            likes={data.Likes}
+            isPublicAndPurchase={isPublicAndPurchase}
+            likes={data?.Likes}
+            postId={data?.id}
+          />
+          {/* display amount comment */}
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -99,28 +123,27 @@ function Post(props) {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-dark">12 comment</p>
+            <p className="text-dark">{`${comment.filter(item => item.postId === data?.id).length}
+              comment`}</p>
           </div>
         </div>
 
         <Line />
-
-        <CommentsContainer postId={data.id} comment={comment} />
-
-        {/* button to Purchase */}
-        <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} />
-
-        {/*end comment section */}
-
-        <InputAddComment
-          postId={data.id}
-          profilePic={data?.User.profilePicture}
-          setToggleStateComment={setToggleStateComment}
-          userId={data?.User.id}
-        />
+        {isPublicAndPurchase || isOwnerPost ? (
+          <>
+            <InputAddComment postId={data.id} setToggleStateComment={setToggleStateComment} />
+            <CommentsContainer postId={data.id} comment={comment} setToggleStateComment={setToggleStateComment} />
+          </>
+        ) : (
+          <ButtonPurchase
+            userId={data.userId}
+            postId={data.id}
+            price={data.price}
+            setToggleUpdatePost={setToggleUpdatePost}
+          />
+        )}
       </div>
     </div>
   );
 }
-
 export default Post;
