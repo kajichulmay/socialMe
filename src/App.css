@@ -190,9 +190,9 @@ input:focus {
   .profile-title {
     border-radius: 0;
   }
-  .h {
+  /* .h {
     height: 100vh;
-  }
+  } */
 }
 
 @media screen and (min-width: 1024px) {

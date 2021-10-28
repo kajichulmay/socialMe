@@ -9,8 +9,12 @@ const DarkContextProvider = ({ children }) => {
   const darkBg = dark ? 'dark-bg dark-text' : '';
   const darkBg2 = dark ? 'dark-bg2' : '';
 
+  const toggle = () => {
+    document.body.style.backgroundColor = '#000';
+  };
+
   return (
-    <DarkContext.Provider value={{ dark, setDark, darkTextOnly, darkTextDark, darkBg2, darkBg }}>
+    <DarkContext.Provider value={{ dark, setDark, darkTextOnly, darkTextDark, darkBg2, darkBg, toggle }}>
       {children}
     </DarkContext.Provider>
   );

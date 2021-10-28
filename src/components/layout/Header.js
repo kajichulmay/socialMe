@@ -133,7 +133,7 @@ function Header({ children }) {
               </svg>
               <input
                 className={` w-60 text-base  rounded-full outline-none h-full maxwidth ${
-                  dark ? 'dark-bg placeholder-white focus:text-white ' : 'bg-white'
+                  dark ? 'dark-bg placeholder-white text-white ' : 'bg-white'
                 }`}
                 type="text"
                 placeholder="Search ME"

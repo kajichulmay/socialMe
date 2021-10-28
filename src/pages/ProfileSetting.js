@@ -53,10 +53,8 @@ export default function ProfileSetting() {
   const handleOpenLowerForm = () => {
     if (!openLowerForm) {
       SetOpenLowerForm(true);
-      console.log('true');
     } else {
       SetOpenLowerForm(false);
-      console.log('false');
     }
   };
   const handleClickBackMyProfile = () => {
@@ -174,8 +172,10 @@ export default function ProfileSetting() {
   const dark2 = dark ? 'dark-bg2' : 'bg-white';
 
   return (
-    <div className={`w-full px-4 pt-16 mt-10  h   ${dark ? 'dark-bg' : 'bg-secondary'}`}>
-      <div className={`${dark ? 'dark-bg2' : 'bg-white'} max-w-xl p-5 mx-auto border-50`}>
+    <div
+      className={`w-full px-4 pt-16 mt-10 ${openLowerForm ? 'h' : 'h-screen'} ${dark ? ' dark-bg ' : 'bg-secondary'}`}
+    >
+      <div className={`${dark ? 'dark-bg2' : 'bg-white'} pb-0 max-w-xl p-5 mx-auto border-50  `}>
         <form onSubmit={handleClickSubmitProfile}>
           <div className="flex items-center">
             {/* ============================ */}
@@ -388,7 +388,9 @@ export default function ProfileSetting() {
               </Disclosure>
             )}
             <button
-              className="flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5  "
+              className={`flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5 ${
+                dark ? 'dark-bg3 text-white' : ''
+              }`}
               onClick={handleClickBackMyProfile}
             >
               Back to My Profile

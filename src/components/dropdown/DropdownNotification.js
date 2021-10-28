@@ -11,7 +11,6 @@ export default function DropdownNotification() {
         <div>
           <Menu.Button>
             <div
-              // className=" flex items-center justify-center bg-white hover:bg-gray-200 rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  maxwidth"
               className={`${
                 dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
               } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
@@ -38,8 +37,12 @@ export default function DropdownNotification() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-96 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-1 ">
+          <Menu.Items
+            className={`${
+              dark ? 'dark-bg2 text-white' : ''
+            } absolute right-0 w-96 mt-2 origin-top-right divide-y divide-gray-100 rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          >
+            <div className="px-1">
               <Menu.Item>
                 {({ active }) => (
                   <>

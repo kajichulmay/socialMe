@@ -2,11 +2,13 @@ import axios from '../../config/axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { userContext } from '../../context/userContext';
 import { useParams } from 'react-router-dom';
+import { DarkContext } from '../../context/DarkContext';
 
 function BtnFollow({ oneUser }) {
   const [allfollow, setAllfollow] = useState([]);
   const [toggle, setToggle] = useState(false);
   const { myuser, toggleFollwer, setUserTrigged, setToggleFollwer } = useContext(userContext);
+  const { dark } = useContext(DarkContext);
   //   const { id } = useParams();
   console.log(`oneUser`, oneUser);
   // fetch
@@ -53,7 +55,9 @@ function BtnFollow({ oneUser }) {
       ) : (
         <button
           onClick={handleClickFollow}
-          className="bg-gray-100 text-black p-2 w-28 shadow-md rounded-full flex justify-center"
+          className={`${
+            dark ? 'dark-bg3 text-white' : 'bg-gray-100 text-black'
+          } p-2 w-28 shadow-md rounded-full flex justify-center`}
         >
           Follow
           <svg

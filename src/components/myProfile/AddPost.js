@@ -78,7 +78,9 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
         items-end mb-5 mx-auto w-11/12"
         >
           <div className="">
-            <p className="text-2xl pl-20 font-normal capitalize">{`${oneUser?.firstName} ${oneUser?.lastName}`}</p>
+            <p
+              className={`${dark ? 'text-white' : ''} text-2xl pl-20 font-normal capitalize`}
+            >{`${oneUser?.firstName} ${oneUser?.lastName}`}</p>
           </div>
 
           {/* ButtonPublic or Exclusive*/}
