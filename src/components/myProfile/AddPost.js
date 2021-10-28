@@ -28,6 +28,16 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
     setPreviewPicPost(clonePreviewPic);
   };
 
+  // remove previewPic and dataPic
+  const hdlRemovePreviewPic = idx => {
+    const clonePicPost = [...picPost];
+    clonePicPost.splice(idx, 1);
+    setPicPost(clonePicPost);
+    const clonePreviewPic = [...previewPicPost];
+    clonePreviewPic.splice(idx, 1);
+    setPreviewPicPost(clonePreviewPic);
+  };
+
   const hdlChangeMessageInput = e => {
     setNewPostInput(cur => ({ ...cur, message: e.target.value }));
   };
@@ -99,14 +109,29 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
         </div>
 
         {/* {picList} */}
-        <div className="mx-auto w-11/12 ">
-          <div className="flex justify-center lg:justify-start flex-wrap ">
+        <div className="mx-auto  ">
+          <div className="flex mx-4  justify-center lg:justify-start flex-wrap ">
             {previewPicPost.map((item, idx) => (
-              <img key={idx} src={item} className=" p-1 object-cover lg:w-60 lg:h-60 w-2/3" />
+              <div className="relative">
+                <img key={idx} src={item} className="p-1 object-cover lg:w-60 lg:h-60 w-30" />
+                <div className="absolute right-1 top-1" onClick={() => hdlRemovePreviewPic(idx)}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-10 w-10 text-gray-500 closBtn cursor-pointer"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
             ))}
           </div>
         </div>
-
         {/* bottom btn sector */}
         <div
           className="flex justify-between

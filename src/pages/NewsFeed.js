@@ -10,12 +10,11 @@ import PostNewfeedsContainer from '../components/Post/PostNewfeedsContainer';
 
 function NewsFeed() {
   const [oneUser, setOneUser] = useState({});
-  const [myPost, setMyPost] = useState([]);
-  const [friendsPost, setFriendsPost] = useState([]);
-
-  const all = { ...friendsPost.map((item, index) => item[]) };
+  const [allPost, setAllPost] = useState([]);
+  const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
+  // const all = [...friendsPost.map((item, index) => item[index][index])];
   //context
-  const { myuser } = useContext(userContext);
+  const { myuser, toggleFollwer } = useContext(userContext);
   // fetch
   useEffect(() => {
     const fetchOneuser = async () => {
@@ -28,17 +27,11 @@ function NewsFeed() {
 
   useEffect(() => {
     const fetchMypost = async () => {
-      const res2 = await axios.get(`/follow/getAllFollow`);
-      const res = await axios.get(`/post/mypost`);
-      setMyPost(res.data.myPostList);
-      setFriendsPost(res2.data.allFollow.map(item => item.followera.Posts));
-      // setFriendsPost(res2.data.allFollow.map(item => item.followera.Posts));
+      const res2 = await axios.get(`/post/all`);
+      setAllPost(res2?.data?.allPost);
     };
     fetchMypost();
-  }, []);
-
-  console.log(`friendsPost`, friendsPost);
-  console.log(`all`, all);
+  }, [toggleUpdatePost, toggleFollwer]);
 
   return (
     <div className="w-full lg:flex justify-center h-screen ">
@@ -48,10 +41,10 @@ function NewsFeed() {
         <div class="w-full overflow-y-scroll">
           <div class="py-8 lg:px-8 px-0 mt-10">
             {/* feed container */}
-            <Line title="EIEI" />
+            <Line title="Post someting About me" />
             <AddPost oneUser={oneUser} />
             <Line title="news feed" />
-            {/* <PostNewfeedsContainer allPost={allPost} /> */}
+            <PostNewfeedsContainer allPost={allPost} setToggleUpdatePost={setToggleUpdatePost} />
             {/*news feed container */}
           </div>
         </div>

@@ -1,15 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from '../../config/axios';
-import { AuthContext } from '../../context/authContext';
 
+import { userContext } from '../../context/userContext';
 
 function LikeContainer({ likes, postId, isPublicAndPurchase, isOwnerPost, setToggleUpdatePost }) {
-  const { user } = useContext(AuthContext);
+  const { myuser } = useContext(userContext);
   // const [likes, setLikes] = useState([]);
   // const [toggleRe, setToggleRe] = useState(false);
 
-
-  const isLike = likes.findIndex(item => user.id === item.userId);
+  const isLike = likes?.findIndex(item => myuser?.id === item?.userId);
 
   // useEffect(() => {
   //   const fetchLike = async () => {
@@ -19,13 +18,13 @@ function LikeContainer({ likes, postId, isPublicAndPurchase, isOwnerPost, setTog
   //   fetchLike();
   // }, [toggleRe]);
 
-  const hdlClickAddLike = async (postId) => {
+  const hdlClickAddLike = async postId => {
     await axios.post('/like', { postId });
     setToggleUpdatePost(cur => !cur);
     // setToggleRe(cur => !cur);
   };
 
-  const hdlClickRemoveLike = async (postId) => {
+  const hdlClickRemoveLike = async postId => {
     await axios.delete(`/like/${postId}`);
     setToggleUpdatePost(cur => !cur);
     // setToggleRe(cur => !cur);
@@ -34,18 +33,25 @@ function LikeContainer({ likes, postId, isPublicAndPurchase, isOwnerPost, setTog
   return (
     <>
       <div className="flex mr-4 items-center">
-
-        {isOwnerPost || isPublicAndPurchase ?
-          isLike === -1 ?
+        {isOwnerPost || isPublicAndPurchase ? (
+          isLike === -1 ? (
             // add Like
             <svg
               onClick={() => hdlClickAddLike(postId)}
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 text-red-400 cursor-pointer"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
             </svg>
-            :
+          ) : (
             // remove Like
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,16 +66,24 @@ function LikeContainer({ likes, postId, isPublicAndPurchase, isOwnerPost, setTog
                 clip-rule="evenodd"
               />
             </svg>
-          :
+          )
+        ) : (
           // disable Like
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8 text-gray-300"
-            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
           </svg>
-
-        }
+        )}
 
         {/* {!isPublicAndPurchase ?
             <svg
@@ -103,7 +117,7 @@ function LikeContainer({ likes, postId, isPublicAndPurchase, isOwnerPost, setTog
               </svg>
           } */}
 
-        <p className="text-dark ml-1">{likes.length} recommend</p>
+        <p className="text-dark ml-1">{likes?.length} recommend</p>
       </div>
     </>
   );

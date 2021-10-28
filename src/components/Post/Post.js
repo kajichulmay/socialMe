@@ -29,7 +29,7 @@ function Post(props) {
   }, [toggleStateComment]);
 
   // Has user bought this post yet?
-  const isPurchase = data?.OrderItemPosts.findIndex(item => item?.userId === user?.id) > -1;
+  const isPurchase = data?.OrderItemPosts?.findIndex(item => item.userId === user.id) > -1;
 
   const isPublicAndPurchase = data?.status === 'public' || isPurchase;
 
@@ -52,12 +52,12 @@ function Post(props) {
         {/* display profile */}
         <div class="ml-14">
           <div class="absolute -left-8 -top-8">
-            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User.profilePicture} id={data?.userId} />
+            <ProfilePicUi beforeSize="24" afterSize="20" url={data?.User?.profilePicture} id={data?.userId} />
           </div>
 
           {/* name and date */}
           <div className="pl-5">
-            <p className="text-xl capitalize">{`${data?.User.firstName} ${data?.User.lastName}`}</p>
+            <p className="text-xl capitalize">{`${data?.User?.firstName} ${data?.User?.lastName}`}</p>
             <p className="text-sm text-gray-500">{timeStampDisplay(data?.createdAt)}</p>
           </div>
         </div>
