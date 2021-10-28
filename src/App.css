@@ -45,6 +45,9 @@ input:focus {
 .hoverBtnMyProfile:hover {
   background-color: rgba(223, 215, 215, 0.37);
 }
+.hoverBtnMyProfile:hover {
+  background-color: rgba(223, 215, 215, 0.37);
+}
 
 /* text area */
 
