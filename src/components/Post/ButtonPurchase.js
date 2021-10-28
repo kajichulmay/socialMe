@@ -2,10 +2,14 @@ import React from 'react';
 import axios from '../../config/axios';
 function ButtonPurchase({ userId, postId, price, setToggleUpdatePost }) {
   let OmiseCard = window.OmiseCard;
-  const sumPrice = price * 100;
   const createCreditCard = async (postId, tokenOmise, userId, price) => {
-    await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
-    setToggleUpdatePost(cur => !cur);
+    try {
+      await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
+      setToggleUpdatePost(cur => !cur);
+    } catch (error) {
+      setToggleUpdatePost(cur => !cur);
+    }
+
   };
   const omiseCardfn = () => {
     OmiseCard.configure({
@@ -14,7 +18,7 @@ function ButtonPurchase({ userId, postId, price, setToggleUpdatePost }) {
 
     OmiseCard.configureButton('#purchaseBtn', {
       publicKey: 'OMISE_PUBLIC_KEY',
-      amount: sumPrice,
+      amount: price * 100,
       frameLabel: 'Merchant Name',
       submitLabel: 'Pay',
     });
@@ -23,11 +27,11 @@ function ButtonPurchase({ userId, postId, price, setToggleUpdatePost }) {
   };
   const OpenOmiseCard = () => {
     OmiseCard.open({
-      amount: sumPrice,
+      amount: price * 100,
       submitFormTarget: '#checkout-form',
 
       onCreateTokenSuccess: tokenOmise => {
-        createCreditCard(postId, tokenOmise, userId, sumPrice);
+        createCreditCard(postId, tokenOmise, userId, price);
         /* Handler on token or source creation.  Use this to submit form or send ajax request to server */
       },
       onFormClosed: () => {

@@ -34,7 +34,10 @@ function Post(props) {
 
   const isPublicAndPurchase = data.status === 'public' || isPurchase;
 
-  // console.log(data.message);
+  const isOwnerPost = user.id === data.userId;
+
+
+  // console.log(isOwnerPost);
   // console.log(isPurchase);
   // console.log('postId', data.id, data.status === 'public' || isPurchase);
   // console.log(data.status !== 'public');
@@ -61,9 +64,10 @@ function Post(props) {
           </div>
         </div>
 
-        <button className="absolute right-5 top-3">
+        {isOwnerPost ? <button className="absolute right-5 top-3">
           <DropdownEditdelete setIsEdit={setIsEdit} postId={data?.id} setToggleUpdatePost={setToggleUpdatePost} />
-        </button>
+        </button> : null}
+
 
         {/* content of post */}
         <div className="py-4">
@@ -76,14 +80,14 @@ function Post(props) {
             <p className="px-6">{data?.message}</p>
           )}
           {/* picture use slick */}
-          {data?.picturePost ? <SimpleSlider isPurchase={isPurchase} picUrl={data?.picturePost} status={data?.status} /> : null}
+          {data?.picturePost ? <SimpleSlider isOwnerPost={isOwnerPost} isPurchase={isPurchase} picUrl={data?.picturePost} status={data?.status} /> : null}
         </div>
         {/*end content of post */}
 
         {/*  */}
         <div className="flex px-6">
           {/* display recomment */}
-          <LikeContainer isPublicAndPurchase={isPublicAndPurchase} likes={data?.Likes} postId={data?.id} />
+          <LikeContainer setToggleUpdatePost={setToggleUpdatePost} isOwnerPost={isOwnerPost} likes={data.Likes} isPublicAndPurchase={isPublicAndPurchase} likes={data?.Likes} postId={data?.id} />
           {/* display amount comment */}
           <div className="flex items-center">
             <svg
@@ -104,7 +108,7 @@ function Post(props) {
         </div>
 
         <Line />
-        {isPublicAndPurchase ?
+        {isPublicAndPurchase || isOwnerPost ?
           <>
             <CommentsContainer postId={data.id} comment={comment} />
             <InputAddComment

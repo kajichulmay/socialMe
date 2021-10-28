@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 function ImagePost(props) {
-  const { picUrl, status, setPhotoIdx, setIsOpen, idx, isPurchase } = props;
+  const { picUrl, status, setPhotoIdx, isOwnerPost, setIsOpen, idx, isPurchase } = props;
   const [clientOnMouseDown, setClientOnMouseDown] = useState(null);
 
   const hdlClickOpenModal = () => {
@@ -37,7 +37,8 @@ function ImagePost(props) {
         {/* if private  add className  filter  blur-3xl */}
         <img src={picUrl}
           className={`w-full object-cover
-          ${status === 'private' && !isPurchase ? 'blur' : ''}`}
+          ${isOwnerPost ? '' :
+              status === 'private' && !isPurchase ? 'blur' : ''}`}
           style={{
             height: '500px'
           }}
