@@ -144,6 +144,7 @@ function Header({ children }) {
           </div>
         </div>
         <div className={`${user ? 'hidden' : ''} ${dark ? 'dark-text' : 'text-dark'}  maxwidth`}>Welcome Guest</div>
+
         <div className={`flex items-center ${user ? '' : 'hidden'} `}>
           {/* welcome right */}
           {user ? (
