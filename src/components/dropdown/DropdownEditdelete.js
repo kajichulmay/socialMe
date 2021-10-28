@@ -33,7 +33,7 @@ export default function DropdownEditdelete(props) {
 
   return (
     <div>
-      <Menu as="div" className="relative z-20 inline-block text-left">
+      <Menu as="div" className="relative z-10 inline-block text-left">
         <div>
           <Menu.Button>
             <Dotdropdown />
@@ -55,9 +55,8 @@ export default function DropdownEditdelete(props) {
                 {({ active }) => (
                   <button
                     onClick={() => setIsEdit(cur => !cur)}
-                    className={`${
-                      active ? 'bg-violet-500 text-red-400' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    className={`${active ? 'bg-violet-500 text-red-400' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
                       <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -75,9 +74,8 @@ export default function DropdownEditdelete(props) {
                 {({ active }) => (
                   <button
                     onClick={handleClickDelPost}
-                    className={`${
-                      active ? 'bg-violet-500 text-red-400' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    className={`${active ? 'bg-violet-500 text-red-400' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
                       <DeleteActiveIcon className="w-5 h-5 mr-2 text-red-400" aria-hidden="true" />

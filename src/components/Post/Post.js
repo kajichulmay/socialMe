@@ -10,10 +10,10 @@ import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
 import axios from '../../config/axios';
 import LikeContainer from './LikeContainer';
+import { user } from '../../service/localStorage';
 
 function Post(props) {
   const { setToggleUpdatePost, data } = props;
-
   const [isEdit, setIsEdit] = useState(false);
 
   const [comment, setComment] = useState([]);
@@ -28,8 +28,17 @@ function Post(props) {
     fetchAllCommentInPost();
   }, [toggleStateComment]);
 
-  // console.log('below is post by user id');
-  // console.log(data);
+  // Has user bought this post yet?
+  const isPurchase = data.OrderItemPosts.findIndex(item =>
+    item.userId === user.id) > -1;
+
+  const isPublicAndPurchase = data.status === 'public' || isPurchase;
+
+  // console.log(data.message);
+  // console.log(isPurchase);
+  // console.log('postId', data.id, data.status === 'public' || isPurchase);
+  // console.log(data.status !== 'public');
+  // console.log(data.status !== 'public' && isPurchase);
 
   return (
     <div
@@ -67,14 +76,14 @@ function Post(props) {
             <p className="px-6">{data?.message}</p>
           )}
           {/* picture use slick */}
-          {data?.picturePost ? <SimpleSlider picUrl={data?.picturePost} status={data?.status} /> : null}
+          {data?.picturePost ? <SimpleSlider isPurchase={isPurchase} picUrl={data?.picturePost} status={data?.status} /> : null}
         </div>
         {/*end content of post */}
 
         {/*  */}
         <div className="flex px-6">
           {/* display recomment */}
-          <LikeContainer likes={data?.Likes} postId={data?.id} setToggleUpdatePost={setToggleUpdatePost} />
+          <LikeContainer isPublicAndPurchase={isPublicAndPurchase} likes={data?.Likes} postId={data?.id} />
           {/* display amount comment */}
           <div className="flex items-center">
             <svg
@@ -89,14 +98,13 @@ function Post(props) {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-dark">{comment.length} comment</p>
+            <p className="text-dark">{`${comment.filter(item => item.postId === data?.id).length}
+              comment`}</p>
           </div>
         </div>
 
         <Line />
-        {data.status === 'private' ?
-          <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} />
-          :
+        {isPublicAndPurchase ?
           <>
             <CommentsContainer postId={data.id} comment={comment} />
             <InputAddComment
@@ -105,7 +113,8 @@ function Post(props) {
               setToggleStateComment={setToggleStateComment}
               userId={data?.User.id}
             />
-          </>
+          </> :
+          <ButtonPurchase userId={data.userId} postId={data.id} price={data.price} setToggleUpdatePost={setToggleUpdatePost} />
         }
       </div>
     </div>
