@@ -20,12 +20,12 @@ function BtnTogglePostType(props) {
   return (
     <button
       onClick={hdlToggleType}
-      className="
+      className={`
     border-yellow-400 px-3 w-28 rounded-full flex
-    justify-between shadow-input py-2"
+    justify-between shadow-input py-2 ${dark ? 'dark-bg3' : ''}`}
     >
       <img src={newPostInput.status === 'public' ? unlockIcon : lockIcon} alt="lock icon" />
-      <p className={`ml-1 font-light uppercase text-base text-${dark ? 'white' : 'black'}`}>{newPostInput.status}</p>
+      <p className={`ml-1 font-light uppercase text-base text-${dark ? 'white ' : 'black'}`}>{newPostInput.status}</p>
     </button>
   );
 }

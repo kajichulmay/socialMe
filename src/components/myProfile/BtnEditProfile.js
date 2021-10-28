@@ -12,7 +12,7 @@ function BtnEditProfile() {
   return (
     <button
       onClick={handleClickEditProfile}
-      className={`${dark ? 'dark-bg' : 'bg-white'} rounded-full shadow-input px-3 py-2
+      className={`${dark ? 'dark-bg3' : 'bg-white'} rounded-full shadow-input px-3 py-2
         flex justify-center items-center`}
     >
       Edit Profile

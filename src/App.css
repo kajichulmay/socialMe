@@ -214,6 +214,10 @@ input:focus {
   background-color: rgba(53, 54, 58);
 }
 
+.dark-bg3 {
+  background-color: rgba(114, 115, 117);
+}
+
 .dark-bg-none-alpha {
   background-color: rgb(24, 24, 24);
 }

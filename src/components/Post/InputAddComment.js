@@ -39,8 +39,8 @@ function InputAddComment({ postId, profilePic, setToggleStateComment, userId }) 
         <div className="w-full relative">
           <input
             type="text"
-            className={`border w-full rounded-full border-red-400 shadow-input pl-5 p-1
-          focus:outline-none focus:ring-2 focus:ring--300 animate-pulse ${dark ? 'dark-bg' : ''}`}
+            className={`focus:outline-none border w-full rounded-full border-red-400 shadow-input pl-5 p-1
+           focus:ring-2 focus:ring--300 animate-pulse    ${dark ? 'dark-bg2' : ''}`}
             placeholder="Write a  comment..."
             onChange={e => setMessage(e.target.value)}
             value={message}

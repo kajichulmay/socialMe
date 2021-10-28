@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ChatBox from '../myProfile/ChatBox';
 import DropdownEditdelete from '../dropdown/DropdownEditdelete';
 import SimpleSlider from './SimpleSlider';
@@ -9,10 +9,12 @@ import Line from '../myProfile/Line';
 import CommentsContainer from '../Post/CommentsContainer';
 import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
+import { DarkContext } from '../../context/DarkContext';
 import axios from '../../config/axios';
 
 function Post(props) {
   const { setToggleUpdatePost, data } = props;
+  const { dark } = useContext(DarkContext);
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -31,7 +33,7 @@ function Post(props) {
     <div
       className={`lg:w-4/5 w-10/12 relative mx-auto
     my-16 py-6  rounded-3xl  
-    ${data.status === 'public' ? 'shadow-container' : 'private'}`}
+    ${data.status === 'public' ? 'shadow-container' : 'private'} ${dark ? 'dark-bg2' : ''}`}
     >
       {/* post section */}
       <div className="post-section">

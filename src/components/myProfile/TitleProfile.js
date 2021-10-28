@@ -17,7 +17,7 @@ function TitleProfile({ oneUser }) {
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto">
-        <div className={`${dark ? 'dark-bg' : ''} profile-title w-full shadow-container relative`}>
+        <div className={`${dark ? 'dark-bg2' : ''} profile-title w-full shadow-container relative`}>
           {/* top section */}
           <div className="flex flex-col lg:flex-row justify-center items-center">
             {/* ProfilePic */}

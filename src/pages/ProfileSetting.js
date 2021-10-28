@@ -312,7 +312,7 @@ export default function ProfileSetting() {
           </div>
         </form>
         <div>
-          <div className="mt-5" onClick={handleOpenLowerForm}>
+          <div className="mt-5 p-3" onClick={handleOpenLowerForm}>
             <Disclosure>
               {({ open }) => (
                 <>
