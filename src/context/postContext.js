@@ -8,7 +8,7 @@ const PostContext = createContext();
 const PostContextProvider = ({ children }) => {
   const { spinner, setSpinner } = useContext(SpinnerContext);
   const { user } = useContext(AuthContext);
-
+  const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
   const [refreshFeed, setRefreshFeed] = useState(false);
   const togleReFeed = () => setRefreshFeed(cur => !cur);
 
@@ -22,33 +22,9 @@ const PostContextProvider = ({ children }) => {
     }
   };
 
-  // arr postList by UserId -> profile page
-  const getPostByUserId = async userId => {
-    // try {
-    //   const res = await axios.get(`/post/${userId}`, {
-    //     headers: { authorization: 'Bearer ' + getToken() }
-    //   });
-    //   setPostListByUserId(cur => ({ ...cur, ...res.data }));
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
-
-  // arr postList by follow list -> newsfeed page
-  const getPostByFollow = async userId => {
-    // try {
-    //   const res = await axios.get(`/post/${userId}`, {
-    //     headers: { authorization: 'Bearer ' + getToken() }
-    //   });
-    //   setPostListByUserId(cur => ({ ...cur, ...res.data }));
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
-
   // createPost -> addPost component
   const hdlSubmitCreatePost = async (infoCreatePost, picPost) => {
-    if (!infoCreatePost.message.trim()) return window.alert('pls input message');
+    // if (!infoCreatePost.message.trim()) return window.alert('pls input message');
     try {
       setSpinner(true);
       const formData = new FormData();
@@ -58,36 +34,16 @@ const PostContextProvider = ({ children }) => {
       formData.append('price', infoCreatePost.status === 'private' ? 60 : 0);
       picPost.forEach(item => formData.append('picPostUrl', item));
       await axios.post('/post', formData);
-      // setNewPostInput(cur => ({
-      //   ...cur,
-      //   message: '',
-      //   status: 'public',
-      // }));
       setSpinner(false);
-      // setPicPost([]);
-      // setPreviewPicPost([]);
       togleReFeed();
     } catch (error) {
       window.alert(error);
     }
   };
 
-  // editPost -> editForm component
-  const hdlEditPost = async () => {
-    console.log('click edit post');
-
-    // try {
-    //   await axios.put(`/post/${currentPostId}`, 'somethingEdit', {
-    //     headers: { authorization: 'Bearer ' + getToken() }
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
-
   // del post -> Post component
   const hdlDeletePost = async currentPostId => {
-    console.log('delete post');
+    // console.log('delete post');
     try {
       await axios.delete(`/post/${currentPostId}`);
       togleReFeed();
@@ -99,16 +55,16 @@ const PostContextProvider = ({ children }) => {
   return (
     <PostContext.Provider
       value={{
+        // hdlClickAddLike,
+        // hdlClickRemoveLike,
         hdlSubmitCreatePost,
         hdlDeletePost,
-        getPostByUserId,
-        getPostByFollow,
         getAllMyPost,
-        hdlEditPost,
         hdlDeletePost,
         refreshFeed,
         setRefreshFeed,
         togleReFeed,
+        setToggleUpdatePost,
       }}
     >
       {children}

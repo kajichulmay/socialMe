@@ -50,6 +50,11 @@ export default function ProfileSetting() {
     fetchUserAccount();
   }, []);
 
+  const handleClickBackMyProfile = () => {
+    history.push(`/myprofile/${myuser?.id}`);
+    window.location.reload();
+  };
+
   const handleClickSubmitProfile = async e => {
     try {
       e.preventDefault();
@@ -373,7 +378,7 @@ export default function ProfileSetting() {
             )}
             <button
               className="flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5  "
-              onClick={() => history.push(`/myprofile/${myuser?.id}`)}
+              onClick={handleClickBackMyProfile}
             >
               Back to My Profile
             </button>

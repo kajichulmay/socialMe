@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import editIcon from '../../images/settingIcon.png';
 
 function BtnEditProfile() {
   const history = useHistory();
@@ -11,10 +12,11 @@ function BtnEditProfile() {
     <button
       onClick={handleClickEditProfile}
       className={`bg-white rounded-full shadow-input px-3 py-2
-        flex justify-center items-center 
+        flex justify-center  whiteBtnHover
         `}
     >
       Edit Profile
+      <img src={editIcon} className="ml-1" />
     </button>
   );
 }

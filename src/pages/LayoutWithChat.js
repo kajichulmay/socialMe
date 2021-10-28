@@ -1,12 +1,15 @@
-import React from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import NewsFeed from './NewsFeed';
+import React, { useEffect } from 'react';
+
 import ChatBox from '../components/myProfile/ChatBox';
 import MyProfile from './MyProfile';
+import axios from '../config/axios';
 
 function LayoutWithChat() {
-  const { path, url } = useRouteMatch();
-
+  useEffect(() => {
+    const fetchAllFriends = async () => {
+      const allFriends = axios.get('/follow/');
+    };
+  }, []);
   return (
     <div className="w-full lg:flex justify-center h-screen ">
       {/* <!-- Scroll wrapper --> */}

@@ -1,10 +1,16 @@
 import React from 'react';
 import axios from '../../config/axios';
-function ButtonPurchase({ userId, postId, price }) {
+function ButtonPurchase({ userId, postId, price, setToggleUpdatePost }) {
   let OmiseCard = window.OmiseCard;
 
   const createCreditCard = async (postId, tokenOmise, userId, price) => {
-    await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
+    try {
+      await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
+      setToggleUpdatePost(cur => !cur);
+    } catch (error) {
+      setToggleUpdatePost(cur => !cur);
+    }
+
   };
 
   const omiseCardfn = () => {

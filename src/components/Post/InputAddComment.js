@@ -17,7 +17,7 @@ function InputAddComment({ postId, setToggleStateComment }) {
 
     fetchUserAccount();
   }, [userId]);
-  console.log(userComment);
+
   const handleClickcreateComment = async postId => {
     try {
       await axios.post(`/comment/create`, { commentUserId: userComment.id, message, postId });

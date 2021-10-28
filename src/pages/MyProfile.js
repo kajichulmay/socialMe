@@ -15,9 +15,6 @@ function MyProfile() {
   const [oneUser, setOneUser] = useState({});
   const [allmypost, setAllmypost] = useState([]);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
-  const { spinner } = useContext(SpinnerContext);
-  const { user } = useContext(AuthContext);
-  const { myuser } = useContext(userContext);
   // params
   const params = useParams();
   const { userId } = params;
@@ -35,13 +32,15 @@ function MyProfile() {
   useEffect(() => {
     const fetchMypost = async () => {
       const mypost = await axios.get(`/post/${userId}`);
+
       setAllmypost(mypost.data.myPostList);
     };
     fetchMypost();
   }, [toggleUpdatePost, userId]);
 
   // spinner
-  console.log(`allmypost`, allmypost);
+  const { spinner } = useContext(SpinnerContext);
+  const { myuser } = useContext(userContext);
 
   return (
     <div className="w-full lg:flex justify-center h-screen ">

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { PostContext } from '../../context/postContext';
+import { userContext } from '../../context/userContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 
 function DropdownSearchusers({ alluser, search, setSearch }) {
@@ -8,13 +10,16 @@ function DropdownSearchusers({ alluser, search, setSearch }) {
     .splice(0, 8);
 
   const history = useHistory();
+
+  const handleClickMoveUser = item => {
+    history.push(`/myprofile/${item.id}`);
+    setSearch('');
+    window.location.reload();
+  };
   return (
     <div className="w-96 shadow-md fixed top-16 right-0 rounded-2xl bg-white z-50 lg:left-16">
       {findUser.map(item => (
-        <div
-          className="flex items-center p-2 border-b-2 cursor-pointer"
-          onClick={() => history.push(`/myprofile/${item.id}`, setSearch(''))}
-        >
+        <div className="flex items-center p-2 border-b-2 cursor-pointer" onClick={() => handleClickMoveUser(item)}>
           {item.profilePicture ? (
             <ProfilePicUi beforeSize="16" afterSize="16" url={item.profilePicture} />
           ) : (

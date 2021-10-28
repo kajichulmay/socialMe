@@ -10,10 +10,9 @@ import BtnEditProfile from './BtnEditProfile';
 import { userContext } from '../../context/userContext';
 
 function TitleProfile({ oneUser }) {
-  const { user } = useContext(AuthContext);
   const { myuser } = useContext(userContext);
   // console.log('oneUser', oneUser);
-  // console.log(user);
+
   return (
     <>
       <div className="mt-14 flex  justify-center lg:h-full lg:w-4/5 mx-auto  ">
@@ -62,6 +61,7 @@ function TitleProfile({ oneUser }) {
                       <span className="text-gray-400">{dateOnly(oneUser?.birthDate)}</span>
                     </div>
                   ) : null}
+
                   {/* Email */}
                   <div className="flex items-center mt-1  ">
                     <img src={iconEmail} className="mr-4" />
@@ -71,8 +71,7 @@ function TitleProfile({ oneUser }) {
                 </div>
                 {/*btn follow */}
                 <div className="absolute top-2 right-2 ">
-                  {myuser?.id === oneUser?.id || <BtnFollow />}
-                  {myuser?.id !== oneUser?.id || <BtnEditProfile />}
+                  {myuser?.id === oneUser?.id ? <BtnEditProfile /> : <BtnFollow oneUser={oneUser} />}
                 </div>
               </div>
             </div>
