@@ -13,6 +13,7 @@ import { AuthContext } from '../../context/authContext';
 import { PostContext } from '../../context/postContext';
 import { DarkContext } from '../../context/DarkContext';
 import ToggleDark from './ToggleDark';
+import ToggleDarkFirstPage from './ToggleDarkFirstPage';
 
 function Header({ children }) {
   const { user, setUser } = useContext(AuthContext);
@@ -143,7 +144,15 @@ function Header({ children }) {
             </div>
           </div>
         </div>
-        <div className={`${user ? 'hidden' : ''} ${dark ? 'dark-text' : 'text-dark'}  maxwidth`}>Welcome Guest</div>
+        <div className={`text-gray-500 minwidth ${user ? 'hidden' : ''}`}>
+          <ToggleDarkFirstPage />
+        </div>
+        <div className={`${user ? 'hidden' : ''} ${dark ? 'dark-text' : 'text-dark'}  maxwidth`}>
+          Welcome Guest
+          <span>
+            <ToggleDarkFirstPage />
+          </span>
+        </div>
 
         <div className={`flex items-center ${user ? '' : 'hidden'} `}>
           {/* welcome right */}
@@ -207,7 +216,6 @@ function Header({ children }) {
               </svg>
             </div>
           </div>
-
           {/* dorpdown menu */}
           <DropdownMenu alluser={alluser} />
         </div>
