@@ -123,7 +123,7 @@ function Login() {
 
   return (
     <div
-      className={`h-screen w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16 ${
+      className={`h-login w-full justify-center lg:items-center  flex login-container mt-10 lg:mt-16 ${
         dark ? 'dark-bg' : ''
       }`}
     >
@@ -203,13 +203,14 @@ function Login() {
 
           {/* google login */}
           {/* <div className="relative h-auto w-auto"> */}
-
-          <GoogleLogin
-            clientId="245755252905-umqvniqtv89lhf3mfe95m2jqf2imsh6e.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-          />
+          <div className="google-m p-0 ">
+            <GoogleLogin
+              clientId="245755252905-umqvniqtv89lhf3mfe95m2jqf2imsh6e.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+            />
+          </div>
           {/* </div> */}
 
           {/*end social login sector */}

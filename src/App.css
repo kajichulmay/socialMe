@@ -190,16 +190,25 @@ input:focus {
   .profile-title {
     border-radius: 0;
   }
+  .h-login {
+    height: 120vh;
+  }
   /* .h {
     height: 100vh;
   } */
+
+  .google-m {
+    margin-top: 30px;
+    border-radius: 80px;
+    padding: 0;
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .minwidth {
     display: none;
   }
-  /* login-register container responsive */
+  /* login-register container responsive  */
   .login-container {
     height: 92vh;
   }
