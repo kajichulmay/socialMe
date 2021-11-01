@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../context/authContext';
 import { DarkContext } from '../context/DarkContext';
 import validator from 'validator';
-
+import googleLogo from '../images/googleicon.png';
 import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 import { userContext } from '../context/userContext';
@@ -210,6 +210,16 @@ function Login() {
               buttonText="Login"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
+              render={renderProps => (
+                <button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  className={`${dark ? ' text-white' : ''} w-60   flex items-center `}
+                >
+                  <img src={googleLogo} className="w-10 mr-4" />
+                  Login with google
+                </button>
+              )}
             />
           </div>
           {/* </div> */}

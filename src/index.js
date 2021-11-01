@@ -8,6 +8,7 @@ import { AuthContextProvider } from './context/authContext';
 import { SpinnerContextProvider } from './context/SpinnerContext';
 import { UserContextProvider } from './context/userContext';
 import { DarkContextProvider } from './context/DarkContext';
+
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
