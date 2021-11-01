@@ -3,8 +3,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import ChatList from '../layout/ChatList';
 import FirendsList from '../myProfile/FirendsList';
 import { userContext } from '../../context/userContext';
+import { DarkContext } from '../../context/DarkContext';
 
 function ChatBox() {
+  const { dark } = useContext(DarkContext);
   const { setToggleFollwer, toggleFollwer } = useContext(userContext);
   const [friends, setFriends] = useState([]);
   useEffect(() => {
@@ -17,11 +19,11 @@ function ChatBox() {
 
   // console.log(`friends`, friends);
   return (
-    <div class="lg:w-1/4 lg:block hidden bg-chat-container">
+    <div class={`lg:w-1/4 lg:block hidden bg-chat-container ${dark ? 'dark-bg2' : ''}`}>
       <div className=" mt-24 text-center ">
-        <p className="capitalize text-2xl font-thin mb-5"> your friends</p>
+        <p className={`capitalize text-2xl font-thin mb-5 ${dark ? 'dark-bg2' : 'text-black'}`}>your friends</p>
       </div>
-      <div class="h-5/6 overflow-y-scroll">
+      <div class={`h-5/6 overflow-y-scroll ${dark ? 'dark-bg2' : ''}`}>
         <div class="flex flex-col items-center">
           {friends.map(item => (
             <FirendsList

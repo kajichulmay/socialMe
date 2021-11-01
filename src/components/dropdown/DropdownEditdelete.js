@@ -3,9 +3,11 @@ import { Fragment, useContext } from 'react';
 import Swal from 'sweetalert2';
 import axios from '../../config/axios';
 import { PostContext } from '../../context/postContext';
+import { DarkContext } from '../../context/DarkContext';
 
 export default function DropdownEditdelete(props) {
   const { hdlDeletePost } = useContext(PostContext);
+  const { dark, darkTextOnly } = useContext(DarkContext);
   const { setIsEdit, postId, setToggleUpdatePost } = props;
 
   const handleClickDelPost = async () => {
@@ -56,7 +58,11 @@ export default function DropdownEditdelete(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items
+            className={`${
+              dark ? 'dark-bg3' : ''
+            } absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          >
             {/* edit menu */}
             <div className="px-1 py-1 ">
               <Menu.Item>
@@ -64,8 +70,10 @@ export default function DropdownEditdelete(props) {
                   <button
                     onClick={() => setIsEdit(cur => !cur)}
                     className={`${
-                      active ? 'bg-violet-500 text-red-400' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                      active ? 'text-red-400' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    ${dark && active ? 'text-red-400' : darkTextOnly}
+                    `}
                   >
                     {active ? (
                       <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -84,8 +92,10 @@ export default function DropdownEditdelete(props) {
                   <button
                     onClick={handleClickDelPost}
                     className={`${
-                      active ? 'bg-violet-500 text-red-400' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                      active ? 'text-red-400' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    ${dark && active ? 'text-red-400' : darkTextOnly}
+                    `}
                   >
                     {active ? (
                       <DeleteActiveIcon className="w-5 h-5 mr-2 text-red-400" aria-hidden="true" />
@@ -106,25 +116,36 @@ export default function DropdownEditdelete(props) {
 
 // icon components
 function EditInactiveIcon(props) {
+  const { dark } = useContext(DarkContext);
   return (
     <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#FEF2F2" stroke="#FCA5A5" strokeWidth="2" />
+      <path d="M4 13V16H7L16 7L13 4L4 13Z" fill={`${dark ? '#727375' : '#FEF2F2'}`} stroke="#FCA5A5" strokeWidth="2" />
     </svg>
   );
 }
 
 function EditActiveIcon(props) {
+  const { dark } = useContext(DarkContext);
   return (
     <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#FEF2F2" stroke="#EF4444" strokeWidth="2" />
+      <path d="M4 13V16H7L16 7L13 4L4 13Z" fill={`${dark ? '#727375' : '#FEF2F2'}`} stroke="#EF4444" strokeWidth="2" />
     </svg>
   );
 }
 
 function DeleteInactiveIcon(props) {
+  const { dark } = useContext(DarkContext);
   return (
     <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="5" y="6" width="10" height="10" fill="#FEF2F2" stroke="#FCA5A5" strokeWidth="2" />
+      <rect
+        x="5"
+        y="6"
+        width="10"
+        height="10"
+        fill={`${dark ? '#727375' : '#FEF2F2'}`}
+        stroke="#FCA5A5"
+        strokeWidth="2"
+      />
       <path d="M3 6H17" stroke="#FCA5A5" strokeWidth="2" />
       <path d="M8 6V4H12V6" stroke="#FCA5A5" strokeWidth="2" />
     </svg>
@@ -132,9 +153,18 @@ function DeleteInactiveIcon(props) {
 }
 
 function DeleteActiveIcon(props) {
+  const { dark } = useContext(DarkContext);
   return (
     <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="5" y="6" width="10" height="10" fill="#FEF2F2" stroke="#EF4444" strokeWidth="2" />
+      <rect
+        x="5"
+        y="6"
+        width="10"
+        height="10"
+        fill={`${dark ? '#727375' : '#FEF2F2'}`}
+        stroke="#EF4444"
+        strokeWidth="2"
+      />
       <path d="M3 6H17" stroke="#EF4444" strokeWidth="2" />
       <path d="M8 6V4H12V6" stroke="#EF4444" strokeWidth="2" />
     </svg>

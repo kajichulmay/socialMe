@@ -1,21 +1,25 @@
-import { AuthContext } from '../../context/authContext';
-import { PostContext } from '../../context/postContext';
 import logoHeader from '../../images/logoHeader.png';
 import DropdownNotification from '../dropdown/DropdownNotification';
 import DropdownMenu from './DropdownMenu';
-import Toggle from './Toggle';
-import { useContext, useState, useEffect } from 'react';
-import { removeToken } from '../../service/localStorage';
-import { useHistory, useParams } from 'react-router';
 import Swal from 'sweetalert2';
-import { userContext } from '../../context/userContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import DropdownSearchusers from '../dropdown/DropdownSearchusers';
 import axios from '../../config/axios';
+import { useHistory, useParams } from 'react-router';
+import { useContext, useState, useEffect } from 'react';
+import { removeToken } from '../../service/localStorage';
+import { userContext } from '../../context/userContext';
+import { AuthContext } from '../../context/authContext';
+import { PostContext } from '../../context/postContext';
+import { DarkContext } from '../../context/DarkContext';
+import ToggleDark from './ToggleDark';
+import ToggleDarkFirstPage from './ToggleDarkFirstPage';
+
 function Header({ children }) {
   const { user, setUser } = useContext(AuthContext);
   const { myuser } = useContext(userContext);
   const { togleReFeed } = useContext(PostContext);
+  const { dark, setDark } = useContext(DarkContext);
   const history = useHistory();
   const params = useParams();
   const [search, setSearch] = useState('');
@@ -50,6 +54,7 @@ function Header({ children }) {
         confirmButtonText: 'Logout!',
       }).then(result => {
         if (result.isConfirmed) {
+          setDark(false);
           removeToken();
           setUser(null);
           Swal.fire('Logout!', 'Your account has been logout.', 'success');
@@ -73,7 +78,11 @@ function Header({ children }) {
   return (
     <>
       {search && <DropdownSearchusers alluser={alluser} search={search} setSearch={setSearch} />}
-      <div className="flex bg-white items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5">
+      <div
+        className={`${
+          dark ? 'dark-bg' : 'bg-white'
+        } flex items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5`}
+      >
         <div className="flex items-center h-full">
           {/* logo */}
 
@@ -84,11 +93,21 @@ function Header({ children }) {
           {/* welcome left */}
 
           {user ? (
-            <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden  ">
+            <div
+              className={`text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ${
+                dark ? 'dark-text' : 'text-dark'
+              }`}
+            >
               Welcome {myuser?.firstName}
             </div>
           ) : (
-            <div className="text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ">Welcome Guest</div>
+            <div
+              className={`text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ${
+                dark ? 'dark-text' : 'text-dark'
+              }`}
+            >
+              Welcome Guest
+            </div>
           )}
 
           {/* search */}
@@ -97,13 +116,13 @@ function Header({ children }) {
               user ? '' : 'hidden'
             }`}
           >
-            <div className="flex items-center rounded-full  bg-white h-full  ">
+            <div className={`flex items-center rounded-full  bg-white h-full  ${dark ? 'dark-bg' : 'bg-white'}`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 mx-5"
-                fill="#fff"
+                fill={`${dark ? '#282828' : '#fff'}`}
                 viewBox="0 0 24 24"
-                stroke="#FF4949"
+                stroke="#ffaa72"
               >
                 <path
                   strokeLinecap="round"
@@ -113,33 +132,53 @@ function Header({ children }) {
                 />
               </svg>
               <input
-                className=" w-60 text-base  rounded-full outline-none h-full maxwidth "
+                className={` w-60 text-base  rounded-full outline-none h-full maxwidth ${
+                  dark ? 'dark-bg placeholder-white focus:text-white ' : 'bg-white'
+                }`}
                 type="text"
-                placeholder="search people"
+                placeholder="Search ME"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />
             </div>
           </div>
         </div>
-        <div className={`${user ? 'hidden' : ''} text-dark maxwidth`}>Welcome Guest</div>
-        <div className={`flex items-center ${user ? '' : 'hidden'}`}>
+        <div className={`text-gray-500 minwidth ${user ? 'hidden' : ''}`}>
+          <ToggleDarkFirstPage />
+        </div>
+        <div className={`${user ? 'hidden' : ''} ${dark ? 'dark-text' : 'text-dark'}  maxwidth`}>
+          Welcome Guest
+          <span>
+            <ToggleDarkFirstPage />
+          </span>
+        </div>
+
+        <div className={`flex items-center ${user ? '' : 'hidden'} `}>
           {/* welcome right */}
           {user ? (
-            <div className="text-base text-dark font-normal flex-shrink maxwidth  dark:text-red-300">
+            <div className={`${dark ? 'dark-text' : 'text-dark'} text-base  font-normal flex-shrink maxwidth`}>
               Welcome {myuser?.firstName}
             </div>
           ) : (
-            <div className="text-base text-dark font-normal flex-shrink maxwidth  ">Welcome Guest</div>
+            <div className={`text-base font-normal flex-shrink maxwidth ${dark ? 'dark-text' : 'text-dark'}`}>
+              Welcome Guest
+            </div>
           )}
 
           {/* profile's pic */}
-          <div className={`shadow-input rounded-full mx-3 maxwidth wrapper ${user ? '' : 'hidden'} cursor-pointer`}>
+          <div
+            className={`shadow-input rounded-full mx-3 maxwidth wrapper ${user ? '' : 'hidden'} cursor-pointer 
+            }`}
+          >
             <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} id={myuser?.id} />
           </div>
 
           {/* chat */}
-          <div className=" flex items-center justify-center bg-white hover:bg-gray-200 rounded-full h-9 w-9 shadow-input border border-red-300 maxwidth cursor-pointer ">
+          <div
+            className={`${
+              dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
+            } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
+          >
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20">
                 {gd}
@@ -156,11 +195,13 @@ function Header({ children }) {
           <DropdownNotification />
 
           {/* dark/light mode */}
-          <Toggle />
+          <ToggleDark />
 
           {/* logout */}
           <div
-            className="flex items-center justify-center bg-white hover:bg-gray-200  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 icon-grad maxwidth cursor-pointer "
+            className={`${
+              dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
+            } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
             onClick={handleClickLogout}
           >
             <div>
@@ -174,7 +215,6 @@ function Header({ children }) {
               </svg>
             </div>
           </div>
-
           {/* dorpdown menu */}
           <DropdownMenu alluser={alluser} />
         </div>

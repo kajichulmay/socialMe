@@ -5,6 +5,7 @@ import { AuthContext } from '../../context/authContext';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
 import { userContext } from '../../context/userContext';
+import { DarkContext } from '../../context/DarkContext';
 import DropdownSearchusers from '../dropdown/DropdownSearchusers';
 
 export default function DropdownMenu({ alluser }) {
@@ -14,6 +15,7 @@ export default function DropdownMenu({ alluser }) {
   const history = useHistory();
   const [toggleSearch, setToggleSearch] = useState('hidden');
   const { myuser } = useContext(userContext);
+  const { dark, darkBg, darkTextOnly, setDark } = useContext(DarkContext);
   const handleClickMyProfile = () => {
     history.push(`/myprofile/${myuser.id}`);
   };
@@ -52,6 +54,14 @@ export default function DropdownMenu({ alluser }) {
     }
   };
 
+  const handleToggleDark = () => {
+    if (!dark) {
+      setDark(true);
+    } else {
+      setDark(false);
+    }
+  };
+
   const gd = (
     <defs>
       <linearGradient id="iconGrad" x2="0%" y2="100%">
@@ -66,7 +76,12 @@ export default function DropdownMenu({ alluser }) {
     <div className="flex">
       {search && <DropdownSearchusers alluser={alluser} search={search} setSearch={setSearch} />}
       <div className={`h-auto flex items-center minwidth ${toggleSearch}`}>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 " viewBox="0 0 20 20" fill="currentColor">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 "
+          viewBox="0 0 20 20"
+          fill={`${dark ? '#ff5650' : 'currentColor'}`}
+        >
           <path
             fillRule="evenodd"
             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -74,9 +89,9 @@ export default function DropdownMenu({ alluser }) {
           />
         </svg>
         <input
-          placeholder="search"
+          placeholder="Search ME"
           type="search"
-          className="border-b-2"
+          className={`border-b-2 ${dark ? 'border-red-500' : ''} ${darkBg}`}
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
@@ -96,7 +111,11 @@ export default function DropdownMenu({ alluser }) {
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button>
-            <div className=" flex items-center justify-center hover:bg-gray-200  bg-white rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  minwidth">
+            <div
+              className={`${
+                dark ? 'dark-bg hover:bg-gray-700' : 'hover:bg-gray-200'
+              } flex items-center justify-center rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  minwidth`}
+            >
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="#ff4949">
                   {gd}
@@ -119,7 +138,9 @@ export default function DropdownMenu({ alluser }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ">
+          <Menu.Items
+            className={`${darkBg} absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          >
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
@@ -127,7 +148,9 @@ export default function DropdownMenu({ alluser }) {
                     onClick={handleClickSearch}
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    ${dark && active ? '' : darkTextOnly}
+                    `}
                   >
                     {active ? (
                       <SearchActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -144,7 +167,9 @@ export default function DropdownMenu({ alluser }) {
                     onClick={handleClickMyProfile}
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    ${dark && active ? '' : darkTextOnly}
+                    `}
                   >
                     {active ? (
                       <ProfileActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -161,7 +186,9 @@ export default function DropdownMenu({ alluser }) {
                     onClick={handleClickProfileSetting}
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    ${dark && active ? '' : darkTextOnly}
+                    `}
                   >
                     {active ? (
                       <EditActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -172,14 +199,16 @@ export default function DropdownMenu({ alluser }) {
                   </button>
                 )}
               </Menu.Item>
-            </div>
-            <div className="px-1 py-1">
+              {/* </div> */}
+              {/* <div className="px-1 py-1"> */}
               <Menu.Item>
                 {({ active }) => (
                   <button
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                  ${dark && active ? '' : darkTextOnly}
+                  `}
                   >
                     {active ? (
                       <ChatActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
@@ -193,28 +222,33 @@ export default function DropdownMenu({ alluser }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={handleToggleDark}
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                  ${dark && active ? '' : darkTextOnly}
+                  `}
                   >
                     {active ? (
                       <DarkLightActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
                     ) : (
                       <DarkLightInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
                     )}
-                    Dark Mode
+                    {`${dark ? 'Light Mode' : 'Dark Mode'}`}
                   </button>
                 )}
               </Menu.Item>
-            </div>
-            <div className="px-1 py-1">
+              {/* </div> */}
+              {/* <div className="px-1 py-1"> */}
               <Menu.Item>
                 {({ active }) => (
                   <button
                     onClick={handleClickLogout}
                     className={`${
                       active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    ${dark && active ? '' : darkTextOnly}
+                    `}
                   >
                     {active ? (
                       <LogoutActiveIcon className="w-5 h-5 mr-2 text-violet-400" aria-hidden="true" />
@@ -322,10 +356,15 @@ function ChatActiveIcon(props) {
 }
 
 function DarkLightInactiveIcon(props) {
+  const { dark } = useContext(DarkContext);
   return (
     <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+        d={`${
+          !dark
+            ? 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
+            : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
+        }`}
         stroke="#ff5650"
         strokeWidth="2"
       />
@@ -334,10 +373,15 @@ function DarkLightInactiveIcon(props) {
 }
 
 function DarkLightActiveIcon(props) {
+  const { dark } = useContext(DarkContext);
   return (
     <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+        d={`${
+          !dark
+            ? 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
+            : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
+        }`}
         stroke="#ffe99b"
         strokeWidth="2"
       />

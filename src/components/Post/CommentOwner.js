@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom';
 import { userContext } from '../../context/userContext';
 import { timeStampDisplay } from '../../service/dateService';
 import DropDownEditDeleteComment from '../dropdown/DropDownEditDeleteComment';
+import { DarkContext } from '../../context/DarkContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import FormEditComment from './FormEditComment';
 
 function CommentOwner({ firstName, lastName, time, profile, message, userIdComment, id, setToggleStateComment }) {
   const { myuser } = useContext(userContext);
   const [isEditComment, setIsEditComment] = useState(false);
-
+  const { dark } = useContext(DarkContext);
   return (
     <>
       <div
@@ -35,7 +36,7 @@ function CommentOwner({ firstName, lastName, time, profile, message, userIdComme
             />
           )}
         </div>
-        <div className="bg-white relative py-6 px-14 shadow-container rounded-3xl ">
+        <div className={`${dark ? 'dark-bg2-6' : ''} relative py-6 px-14 shadow-container rounded-3xl`}>
           <div
             class={`${
               userIdComment === +myuser?.id ? 'absolute -right-8 -top-8 w-20 h-20' : 'absolute -left-8 -top-8'

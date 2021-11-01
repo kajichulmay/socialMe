@@ -5,6 +5,7 @@ import axios from '../config/axios';
 import { setToken } from '../service/localStorage';
 import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../context/authContext';
+import { DarkContext } from '../context/DarkContext';
 import validator from 'validator';
 
 import ReactDOM from 'react-dom';
@@ -13,6 +14,7 @@ import { userContext } from '../context/userContext';
 
 function Login() {
   const { setUserTrigged } = useContext(userContext);
+  const { dark } = useContext(DarkContext);
 
   // state
   const [email, setEmail] = useState('');
@@ -121,11 +123,13 @@ function Login() {
   };
 
   return (
-    <div className="w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16">
+    <div
+      className={`h w-full justify-center lg:items-center flex login-container mt-10 lg:mt-16 ${dark ? 'dark-bg' : ''}`}
+    >
       {/* main login container */}
       <div
-        className="shadow-lg w-full flex flex-col bg-white
-      md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl "
+        className={`shadow-lg w-full flex flex-col ${dark ? 'dark-bg2-5' : 'bg-white'}
+      md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl`}
       >
         {/* left sector */}
         <div className=" text-center bg-primary-grad text-white w-full p-10 pt-20 flex flex-col items-center lg:w-2/3 lg:rounded-l-3xl lg:pt-32">
@@ -147,7 +151,7 @@ function Login() {
 
         {/* right sector */}
         <div className=" p-10 flex flex-col lg:justify-around justify-center items-center w-full">
-          <p className="text-gray-400 text-2xl ">Sign into Your account</p>
+          <p className={`${dark ? 'text-white' : 'text-gray-400'} text-2xl`}>Sign into Your account</p>
           {/* form */}
           <form className="flex flex-col justify-between w-2/3 lg:w-4/5 mt-6 lg:mt-9" onSubmit={handleClickLogin}>
             {/* email input */}
@@ -157,10 +161,12 @@ function Login() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   type="text"
-                  className="w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  className={`${
+                    dark ? 'dark-bg2-5 text-white' : ''
+                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
-                <div class="absolute top-2 p-1 bg-white left-4 ">
-                  <p className="text-red-600 text-dark text-sm font-normal">Email Address</p>
+                <div class={`${dark ? 'dark-bg2-5 text-white' : 'bg-white text-dark'} absolute top-2 p-1 left-4`}>
+                  <p className="text-sm font-normal">Email Address</p>
                 </div>
               </div>
             </div>
@@ -173,10 +179,12 @@ function Login() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   type="password"
-                  className="w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  className={`${
+                    dark ? 'dark-bg2-5 text-white' : ''
+                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
-                <div class="absolute top-2 p-1 bg-white left-4 ">
-                  <p className="text-red-600 text-dark text-sm font-normal">Password</p>
+                <div class={`${dark ? 'dark-bg2-5 text-white' : 'bg-white text-dark'} absolute top-2 p-1 left-4`}>
+                  <p className="text-sm font-normal">Password</p>
                 </div>
               </div>
             </div>
@@ -193,6 +201,7 @@ function Login() {
           {/*end form */}
 
           {/* google login */}
+          {/* <div className="relative h-auto w-auto"> */}
 
           <GoogleLogin
             clientId="245755252905-umqvniqtv89lhf3mfe95m2jqf2imsh6e.apps.googleusercontent.com"
@@ -200,6 +209,7 @@ function Login() {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
           />
+          {/* </div> */}
 
           {/*end social login sector */}
         </div>

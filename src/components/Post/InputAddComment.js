@@ -3,11 +3,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
 import ProfilePicUi from '../ui/ProfilePicUi';
 import { userContext } from '../../context/userContext';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
+import { DarkContext } from '../../context/DarkContext';
 function InputAddComment({ postId, setToggleStateComment }) {
   const [message, setMessage] = useState('');
   const [userComment, setUserComment] = useState();
   const { userId } = useParams();
+
+  const { dark } = useContext(DarkContext);
 
   useEffect(() => {
     const fetchUserAccount = async () => {
@@ -38,8 +41,8 @@ function InputAddComment({ postId, setToggleStateComment }) {
         <div className="w-full relative">
           <input
             type="text"
-            className="border w-full rounded-full border-red-400 shadow-input pl-5 p-1
-          focus:outline-none focus:ring-2 focus:ring--300 animate-pulse "
+            className={`focus:outline-none border w-full rounded-full border-red-400 shadow-input pl-5 p-1
+           focus:ring-2 focus:ring--300 animate-pulse    ${dark ? 'dark-bg2' : ''}`}
             placeholder="Write a  comment..."
             onChange={e => setMessage(e.target.value)}
             value={message}

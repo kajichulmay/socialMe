@@ -9,6 +9,7 @@ import { SpinnerContext } from '../context/SpinnerContext';
 import axios from '../config/axios';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
+import { DarkContext } from '../context/DarkContext';
 import { userContext } from '../context/userContext';
 import { PostContext } from '../context/postContext';
 function MyProfile() {
@@ -16,6 +17,10 @@ function MyProfile() {
   const [oneUser, setOneUser] = useState({});
   const [allmypost, setAllmypost] = useState([]);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
+
+  //context
+  const { dark, darkBg } = useContext(DarkContext);
+
   // params
   const params = useParams();
   const { userId } = params;
@@ -44,7 +49,7 @@ function MyProfile() {
   const { myuser } = useContext(userContext);
 
   return (
-    <div className="w-full lg:flex justify-center h-screen ">
+    <div className={`w-full lg:flex justify-center h-full ${darkBg}`}>
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">

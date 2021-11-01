@@ -7,13 +7,16 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './context/authContext';
 import { SpinnerContextProvider } from './context/SpinnerContext';
 import { UserContextProvider } from './context/userContext';
+import { DarkContextProvider } from './context/DarkContext';
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
       <UserContextProvider>
         <SpinnerContextProvider>
           <BrowserRouter>
-            <App />
+            <DarkContextProvider>
+              <App />
+            </DarkContextProvider>
           </BrowserRouter>
         </SpinnerContextProvider>
       </UserContextProvider>
