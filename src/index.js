@@ -8,20 +8,22 @@ import { AuthContextProvider } from './context/authContext';
 import { SpinnerContextProvider } from './context/SpinnerContext';
 import { UserContextProvider } from './context/userContext';
 import { DarkContextProvider } from './context/DarkContext';
-
+import { SocketContextProvider } from './context/socketContext';
 ReactDOM.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <UserContextProvider>
-        <SpinnerContextProvider>
-          <BrowserRouter>
-            <DarkContextProvider>
-              <App />
-            </DarkContextProvider>
-          </BrowserRouter>
-        </SpinnerContextProvider>
-      </UserContextProvider>
-    </AuthContextProvider>
+    <SocketContextProvider>
+      <AuthContextProvider>
+        <UserContextProvider>
+          <SpinnerContextProvider>
+            <BrowserRouter>
+              <DarkContextProvider>
+                <App />
+              </DarkContextProvider>
+            </BrowserRouter>
+          </SpinnerContextProvider>
+        </UserContextProvider>
+      </AuthContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
