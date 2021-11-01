@@ -60,6 +60,8 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
     }
   };
 
+  console.log(picPost);
+
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">
       <div
@@ -94,7 +96,7 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
         </div>
         {/* Content Add Post */}
         <div
-          className="flex justify-between items-center
+          className="items-center
         mx-auto mb-4 w-10/12"
         >
           <textarea

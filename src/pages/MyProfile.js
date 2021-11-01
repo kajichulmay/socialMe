@@ -10,6 +10,7 @@ import axios from '../config/axios';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { userContext } from '../context/userContext';
+import { PostContext } from '../context/postContext';
 function MyProfile() {
   // state
   const [oneUser, setOneUser] = useState({});

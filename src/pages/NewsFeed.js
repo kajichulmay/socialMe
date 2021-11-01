@@ -4,14 +4,17 @@ import AddPost from '../components/myProfile/AddPost';
 import Line from '../components/myProfile/Line';
 import FeedContainer from '../components/Post/FeedContainer';
 import axios from '../config/axios';
+import { SpinnerContext } from '../context/SpinnerContext';
 import { useParams } from 'react-router-dom';
 import { userContext } from '../context/userContext';
 import PostNewfeedsContainer from '../components/Post/PostNewfeedsContainer';
+import Spinner from '../components/spinner/Spinner';
 
 function NewsFeed() {
   const [oneUser, setOneUser] = useState({});
   const [allPost, setAllPost] = useState([]);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
+  const { spinner } = useContext(SpinnerContext);
   // const all = [...friendsPost.map((item, index) => item[index][index])];
   //context
   const { myuser, toggleFollwer } = useContext(userContext);
@@ -23,7 +26,7 @@ function NewsFeed() {
       setOneUser(res.data.oneUser);
     };
     fetchOneuser();
-  }, []);
+  }, [myuser]);
 
   useEffect(() => {
     const fetchMypost = async () => {
@@ -35,6 +38,7 @@ function NewsFeed() {
 
   return (
     <div className="w-full lg:flex justify-center h-screen ">
+      {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">
         {/* <!-- Scrollable container --> */}

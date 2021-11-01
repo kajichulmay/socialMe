@@ -7,17 +7,21 @@ import ProfilePicUi from '../ui/ProfilePicUi';
 import FormEditComment from './FormEditComment';
 
 function CommentOwner({ firstName, lastName, time, profile, message, userIdComment, id, setToggleStateComment }) {
-  const { userId } = useParams();
   const { myuser } = useContext(userContext);
   const [isEditComment, setIsEditComment] = useState(false);
+
   return (
     <>
       <div
         className={`${
-          userIdComment === +userId ? 'lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8 lg:self-end' : 'lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8'
+          userIdComment === +myuser?.id
+            ? 'lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8 lg:self-end'
+            : 'lg:mx-8 mx-6 lg:w-3/4 mt-4 mb-8'
         }`}
       >
-        <div className={`${userIdComment === +userId ? 'flex items-center' : 'pl-16 flex justify-end items-center'}`}>
+        <div
+          className={`${userIdComment === +myuser?.id ? 'flex items-center' : 'pl-16 flex justify-end items-center'}`}
+        >
           <p className="mr-2 text-lg">
             {firstName} {lastName}
           </p>
@@ -33,7 +37,9 @@ function CommentOwner({ firstName, lastName, time, profile, message, userIdComme
         </div>
         <div className="bg-white relative py-6 px-14 shadow-container rounded-3xl ">
           <div
-            class={`${userIdComment === +userId ? 'absolute -right-8 -top-8 w-20 h-20' : 'absolute -left-8 -top-8'}`}
+            class={`${
+              userIdComment === +myuser?.id ? 'absolute -right-8 -top-8 w-20 h-20' : 'absolute -left-8 -top-8'
+            }`}
           >
             <ProfilePicUi beforeSize="16" afterSize="16" url={profile} id={userIdComment} />
           </div>

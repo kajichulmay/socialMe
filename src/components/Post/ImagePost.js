@@ -4,7 +4,7 @@ function ImagePost(props) {
   const [clientOnMouseDown, setClientOnMouseDown] = useState(null);
 
   const hdlClickOpenModal = () => {
-    if (status === 'private' && !isPurchase) return;
+    if (isOwnerPost ? '' : status === 'private' && !isPurchase) return;
     setPhotoIdx(idx);
     setIsOpen(true);
   };
@@ -13,7 +13,8 @@ function ImagePost(props) {
   const hdlOnMouseDown = e => {
     setClientOnMouseDown(cur => ({
       ...cur,
-      x: e.clientX, y: e.clientY
+      x: e.clientX,
+      y: e.clientY,
     }));
     e.preventDefault();
   };
@@ -21,8 +22,7 @@ function ImagePost(props) {
   const handleOnClick = e => {
     e.stopPropagation();
     // check mouse position before onClick
-    if (clientOnMouseDown.x !== e.clientX ||
-      clientOnMouseDown.y !== e.clientY) {
+    if (clientOnMouseDown.x !== e.clientX || clientOnMouseDown.y !== e.clientY) {
       e.preventDefault();
       return;
     }
@@ -33,14 +33,14 @@ function ImagePost(props) {
 
   return (
     <>
-      <div className="bg-gray-500" >
+      <div className="bg-gray-500">
         {/* if private  add className  filter  blur-3xl */}
-        <img src={picUrl}
+        <img
+          src={picUrl}
           className={`w-full object-cover
-          ${isOwnerPost ? '' :
-              status === 'private' && !isPurchase ? 'blur' : ''}`}
+          ${isOwnerPost ? '' : status === 'private' && !isPurchase ? 'blur' : ''}`}
           style={{
-            height: '500px'
+            height: '500px',
           }}
           onMouseDown={hdlOnMouseDown}
           onClick={handleOnClick}

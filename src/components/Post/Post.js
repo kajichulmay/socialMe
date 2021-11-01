@@ -126,8 +126,8 @@ function Post(props) {
         <Line />
         {isPublicAndPurchase || isOwnerPost ? (
           <>
-            <InputAddComment postId={data.id} setToggleStateComment={setToggleStateComment} />
             <CommentsContainer postId={data.id} comment={comment} setToggleStateComment={setToggleStateComment} />
+            <InputAddComment postId={data.id} setToggleStateComment={setToggleStateComment} />
           </>
         ) : (
           <ButtonPurchase

@@ -111,6 +111,7 @@ function Login() {
         setUser(jwtDecode(res.data.token));
         setUserTrigged(cur => !cur);
         history.push('/newsfeed');
+        window.location.reload();
       }
     } catch (err) {
       console.dir(err);
