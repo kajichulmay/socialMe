@@ -102,6 +102,7 @@ function Post(props) {
           <LikeContainer
             setToggleUpdatePost={setToggleUpdatePost}
             isOwnerPost={isOwnerPost}
+            postOwnerId={data?.userId}
             likes={data.Likes}
             isPublicAndPurchase={isPublicAndPurchase}
             likes={data?.Likes}

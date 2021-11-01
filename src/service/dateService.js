@@ -15,7 +15,7 @@ const dateOnly = rawDate => {
   const formattedDate = new Intl.DateTimeFormat('en-GB', {
     dateStyle: 'short',
     hour12: true,
-    timeZone: 'Aisa/Bangkok',
+    timeZone: 'Asia/Bangkok',
   }).format(dateObj);
   return formattedDate.toUpperCase();
 };

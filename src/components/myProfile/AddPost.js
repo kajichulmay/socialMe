@@ -62,7 +62,7 @@ function AddPost({ oneUser, setToggleUpdatePost }) {
     }
   };
 
-  console.log(picPost);
+  // console.log(picPost);
 
   return (
     <div className=" flex  justify-center w-full mt-20 mb-8">
