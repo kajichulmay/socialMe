@@ -9,7 +9,7 @@ function Line(props) {
     <div className="flex flex-col my-2 w-11/12 mx-auto">
       <span
         className={`font-light text-2xl mb-3 capitalize
-      self-${self || 'start'}`}
+      self-${self || 'start'} ${dark ? 'text-white' : ''}`}
       >
         {title}
       </span>

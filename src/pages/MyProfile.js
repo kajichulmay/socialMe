@@ -49,7 +49,7 @@ function MyProfile() {
   const { myuser } = useContext(userContext);
 
   return (
-    <div className={`w-full lg:flex justify-center h-full ${darkBg}`}>
+    <div className={`w-full 2xl:container lg:flex justify-center h-full ${darkBg}`}>
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">

@@ -219,6 +219,25 @@ export default function DropdownMenu({ alluser }) {
                   </button>
                 )}
               </Menu.Item>
+
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                  ${dark && active ? '' : darkTextOnly}
+                  `}
+                  >
+                    {active ? (
+                      <NotificationActiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    ) : (
+                      <NotificationInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    )}
+                    Notification
+                  </button>
+                )}
+              </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -330,7 +349,6 @@ function EditActiveIcon(props) {
     </svg>
   );
 }
-
 function ChatInactiveIcon(props) {
   return (
     <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -348,6 +366,29 @@ function ChatActiveIcon(props) {
     <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+        stroke="#ffe99b"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+function NotificationInactiveIcon(props) {
+  return (
+    <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d=" M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+        stroke="#ff5650"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function NotificationActiveIcon(props) {
+  return (
+    <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d=" M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
         stroke="#ffe99b"
         strokeWidth="2"
       />

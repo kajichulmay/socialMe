@@ -53,15 +53,13 @@ export default function ProfileSetting() {
   const handleOpenLowerForm = () => {
     if (!openLowerForm) {
       SetOpenLowerForm(true);
-      console.log('true');
     } else {
       SetOpenLowerForm(false);
-      console.log('false');
     }
   };
   const handleClickBackMyProfile = () => {
     history.push(`/myprofile/${myuser?.id}`);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleClickSubmitProfile = async e => {
@@ -151,8 +149,13 @@ export default function ProfileSetting() {
           icon: 'success',
           title: 'Your password has been reset',
           showConfirmButton: false,
-          timer: 100000,
-        }).then(window.location.reload());
+          timer: 1500,
+        });
+
+        setCurrentPassword('');
+        setPassword('');
+        setConfirmPassword('');
+        SetOpenLowerForm(false);
       }
     } catch (err) {
       setValidateOldPassword(err.response.data.errCurrentPassword);
@@ -174,8 +177,10 @@ export default function ProfileSetting() {
   const dark2 = dark ? 'dark-bg2' : 'bg-white';
 
   return (
-    <div className={`w-full px-4 pt-16 mt-10  h   ${dark ? 'dark-bg' : 'bg-secondary'}`}>
-      <div className={`${dark ? 'dark-bg2' : 'bg-white'} max-w-xl p-5 mx-auto border-50`}>
+    <div
+      className={`w-full px-4 pt-16 mt-10 ${openLowerForm ? 'h' : 'h-screen'} ${dark ? ' dark-bg ' : 'bg-secondary'}`}
+    >
+      <div className={`${dark ? 'dark-bg2' : 'bg-white'} pb-0 max-w-xl p-5 mx-auto border-50  `}>
         <form onSubmit={handleClickSubmitProfile}>
           <div className="flex items-center">
             {/* ============================ */}
@@ -313,82 +318,91 @@ export default function ProfileSetting() {
           </div>
         </form>
         <div>
-          <div className="mt-5 p-3" onClick={handleOpenLowerForm}>
+          <div className="mt-5 p-3">
             {!myuser?.googleId && (
-              <Disclosure>
-                {({ open }) => (
-                  <>
-                    <Disclosure.Button className="flex justify-between w-auto px-4 py-2 text-xs text-left text-dark-thin font-thin ">
-                      <ChevronUpIcon className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
-                      <span>Change password ?</span>
-                    </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                      <form onSubmit={handleClickResetPassword} className="mt-10 mb-10 ">
-                        <div className=" w-1/2">Reset your password</div>
-                        <div className="w-full flex ">
-                          <div className="w-1/2">
-                            <div className="mx-3 mt-5">
-                              <div class="relative">
-                                <input
-                                  value={password}
-                                  onChange={e => setPassword(e.target.value)}
-                                  type="password"
-                                  className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
-                                />
-                                <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
-                                  <p className="text-red-600 text-dark text-xs font-normal">New password</p>
-                                </div>
-                              </div>
-                              {validateNewPassword && (
-                                <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateNewPassword}</p>
-                              )}
-                            </div>
-                            <div className="mx-3 mt-3">
-                              <div class="relative">
-                                <input
-                                  value={confirmPassword}
-                                  onChange={e => setConfirmPassword(e.target.value)}
-                                  type="password"
-                                  className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
-                                />
-                                <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
-                                  <p className="text-red-600 text-dark text-xs font-normal">Confirm new password</p>
-                                </div>
-                              </div>
-                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateConfirmNewPassword}</p>
+              // <Disclosure>
+              // {({ open }) => (
+              <>
+                {/* <Disclosure.Button className="flex justify-between w-auto px-4 py-2 text-xs text-left text-dark-thin font-thin "> */}
+                <div className="flex items-center" onClick={handleOpenLowerForm}>
+                  <ChevronUpIcon className={`${openLowerForm ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
+                  <span
+                    className={`${
+                      dark ? 'text-white' : 'text-dark-thin font-normal'
+                    } flex justify-between w-auto px-4 py-2 text-sm text-left  cursor-pointer `}
+                  >
+                    Change password ?
+                  </span>
+                </div>
+                {/* </Disclosure.Button> */}
+                {/* <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500"> */}
+                {openLowerForm && (
+                  <form onSubmit={handleClickResetPassword} className={`${dark ? 'text-white' : ''}  mt-10 mb-10 `}>
+                    <div className=" w-1/2">Reset your password</div>
+                    <div className="w-full flex ">
+                      <div className="w-1/2">
+                        <div className="mx-3 mt-5">
+                          <div class="relative">
+                            <input
+                              value={password}
+                              onChange={e => setPassword(e.target.value)}
+                              type="password"
+                              className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
+                            />
+                            <div class={`${dark ? 'text-white' : 'text-dark'} absolute top-2 p-1 left-4 ${dark2}`}>
+                              <p className={` text-xs font-normal`}>New password</p>
                             </div>
                           </div>
-                          <div className="w-1/2">
-                            <div className="mx-3 mt-5">
-                              <div class="relative">
-                                <input
-                                  value={currentPassword}
-                                  onChange={e => setCurrentPassword(e.target.value)}
-                                  type="password"
-                                  className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
-                                />
-                                <div class={`absolute top-2 p-1 left-4 ${dark2}`}>
-                                  <p className="text-red-600 text-dark text-xs font-normal">Current password</p>
-                                </div>
-                              </div>
-                              <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
-                            </div>
-                            <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-10">
-                              <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
-                                Reset password
-                              </button>
-                              {alert}
-                            </div>
-                          </div>
+                          {validateNewPassword && (
+                            <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateNewPassword}</p>
+                          )}
                         </div>
-                      </form>
-                    </Disclosure.Panel>
-                  </>
+                        <div className="mx-3 mt-3">
+                          <div class="relative">
+                            <input
+                              value={confirmPassword}
+                              onChange={e => setConfirmPassword(e.target.value)}
+                              type="password"
+                              className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
+                            />
+                            <div class={`${dark ? 'text-white' : 'text-dark'} absolute top-2 p-1 left-4 ${dark2}`}>
+                              <p className={` text-xs font-normal`}>Confirm new password</p>
+                            </div>
+                          </div>
+                          <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateConfirmNewPassword}</p>
+                        </div>
+                      </div>
+                      <div className="w-1/2">
+                        <div className="mx-3 mt-5">
+                          <div class="relative">
+                            <input
+                              value={currentPassword}
+                              onChange={e => setCurrentPassword(e.target.value)}
+                              type="password"
+                              className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400 ${darkBg2}`}
+                            />
+                            <div class={`${dark ? 'text-white' : 'text-dark'} absolute top-2 p-1 left-4 ${dark2}`}>
+                              <p className={` text-xs font-normal`}>Current password</p>
+                            </div>
+                          </div>
+                          <p className="pl-5 text-red-600 mt-2 mb-5 text-xs">{validateOldPassword}</p>
+                        </div>
+                        <div className="inputFollwer w-full flex-shrink  px-3 right relative mt-4 mb-10">
+                          <button className="flex-shrink rounded-full shadow-input w-32 h-8 bg-primary-grad text-white italic font-light px-5 w-auto forhover mt-5 object-right right-5 absolute">
+                            Reset password
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 )}
-              </Disclosure>
+              </>
             )}
+
             <button
-              className="flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5  "
+              className={`flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5 ${
+                dark ? 'dark-bg3 text-white' : ''
+              }`}
               onClick={handleClickBackMyProfile}
             >
               Back to My Profile

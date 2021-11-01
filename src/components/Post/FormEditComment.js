@@ -1,9 +1,11 @@
 import axios from '../../config/axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import { DarkContext } from '../../context/DarkContext';
 
 function FormEditComment({ setIsEditComment, message, id, setToggleStateComment }) {
   const [newMessage, setNewMessage] = useState(message);
+  const { dark } = useContext(DarkContext);
 
   const handleClickCanleEditComment = () => {
     setIsEditComment(cur => !cur);
@@ -22,8 +24,8 @@ function FormEditComment({ setIsEditComment, message, id, setToggleStateComment 
       <div className="w-full relative">
         <input
           type="text"
-          className="border w-full rounded-full border-red-400 shadow-input pl-5 p-1
-          focus:outline-none focus:ring-2 focus:ring--300 animate-pulse "
+          className={`border w-full rounded-full border-red-400 shadow-input pl-5 p-1
+          focus:outline-none focus:ring-2 focus:ring--300 animate-pulse ${dark ? 'dark-bg2-6' : ''}`}
           placeholder="Write a  comment..."
           value={newMessage}
           onChange={e => setNewMessage(e.target.value)}

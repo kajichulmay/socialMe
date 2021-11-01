@@ -16,7 +16,7 @@ function App() {
   const history = useHistory();
 
   return (
-    <div className={`${dark ? 'dark-bg dark-html' : 'bg-secondary'} full-height w-full outline-black`}>
+    <div className={`${dark ? 'dark-bg dark-html' : 'bg-secondary'} full-height w-full`}>
       <PostContextProvider>
         <Header />
         <Content>

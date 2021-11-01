@@ -9,15 +9,16 @@ import { useParams } from 'react-router-dom';
 import { userContext } from '../context/userContext';
 import PostNewfeedsContainer from '../components/Post/PostNewfeedsContainer';
 import Spinner from '../components/spinner/Spinner';
-
+import { DarkContext } from '../context/DarkContext';
 function NewsFeed() {
   const [oneUser, setOneUser] = useState({});
   const [allPost, setAllPost] = useState([]);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
   const { spinner } = useContext(SpinnerContext);
-  // const all = [...friendsPost.map((item, index) => item[index][index])];
+
   //context
   const { myuser, toggleFollwer } = useContext(userContext);
+  const { dark, darkBg } = useContext(DarkContext);
   // fetch
   useEffect(() => {
     const fetchOneuser = async () => {
@@ -37,7 +38,7 @@ function NewsFeed() {
   }, [toggleUpdatePost, toggleFollwer]);
 
   return (
-    <div className="w-full lg:flex justify-center h-screen ">
+    <div className={`w-full 2xl:container lg:flex justify-center h-full ${darkBg}`}>
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">

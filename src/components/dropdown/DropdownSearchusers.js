@@ -3,8 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { PostContext } from '../../context/postContext';
 import { userContext } from '../../context/userContext';
 import ProfilePicUi from '../ui/ProfilePicUi';
+import { DarkContext } from '../../context/DarkContext';
 
 function DropdownSearchusers({ alluser, search, setSearch }) {
+  const { dark } = useContext(DarkContext);
+
   const findUser = [...alluser]
     .filter(item => item.firstName.toLowerCase().includes(search.toLowerCase()))
     .splice(0, 8);
@@ -14,10 +17,14 @@ function DropdownSearchusers({ alluser, search, setSearch }) {
   const handleClickMoveUser = item => {
     history.push(`/myprofile/${item.id}`);
     setSearch('');
-    window.location.reload();
+    // window.location.reload();
   };
   return (
-    <div className="w-96 shadow-md fixed top-16 right-0 rounded-2xl bg-white z-50 lg:left-16">
+    <div
+      className={`${
+        dark ? 'dark-bg2 text-white' : 'bg-white'
+      } w-96 shadow-md fixed top-16 right-0 rounded-2xl  z-50 lg:left-16`}
+    >
       {findUser.map(item => (
         <div className="flex items-center p-2 border-b-2 cursor-pointer" onClick={() => handleClickMoveUser(item)}>
           {item.profilePicture ? (

@@ -4,7 +4,7 @@ import { DarkContext } from '../../context/DarkContext';
 import { userContext } from '../../context/userContext';
 
 export default function ToggleDark() {
-  const { dark, setDark } = useContext(DarkContext);
+  const { dark, setDark, toggle } = useContext(DarkContext);
   const { myuser, setUserTrigged } = useContext(userContext);
   const gd = (
     <defs>
