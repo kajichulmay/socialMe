@@ -11,7 +11,7 @@ import { DarkContextProvider } from './context/DarkContext';
 import { SocketContextProvider } from './context/socketContext';
 ReactDOM.render(
   <React.StrictMode>
-    <SocketContextProvider >
+    <SocketContextProvider>
       <AuthContextProvider>
         <UserContextProvider>
           <SpinnerContextProvider>
