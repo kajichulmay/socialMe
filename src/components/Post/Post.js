@@ -9,13 +9,14 @@ import CommentsContainer from '../Post/CommentsContainer';
 import EditPostForm from '../Post/EditPostForm';
 import { timeStampDisplay } from '../../service/dateService';
 import { DarkContext } from '../../context/DarkContext';
+import { AuthContext } from '../../context/authContext';
 import axios from '../../config/axios';
 import LikeContainer from './LikeContainer';
-import { user } from '../../service/localStorage';
 
 function Post(props) {
   const { setToggleUpdatePost, data } = props;
   const { dark } = useContext(DarkContext);
+  const { user } = useContext(AuthContext);
 
   const [isEdit, setIsEdit] = useState(false);
 

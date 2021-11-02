@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useContext, useState } from 'react';
-import { removeToken } from '../../service/localStorage';
+import { removeToken, toggleDark } from '../../service/localStorage';
 import { AuthContext } from '../../context/authContext';
 import { useHistory } from 'react-router';
 import Swal from 'sweetalert2';
@@ -56,8 +56,10 @@ export default function DropdownMenu({ alluser }) {
 
   const handleToggleDark = () => {
     if (!dark) {
+      toggleDark(true);
       setDark(true);
     } else {
+      toggleDark(false);
       setDark(false);
     }
   };
@@ -112,9 +114,8 @@ export default function DropdownMenu({ alluser }) {
         <div>
           <Menu.Button>
             <div
-              className={`${
-                dark ? 'dark-bg hover:bg-gray-700' : 'hover:bg-gray-200'
-              } flex items-center justify-center rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  minwidth`}
+              className={`${dark ? 'dark-bg hover:bg-gray-700' : 'hover:bg-gray-200'
+                } flex items-center justify-center rounded-full h-9 w-9 shadow-input ml-3 border border-red-300  minwidth`}
             >
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="#ff4949">
@@ -146,9 +147,8 @@ export default function DropdownMenu({ alluser }) {
                 {({ active }) => (
                   <button
                     onClick={handleClickSearch}
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                     ${dark && active ? '' : darkTextOnly}
                     `}
                   >
@@ -165,9 +165,8 @@ export default function DropdownMenu({ alluser }) {
                 {({ active }) => (
                   <button
                     onClick={handleClickMyProfile}
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                     ${dark && active ? '' : darkTextOnly}
                     `}
                   >
@@ -184,9 +183,8 @@ export default function DropdownMenu({ alluser }) {
                 {({ active }) => (
                   <button
                     onClick={handleClickProfileSetting}
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                     ${dark && active ? '' : darkTextOnly}
                     `}
                   >
@@ -204,9 +202,8 @@ export default function DropdownMenu({ alluser }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                   ${dark && active ? '' : darkTextOnly}
                   `}
                   >
@@ -223,9 +220,8 @@ export default function DropdownMenu({ alluser }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                   ${dark && active ? '' : darkTextOnly}
                   `}
                   >
@@ -242,9 +238,8 @@ export default function DropdownMenu({ alluser }) {
                 {({ active }) => (
                   <button
                     onClick={handleToggleDark}
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                   ${dark && active ? '' : darkTextOnly}
                   `}
                   >
@@ -263,9 +258,8 @@ export default function DropdownMenu({ alluser }) {
                 {({ active }) => (
                   <button
                     onClick={handleClickLogout}
-                    className={`${
-                      active ? 'bg-primary-grad text-white' : 'text-gray-900'
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm
+                    className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm
                     ${dark && active ? '' : darkTextOnly}
                     `}
                   >
@@ -401,11 +395,10 @@ function DarkLightInactiveIcon(props) {
   return (
     <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d={`${
-          !dark
-            ? 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
-            : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
-        }`}
+        d={`${!dark
+          ? 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
+          : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
+          }`}
         stroke="#ff5650"
         strokeWidth="2"
       />
@@ -418,11 +411,10 @@ function DarkLightActiveIcon(props) {
   return (
     <svg {...props} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d={`${
-          !dark
-            ? 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
-            : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
-        }`}
+        d={`${!dark
+          ? 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'
+          : 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
+          }`}
         stroke="#ffe99b"
         strokeWidth="2"
       />

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { DarkContext } from '../../context/DarkContext';
 import moon from '../../images/moon.png';
 import sun from '../../images/sun.png';
+import { toggleDark } from '../../service/localStorage';
 
 export default function ToggleDark() {
   const { dark, setDark } = useContext(DarkContext);
@@ -18,8 +19,10 @@ export default function ToggleDark() {
 
   const handleToggleDark = () => {
     if (!dark) {
+      toggleDark(true);
       setDark(true);
     } else {
+      toggleDark(false);
       setDark(false);
     }
   };
@@ -27,9 +30,8 @@ export default function ToggleDark() {
   return (
     <button onClick={handleToggleDark}>
       <div
-        className={`${
-          dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
-        } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300`}
+        className={`${dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
+          } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300`}
       >
         <div>
           {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20" fill="currentColor">

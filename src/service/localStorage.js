@@ -7,4 +7,6 @@ const setToken = token => localStorage.setItem(TOKEN_NAME, token);
 const removeToken = () => localStorage.removeItem(TOKEN_NAME);
 const user = getToken() ? jwtDecode(getToken()) : null;
 
-export { getToken, setToken, removeToken, user };
+const toggleDark = (boolean) => localStorage.setItem('isDarkTheme', boolean);
+
+export { getToken, setToken, removeToken, user, toggleDark };

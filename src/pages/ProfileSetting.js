@@ -97,7 +97,7 @@ export default function ProfileSetting() {
       console.dir(err);
     }
   };
-  console.log(firstName);
+  // console.log(firstName);
 
   const handleClickCancel = e => {
     setEditMode(cur => !cur);
@@ -219,11 +219,10 @@ export default function ProfileSetting() {
                     onChange={e => setFirstName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    } ${dark2} ${darkTextOnly} `}
+                      } ${dark2} ${darkTextOnly} `}
                   />
                   <div class={`absolute top-2 p-1 bg-white left-4 ${dark ? 'dark-bg2' : 'bg-white'}`}>
                     <p className={`${darkTextDark} text-xs font-normal`}>First name</p>
@@ -238,11 +237,10 @@ export default function ProfileSetting() {
                     onChange={e => setLastName(e.target.value)}
                     readOnly={!editMode}
                     type="text"
-                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'cursor-not-allowed focus:outline-none'
-                    } ${dark2} ${darkTextOnly}`}
+                      } ${dark2} ${darkTextOnly}`}
                   />
                   <div class={`absolute top-2 p-1 bg-white left-4 ${dark2}`}>
                     <p className={`${darkTextDark} text-xs font-normal`}>Last name</p>
@@ -259,11 +257,10 @@ export default function ProfileSetting() {
                     onChange={e => setBirthDate(e.target.value)}
                     readOnly={!editMode}
                     type="date"
-                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`bg-white text-dark w-full h-10 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 ${editMode
                         ? 'bg-white focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'bg-white cursor-not-allowed focus:outline-none'
-                    } ${dark2} ${darkTextOnly}`}
+                      } ${dark2} ${darkTextOnly}`}
                   />
                   <div class={`absolute top-2 p-1 bg-white left-4 ${dark2}`}>
                     <p className={`${darkTextDark} text-xs font-normal`}>Birth date</p>
@@ -278,11 +275,10 @@ export default function ProfileSetting() {
                     value={bio}
                     onChange={e => setBio(e.target.value)}
                     readOnly={!editMode}
-                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${
-                      editMode
+                    className={`w-full h-36 border rounded-3xl border-red-400 pt-3  mt-5 shadow-lg pl-3 ${editMode
                         ? 'focus:outline-none focus:ring-2 focus:ring-red-400'
                         : 'focus:outline-none  cursor-not-allowed'
-                    }  ${dark2} ${darkTextOnly}`}
+                      }  ${dark2} ${darkTextOnly}`}
                   />
                   <div class={`absolute top-2 p-1 bg-white left-4 ${dark2}`}>
                     <p className={`${darkTextDark} text-xs font-normal`}>Biography</p>
@@ -327,9 +323,8 @@ export default function ProfileSetting() {
                 <div className="flex items-center" onClick={handleOpenLowerForm}>
                   <ChevronUpIcon className={`${openLowerForm ? 'transform rotate-180' : ''} w-5 h-5 text-red-400`} />
                   <span
-                    className={`${
-                      dark ? 'text-white' : 'text-dark-thin font-normal'
-                    } flex justify-between w-auto px-4 py-2 text-sm text-left  cursor-pointer `}
+                    className={`${dark ? 'text-white' : 'text-dark-thin font-normal'
+                      } flex justify-between w-auto px-4 py-2 text-sm text-left  cursor-pointer `}
                   >
                     Change password ?
                   </span>
@@ -400,9 +395,8 @@ export default function ProfileSetting() {
             )}
 
             <button
-              className={`flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5 ${
-                dark ? 'dark-bg3 text-white' : ''
-              }`}
+              className={`flex-shrink rounded-full shadow-input w-40 h-8 bg-white hoverBtnMyProfile italic  text-black    font-light shadow-input mt-5 ${dark ? 'dark-bg3 text-white' : ''
+                }`}
               onClick={handleClickBackMyProfile}
             >
               Back to My Profile

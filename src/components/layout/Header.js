@@ -25,8 +25,15 @@ function Header({ children }) {
   const [search, setSearch] = useState('');
   const [alluser, setAlluser] = useState([]);
 
+
+  // console.log(typeof currentMode);
+  // console.log(currentMode);
+  // console.log(currentMode === 'true');
+
+
   useEffect(() => {
     try {
+      // setDark(currentMode);
       const fetchAlluserforfilter = async () => {
         const res = await axios.get('/user');
         setAlluser(res.data.allUser);
@@ -36,6 +43,9 @@ function Header({ children }) {
       console.log(err);
     }
   }, [params]);
+
+  // console.log(typeof dark);
+  // console.log(!!dark);
 
   const handleClickMeLogo = () => {
     history.push('/newsfeed');
@@ -79,9 +89,8 @@ function Header({ children }) {
     <>
       {search && <DropdownSearchusers alluser={alluser} search={search} setSearch={setSearch} />}
       <div
-        className={`${
-          dark ? 'dark-bg' : 'bg-white'
-        } flex items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5`}
+        className={`${dark ? 'dark-bg' : 'bg-white'
+          } flex items-center justify-between h-16 p-1.5 shadow-container header-border fixed top-0 w-full z-20 rounded-b-3xl px-5`}
       >
         <div className="flex items-center h-full">
           {/* logo */}
@@ -94,17 +103,15 @@ function Header({ children }) {
 
           {user ? (
             <div
-              className={`text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ${
-                dark ? 'dark-text' : 'text-dark'
-              }`}
+              className={`text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ${dark ? 'dark-text' : 'text-dark'
+                }`}
             >
               Welcome {myuser?.firstName}
             </div>
           ) : (
             <div
-              className={`text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ${
-                dark ? 'dark-text' : 'text-dark'
-              }`}
+              className={`text-base flex-nowrap text-dark font-normal flex-shrink w-40 lg:hidden ${dark ? 'dark-text' : 'text-dark'
+                }`}
             >
               Welcome Guest
             </div>
@@ -112,9 +119,8 @@ function Header({ children }) {
 
           {/* search */}
           <div
-            className={`bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible ${
-              user ? '' : 'hidden'
-            }`}
+            className={`bg-primary-grad h-11 flex items-center w-auto p-0.5 rounded-full mx-6 shadow-md invisible lg:visible ${user ? '' : 'hidden'
+              }`}
           >
             <div className={`flex items-center rounded-full  bg-white h-full  ${dark ? 'dark-bg' : 'bg-white'}`}>
               <svg
@@ -132,9 +138,8 @@ function Header({ children }) {
                 />
               </svg>
               <input
-                className={` w-60 text-base  rounded-full outline-none h-full maxwidth ${
-                  dark ? 'dark-bg placeholder-white text-white ' : 'bg-white'
-                }`}
+                className={` w-60 text-base  rounded-full outline-none h-full maxwidth ${dark ? 'dark-bg placeholder-white text-white ' : 'bg-white'
+                  }`}
                 type="text"
                 placeholder="Search ME"
                 value={search}
@@ -175,9 +180,8 @@ function Header({ children }) {
 
           {/* chat */}
           <div
-            className={`${
-              dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
-            } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
+            className={`${dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
+              } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
           >
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20">
@@ -199,9 +203,8 @@ function Header({ children }) {
 
           {/* logout */}
           <div
-            className={`${
-              dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
-            } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
+            className={`${dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
+              } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
             onClick={handleClickLogout}
           >
             <div>

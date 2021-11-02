@@ -14,6 +14,8 @@ function App() {
   const role = user ? 'user' : 'guest';
   const history = useHistory();
 
+
+
   return (
     <div className={"`${dark ? 'dark-bg dark-html' : 'bg-secondary'}  w-full`"}>
       <PostContextProvider>

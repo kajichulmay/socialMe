@@ -6,7 +6,7 @@ function Content({ children }) {
 
   return (
     // <div className={` 2xl:container 2xl:mx-auto  lg:h-screen flex ${dark ? 'dark-bg' : 'bg-secondary'}`}>
-    <div className={` 2xl:containe 2xl:mx-auto  lg:h-screen flex ${dark ? 'dark-bg' : 'bg-secondary'}`}>{children}</div>
+    <div className={` 2xl:mx-auto  lg:h-screen flex ${dark ? 'dark-bg' : 'bg-secondary'}`}>{children}</div>
   );
 }
 
