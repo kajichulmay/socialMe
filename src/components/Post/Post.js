@@ -14,7 +14,7 @@ import LikeContainer from "./LikeContainer";
 import { user } from "../../service/localStorage";
 
 function Post(props) {
-    const { setToggleUpdatePost, data } = props;
+    const { setToggleUpdatePost, data, i, postEl } = props;
     const { dark } = useContext(DarkContext);
 
     const [isEdit, setIsEdit] = useState(false);
@@ -32,7 +32,7 @@ function Post(props) {
     }, [toggleStateComment]);
 
     // Has user bought this post yet?
-    const isPurchase = data?.OrderItemPosts?.findIndex(item => item.userId === user.id) > -1;
+    const isPurchase = data?.OrderItemPosts?.findIndex(item => item?.userId === user?.id) > -1;
 
     const isPublicAndPurchase = data?.status === "public" || isPurchase;
 
@@ -46,6 +46,8 @@ function Post(props) {
 
     return (
         <div
+            id={data.id}
+            ref={el => (postEl ? (postEl.current[i] = el) : undefined)}
             className={`lg:w-4/5 w-10/12 relative mx-auto
     my-16 py-6  rounded-3xl  
     ${data.status === "public" ? "shadow-container" : "private"} ${dark ? "dark-bg2" : ""}`}
@@ -111,6 +113,7 @@ function Post(props) {
                     <LikeContainer
                         setToggleUpdatePost={setToggleUpdatePost}
                         isOwnerPost={isOwnerPost}
+                        postOwnerId={data?.userId}
                         likes={data.Likes}
                         isPublicAndPurchase={isPublicAndPurchase}
                         likes={data?.Likes}

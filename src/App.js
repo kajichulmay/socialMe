@@ -6,7 +6,6 @@ import { PostContextProvider } from './context/postContext';
 import route from './config/route';
 import { AuthContext } from './context/authContext';
 import { useContext } from 'react';
-
 import { DarkContext } from './context/DarkContext';
 
 function App() {

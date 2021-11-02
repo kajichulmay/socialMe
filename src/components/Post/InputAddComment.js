@@ -6,6 +6,7 @@ import { userContext } from "../../context/userContext";
 import { useParams } from "react-router-dom";
 import { DarkContext } from "../../context/DarkContext";
 import { io } from "socket.io-client";
+import { socketContext } from "../../context/socketContext";
 
 function InputAddComment({ postId, setToggleStateComment, userIdsocket }) {
     const [message, setMessage] = useState("");
@@ -16,6 +17,7 @@ function InputAddComment({ postId, setToggleStateComment, userIdsocket }) {
     const socket = io("http://localhost:8888/");
 
     const { myuser } = useContext(userContext);
+    const { notiComment } = useContext(socketContext);
     socket.emit("hello", "hello socket");
 
     useEffect(() => {
@@ -30,8 +32,8 @@ function InputAddComment({ postId, setToggleStateComment, userIdsocket }) {
     const handleClickcreateComment = async postId => {
         try {
             if (myuser.id != userIdsocket) {
-                socket.emit("notification", {
-                    noticeType: "comment",
+                notiComment({
+                    noticeType: "Comment",
                     userNoticeId: myuser.id,
                     interactedUserId: userIdsocket,
                     postId,
