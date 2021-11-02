@@ -1,68 +1,80 @@
-import React from 'react';
-import axios from '../../config/axios';
+import React, { useContext } from "react";
+import axios from "../../config/axios";
+import { socketContext } from "../../context/socketContext";
+import { userContext } from "../../context/userContext";
 function ButtonPurchase({ userId, postId, price, setToggleUpdatePost }) {
-  let OmiseCard = window.OmiseCard;
+    let OmiseCard = window.OmiseCard;
 
-  const createCreditCard = async (postId, tokenOmise, userId, price) => {
-    try {
-      await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
-      setToggleUpdatePost(cur => !cur);
-    } catch (error) {
-      setToggleUpdatePost(cur => !cur);
-    }
+    const { notiBuypost } = useContext(socketContext);
+    const { myuser } = useContext(userContext);
 
-  };
+    const createCreditCard = async (postId, tokenOmise, userId, price) => {
+        try {
+            await axios.post(`/check-payment/`, { postId, price, tokenOmise, userId });
 
-  const omiseCardfn = () => {
-    OmiseCard.configure({
-      publicKey: 'pkey_test_5pm8bbc928j0bc6hyvw',
-    });
+            setToggleUpdatePost(cur => !cur);
+        } catch (error) {
+            setToggleUpdatePost(cur => !cur);
+        }
+    };
 
-    OmiseCard.configureButton('#purchaseBtn', {
-      publicKey: 'OMISE_PUBLIC_KEY',
-      amount: price * 100,
-      frameLabel: 'Merchant Name',
-      submitLabel: 'Pay',
-    });
+    const omiseCardfn = () => {
+        OmiseCard.configure({
+            publicKey: "pkey_test_5pm8bbc928j0bc6hyvw",
+        });
 
-    OmiseCard.attach();
-  };
-  const OpenOmiseCard = () => {
-    OmiseCard.open({
-      amount: price * 100,
-      submitFormTarget: '#checkout-form',
+        OmiseCard.configureButton("#purchaseBtn", {
+            publicKey: "OMISE_PUBLIC_KEY",
+            amount: price * 100,
+            frameLabel: "Merchant Name",
+            submitLabel: "Pay",
+        });
 
-      onCreateTokenSuccess: tokenOmise => {
-        createCreditCard(postId, tokenOmise, userId, price);
-        /* Handler on token or source creation.  Use this to submit form or send ajax request to server */
-      },
-      onFormClosed: () => {
-        /* Handler on form closure. */
-      },
-    });
-  };
+        OmiseCard.attach();
+    };
+    const OpenOmiseCard = () => {
+        OmiseCard.open({
+            amount: price * 100,
+            submitFormTarget: "#checkout-form",
 
-  const handleClickPurchase = e => {
-    e.preventDefault();
-    omiseCardfn();
-    OpenOmiseCard();
-  };
+            onCreateTokenSuccess: tokenOmise => {
+                createCreditCard(postId, tokenOmise, userId, price);
+                notiBuypost({
+                    postId,
+                    noticeType: "Buypost",
+                    userNoticeId: myuser?.id,
+                    interactedUserId: userId,
+                });
+                /* Handler on token or source creation.  Use this to su
+                bmit form or send ajax request to server */
+            },
+            onFormClosed: () => {
+                /* Handler on form closure. */
+            },
+        });
+    };
 
-  return (
-    <form>
-      <div className="content-section mt-4 flex flex-col  px-4">
-        <div className="  w-full mt-4 mb-8 flex justify-center  ">
-          <button
-            id="purchaseBtn"
-            onClick={handleClickPurchase}
-            className=" text-white font-light italic text-xl rounded-full shadow-input w-auto p-6 h-10 flex justify-center items-center bg-primary-grad forhover"
-          >
-            Purchase to unlock
-          </button>
-        </div>
-      </div>
-    </form>
-  );
+    const handleClickPurchase = e => {
+        e.preventDefault();
+        omiseCardfn();
+        OpenOmiseCard();
+    };
+
+    return (
+        <form>
+            <div className="content-section mt-4 flex flex-col  px-4">
+                <div className="  w-full mt-4 mb-8 flex justify-center  ">
+                    <button
+                        id="purchaseBtn"
+                        onClick={handleClickPurchase}
+                        className=" text-white font-light italic text-xl rounded-full shadow-input w-auto p-6 h-10 flex justify-center items-center bg-primary-grad forhover"
+                    >
+                        Purchase to unlock
+                    </button>
+                </div>
+            </div>
+        </form>
+    );
 }
 
 export default ButtonPurchase;

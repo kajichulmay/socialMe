@@ -1,20 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
-import ChatBox from '../components/myProfile/ChatBox';
-import AddPost from '../components/myProfile/AddPost';
-import Line from '../components/myProfile/Line';
-import FeedContainer from '../components/Post/FeedContainer';
-import axios from '../config/axios';
-import { SpinnerContext } from '../context/SpinnerContext';
-import { useParams } from 'react-router-dom';
-import { userContext } from '../context/userContext';
-import PostNewfeedsContainer from '../components/Post/PostNewfeedsContainer';
-import Spinner from '../components/spinner/Spinner';
-import { DarkContext } from '../context/DarkContext';
+import React, { useContext, useEffect, useState, useRef } from "react";
+import ChatBox from "../components/myProfile/ChatBox";
+import AddPost from "../components/myProfile/AddPost";
+import Line from "../components/myProfile/Line";
+import FeedContainer from "../components/Post/FeedContainer";
+import axios from "../config/axios";
+import { SpinnerContext } from "../context/SpinnerContext";
+import { useParams, useLocation } from "react-router-dom";
+import { userContext } from "../context/userContext";
+import PostNewfeedsContainer from "../components/Post/PostNewfeedsContainer";
+import Spinner from "../components/spinner/Spinner";
+import { DarkContext } from "../context/DarkContext";
 function NewsFeed() {
   const [oneUser, setOneUser] = useState({});
   const [allPost, setAllPost] = useState([]);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
   const { spinner } = useContext(SpinnerContext);
+
+  const location = useLocation();
+  // console.log(location.state);
 
   //context
   const { myuser, toggleFollwer } = useContext(userContext);
@@ -36,9 +39,23 @@ function NewsFeed() {
     };
     fetchMypost();
   }, [toggleUpdatePost, toggleFollwer]);
-  // console.log(`allPost`, allPost);
+
+  // useref
+  const postEl = useRef([]);
+
+  useEffect(() => {
+    // console.log(postEl.current[3]);
+    console.log(location.state);
+    const idx = postEl.current.findIndex(item => item.id == location.state);
+    console.log(`idx`, idx);
+    if (postEl.current[idx]) {
+      console.log(postEl.current[idx].id);
+      postEl.current[idx].scrollIntoView({ behavior: "smooth" });
+    }
+  }, [allPost, location.state]);
+
   return (
-    <div className={`w-full 2xl:container 2xl:mx-auto lg:flex justify-center ${darkBg}`}>
+    <div className={`w-full 2xl:container lg:flex justify-center h-full ${darkBg}`}>
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">
@@ -49,7 +66,11 @@ function NewsFeed() {
             <Line title="Post someting About me" />
             <AddPost oneUser={oneUser} setToggleUpdatePost={setToggleUpdatePost} />
             <Line title="news feed" />
-            <PostNewfeedsContainer allPost={allPost} setToggleUpdatePost={setToggleUpdatePost} />
+            <PostNewfeedsContainer
+              allPost={allPost}
+              setToggleUpdatePost={setToggleUpdatePost}
+              postEl={postEl}
+            />
             {/*news feed container */}
           </div>
         </div>

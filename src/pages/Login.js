@@ -1,36 +1,34 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
-import axios from '../config/axios';
-import { setToken } from '../service/localStorage';
-import jwtDecode from 'jwt-decode';
-import { AuthContext } from '../context/authContext';
-import { DarkContext } from '../context/DarkContext';
-import validator from 'validator';
-import googleLogo from '../images/googleicon.png';
-import ReactDOM from 'react-dom';
-import GoogleLogin from 'react-google-login';
-import { userContext } from '../context/userContext';
+import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import axios from "../config/axios";
+import { setToken } from "../service/localStorage";
+import jwtDecode from "jwt-decode";
+import { AuthContext } from "../context/authContext";
+import { DarkContext } from "../context/DarkContext";
+import validator from "validator";
+import GoogleLogin from "react-google-login";
+import { userContext } from "../context/userContext";
 
 function Login() {
   const { setUserTrigged } = useContext(userContext);
   const { dark } = useContext(DarkContext);
 
   // state
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [allusers, setAllusers] = useState({});
 
   // validate state
-  const [validateEmail, setValidateEmail] = useState('');
+  const [validateEmail, setValidateEmail] = useState("");
 
-  const [validatePassword, setValidatePassword] = useState('');
-  const [validateError, setValidateError] = useState('');
+  const [validatePassword, setValidatePassword] = useState("");
+  const [validateError, setValidateError] = useState("");
 
   // useEffect
   useEffect(() => {
     const fetchusers = async () => {
-      const res = await axios.get('/user');
+      const res = await axios.get("/user");
       // console.log(res.data.allUser);
       setAllusers(res.data.allUser);
     };
@@ -46,7 +44,7 @@ function Login() {
   // function
   // register
   const handleClickRegister = () => {
-    history.push('/register');
+    history.push("/register");
   };
 
   // google response
@@ -56,7 +54,7 @@ function Login() {
       let res;
       if (response?.profileObj) {
         if (test === -1) {
-          res = await axios.post('/register', {
+          res = await axios.post("/register", {
             firstName: response.profileObj.givenName,
             lastName: response.profileObj.familyName,
             email: response.profileObj.email,
@@ -67,8 +65,8 @@ function Login() {
           });
         }
 
-        if (test != -1 || res.data.message === 'you account has been created') {
-          const res2 = await axios.post('/login', {
+        if (test != -1 || res.data.message === "you account has been created") {
+          const res2 = await axios.post("/login", {
             email: response.profileObj.email,
             password: response.googleId,
           });
@@ -76,7 +74,7 @@ function Login() {
           setToken(res2.data.token);
           setUser(jwtDecode(res2.data.token));
           setUserTrigged(cur => !cur);
-          history.push('/newsfeed');
+          history.push("/newsfeed");
         }
       }
     } catch (err) {
@@ -89,30 +87,30 @@ function Login() {
     try {
       e.preventDefault();
       // validate email
-      if (email.trim() === '') {
-        setValidateEmail('Email is required');
+      if (email.trim() === "") {
+        setValidateEmail("Email is required");
       } else if (!validator.isEmail(email)) {
-        setValidateEmail('Wrong Email form');
+        setValidateEmail("Wrong Email form");
       } else {
-        setValidateEmail('');
+        setValidateEmail("");
       }
 
       // validate password
-      if (password.trim() === '') {
-        setValidatePassword('Password is required');
+      if (password.trim() === "") {
+        setValidatePassword("Password is required");
       } else {
-        setValidatePassword('');
+        setValidatePassword("");
       }
 
       if (email && password) {
-        const res = await axios.post('/login', {
+        const res = await axios.post("/login", {
           email,
           password,
         });
         setToken(res.data.token);
         setUser(jwtDecode(res.data.token));
         setUserTrigged(cur => !cur);
-        history.push('/newsfeed');
+        history.push("/newsfeed");
         // window.location.reload();
       }
     } catch (err) {
@@ -124,12 +122,12 @@ function Login() {
 
   return (
     <div
-      className={`h-login w-full justify-center lg:items-center  flex login-container mt-10 lg:mt-16 ${dark ? 'dark-bg' : ''
+      className={`h-login w-full justify-center lg:items-center  flex login-container mt-10 lg:mt-16 ${dark ? "dark-bg" : ""
         }`}
     >
       {/* main login container */}
       <div
-        className={`shadow-lg w-full flex flex-col ${dark ? 'dark-bg2-5' : 'bg-white'}
+        className={`shadow-lg w-full flex flex-col ${dark ? "dark-bg2-5" : "bg-white"}
       md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl`}
       >
         {/* left sector */}
@@ -152,9 +150,12 @@ function Login() {
 
         {/* right sector */}
         <div className=" p-10 flex flex-col lg:justify-around justify-center items-center w-full">
-          <p className={`${dark ? 'text-white' : 'text-gray-400'} text-2xl`}>Sign into Your account</p>
+          <p className={`${dark ? "text-white" : "text-gray-400"} text-2xl`}>Sign into Your account</p>
           {/* form */}
-          <form className="flex flex-col justify-between w-2/3 lg:w-4/5 mt-6 lg:mt-9" onSubmit={handleClickLogin}>
+          <form
+            className="flex flex-col justify-between w-2/3 lg:w-4/5 mt-6 lg:mt-9"
+            onSubmit={handleClickLogin}
+          >
             {/* email input */}
             <div className="mx-3">
               <div class="relative">
@@ -162,10 +163,13 @@ function Login() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   type="text"
-                  className={`${dark ? 'dark-bg2-5 text-white' : ''
+                  className={`${dark ? "dark-bg2-5 text-white" : ""
                     } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
-                <div class={`${dark ? 'dark-bg2-5 text-white' : 'bg-white text-dark'} absolute top-2 p-1 left-4`}>
+                <div
+                  class={`${dark ? "dark-bg2-5 text-white" : "bg-white text-dark"
+                    } absolute top-2 p-1 left-4`}
+                >
                   <p className="text-sm font-normal">Email Address</p>
                 </div>
               </div>
@@ -179,10 +183,13 @@ function Login() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   type="password"
-                  className={`${dark ? 'dark-bg2-5 text-white' : ''
+                  className={`${dark ? "dark-bg2-5 text-white" : ""
                     } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
-                <div class={`${dark ? 'dark-bg2-5 text-white' : 'bg-white text-dark'} absolute top-2 p-1 left-4`}>
+                <div
+                  class={`${dark ? "dark-bg2-5 text-white" : "bg-white text-dark"
+                    } absolute top-2 p-1 left-4`}
+                >
                   <p className="text-sm font-normal">Password</p>
                 </div>
               </div>
@@ -207,16 +214,6 @@ function Login() {
               buttonText="Login"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
-              render={renderProps => (
-                <button
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                  className={`${dark ? ' text-white' : ''} w-60   flex items-center `}
-                >
-                  <img src={googleLogo} className="w-10 mr-4" />
-                  Login with google
-                </button>
-              )}
             />
           </div>
           {/* </div> */}
