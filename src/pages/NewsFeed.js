@@ -45,9 +45,9 @@ function NewsFeed() {
 
   useEffect(() => {
     // console.log(postEl.current[3]);
-    console.log(location.state);
+    // console.log(location.state);
     const idx = postEl.current.findIndex(item => item.id == location.state);
-    console.log(`idx`, idx);
+    // console.log(`idx`, idx);
     if (postEl.current[idx]) {
       console.log(postEl.current[idx].id);
       postEl.current[idx].scrollIntoView({ behavior: "smooth" });
@@ -55,7 +55,7 @@ function NewsFeed() {
   }, [allPost, location.state]);
 
   return (
-    <div className={`w-full 2xl:container lg:flex justify-center h-full ${darkBg}`}>
+    <div className={`w-full 2xl:container 2xl:mx-auto lg:flex justify-center h-full ${darkBg}`}>
       {spinner && <Spinner />}
       {/* <!-- Scroll wrapper --> */}
       <div class="w-full flex overflow-hidden ">

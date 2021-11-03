@@ -13,8 +13,8 @@ import { userContext } from "../../context/userContext";
 function TitleProfile({ oneUser }) {
     const { user } = useContext(AuthContext);
     const { dark } = useContext(DarkContext);
-    console.log("oneUser", oneUser);
-    console.log(user);
+    // console.log("oneUser", oneUser);
+    // console.log(user);
     const { myuser } = useContext(userContext);
     // console.log('oneUser', oneUser);
 
@@ -29,9 +29,8 @@ function TitleProfile({ oneUser }) {
                             <div className="bg-primary-grad rounded-full w-44 h-44 flex justify-center items-center   ">
                                 {oneUser?.profilePicture ? (
                                     <div
-                                        className={`bg-primary-grad  rounded-full border-4 p-20 ${
-                                            dark ? "border-gray-800" : "border-white"
-                                        } `}
+                                        className={`bg-primary-grad  rounded-full border-4 p-20 ${dark ? "border-gray-800" : "border-white"
+                                            } `}
                                         style={{
                                             backgroundImage: `url(${oneUser?.profilePicture})`,
                                             backgroundSize: "cover",
@@ -90,9 +89,8 @@ function TitleProfile({ oneUser }) {
                         <div className="-mt-8">
                             <Line title="about me" self="center" />
                             <div
-                                className={`${
-                                    dark ? "text-white pb-8 px-8  break-words" : "pb-8 px-8 text-gray-500 break-words"
-                                } `}
+                                className={`${dark ? "text-white pb-8 px-8 text-center  break-words" : "pb-8 px-8 text-center text-gray-500 break-words"
+                                    } `}
                             >
                                 <p>{oneUser.bio}</p>
                             </div>

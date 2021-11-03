@@ -12,7 +12,7 @@ function FirendsList({ firstName, lastName, profilePicture, idFriend }) {
     >
       <ProfilePicUi beforeSize="16" afterSize="16" url={profilePicture} id={idFriend} />
       {/* <img src={mockFriendsChat} className="mr-5" /> */}
-      <span className="font-light text-lg ml-5">
+      <span className="font-light text-lg ml-5 capitalize">
         {firstName} {lastName}
       </span>
     </div>

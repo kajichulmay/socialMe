@@ -1,11 +1,9 @@
 import axios from "../../config/axios";
 import React, { useState, useContext, useEffect } from "react";
-import portrait from "../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg";
 import ProfilePicUi from "../ui/ProfilePicUi";
 import { userContext } from "../../context/userContext";
 import { useParams } from "react-router-dom";
 import { DarkContext } from "../../context/DarkContext";
-import { io } from "socket.io-client";
 import { socketContext } from "../../context/socketContext";
 
 function InputAddComment({ postId, setToggleStateComment, userIdsocket }) {
@@ -13,12 +11,8 @@ function InputAddComment({ postId, setToggleStateComment, userIdsocket }) {
     const [userComment, setUserComment] = useState();
     const { userId } = useParams();
     const { dark } = useContext(DarkContext);
-
-    const socket = io("http://localhost:8888/");
-
     const { myuser } = useContext(userContext);
     const { notiComment } = useContext(socketContext);
-    socket.emit("hello", "hello socket");
 
     useEffect(() => {
         const fetchUserAccount = async () => {

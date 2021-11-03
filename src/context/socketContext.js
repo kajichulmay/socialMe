@@ -5,7 +5,10 @@ import { io } from "socket.io-client";
 const socketContext = createContext();
 
 const SocketContextProvider = ({ children }) => {
-    const socket = io("http://localhost:8888/");
+    const socket = io("http://localhost:8888/", {
+    });
+
+    socket.emit("hello", "hello socket");
 
     const notiAddLike = payload => {
         // if (payload.userNoticeId === payload.interactedUserId) return;
@@ -25,7 +28,9 @@ const SocketContextProvider = ({ children }) => {
     };
 
     return (
-        <socketContext.Provider value={{ socket, notiAddLike, notiComment, notiFollow, notiBuypost }}>
+        <socketContext.Provider value={{
+            socket, notiAddLike, notiComment, notiFollow, notiBuypost
+        }}>
             {children}
         </socketContext.Provider>
     );

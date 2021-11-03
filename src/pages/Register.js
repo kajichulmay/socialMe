@@ -96,12 +96,11 @@ function Register() {
   };
 
   return (
-    <div className={` w-full justify-center mt-0 flex lg:h-full lg:mt-20 ${dark ? 'dark-bg' : ''} h`}>
+    <div className={` w-full justify-center mt-0 flex  lg:h-full lg:mt-20 ${dark ? 'dark-bg' : ''} h`}>
       {spinner && <Spinner />}
       <div
-        className={`shadow-lg w-full flex flex-col ${
-          dark ? 'dark-bg2' : 'bg-white'
-        } md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl`}
+        className={`shadow-lg w-full flex flex-col ${dark ? 'dark-bg2' : 'bg-white'
+          } md:w-2/3 lg:flex-row lg:h-5/6 lg:rounded-3xl`}
       >
         {/* left sector */}
         <div className="text-center bg-primary-grad text-white w-full p-10 pt-20 flex flex-col items-center lg:w-2/3 lg:rounded-l-3xl lg:pt-32">
@@ -156,9 +155,8 @@ function Register() {
                   value={firstName}
                   onChange={e => setFirstName(e.target.value)}
                   type="text"
-                  className={`${
-                    dark ? 'dark-bg2 text-white' : ''
-                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
+                  className={`${dark ? 'dark-bg2 text-white' : ''
+                    } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
                 <div class={`${dark ? 'text-white dark-bg2' : 'text-dark bg-white'} absolute top-2 p-1 left-4`}>
                   <p className="text-sm font-normal">Firstname</p>
@@ -174,9 +172,8 @@ function Register() {
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
                   type="text"
-                  className={`${
-                    dark ? 'dark-bg2 text-white' : ''
-                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
+                  className={`${dark ? 'dark-bg2 text-white' : ''
+                    } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
                 <div class={`${dark ? 'text-white dark-bg2' : 'text-dark bg-white'} absolute top-2 p-1 left-4`}>
                   <p className="text-sm font-normal">Lastname</p>
@@ -192,9 +189,8 @@ function Register() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   type="text"
-                  className={`${
-                    dark ? 'dark-bg2 text-white' : ''
-                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
+                  className={`${dark ? 'dark-bg2 text-white' : ''
+                    } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
                 <div class={`${dark ? 'text-white dark-bg2' : 'text-dark bg-white'} absolute top-2 p-1 left-4`}>
                   <p className="text-sm font-normal">Email Address</p>
@@ -210,9 +206,8 @@ function Register() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   type="password"
-                  className={`${
-                    dark ? 'dark-bg2 text-white' : ''
-                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
+                  className={`${dark ? 'dark-bg2 text-white' : ''
+                    } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
                 <div class={`${dark ? 'text-white dark-bg2' : 'text-dark bg-white'} absolute top-2 p-1 left-4`}>
                   <p className="text-sm font-normal">Password</p>
@@ -228,9 +223,8 @@ function Register() {
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
                   type="password"
-                  className={`${
-                    dark ? 'dark-bg2 text-white' : ''
-                  } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
+                  className={`${dark ? 'dark-bg2 text-white' : ''
+                    } w-full h-12 border rounded-full border-red-400 p-1.5 mt-5 shadow-lg pl-3 focus:outline-none focus:ring-2 focus:ring-red-400`}
                 />
                 <div class={`${dark ? 'text-white dark-bg2' : 'text-dark bg-white'} absolute top-2 p-1 left-4`}>
                   <p className="text-sm font-normal">Confirm Password</p>

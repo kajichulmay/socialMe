@@ -29,7 +29,7 @@ function MyProfile() {
   useEffect(() => {
     const fetchOneuser = async () => {
       const res = await axios.get(`/user/otherUser/${userId}`);
-      console.log('res', res.data);
+      // console.log('res', res.data);
       setOneUser(res.data.getOtherUser);
     };
     fetchOneuser();

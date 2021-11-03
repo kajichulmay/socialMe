@@ -11,7 +11,7 @@ function BtnFollow({ oneUser }) {
     const { myuser, toggleFollwer, setUserTrigged, setToggleFollwer } = useContext(userContext);
     const { dark } = useContext(DarkContext);
     //   const { id } = useParams();
-    console.log(`oneUser`, oneUser);
+    // console.log(`oneUser`, oneUser);
     // fetch
     useEffect(() => {
         const fetchFollow = async () => {
@@ -63,9 +63,8 @@ function BtnFollow({ oneUser }) {
             ) : (
                 <button
                     onClick={handleClickFollow}
-                    className={`${
-                        dark ? "dark-bg3 text-white" : "bg-gray-100 text-black"
-                    } p-2 w-28 shadow-md rounded-full flex justify-center`}
+                    className={`${dark ? "dark-bg3 text-white" : "bg-gray-100 text-black"
+                        } p-2 w-28 shadow-md rounded-full flex justify-center`}
                 >
                     Follow
                     <svg
