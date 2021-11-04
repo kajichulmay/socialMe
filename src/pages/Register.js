@@ -128,13 +128,13 @@ function Register() {
           <p className={`${dark ? 'text-white' : 'text-gray-400'} text-2xl`}>Register new account</p>
           <form className="flex flex-col justify-between w-2/3 mt-10 lg:h-full" onSubmit={handleClickRegister}>
             {/* profile */}
-            <label className="mx-auto">
+            <label className="mx-auto ">
               {previewProfie ? (
                 <ProfilePicUi beforeSize="48" afterSize="48" url={previewProfie} />
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-56 w-56 text-gray-400"
+                  className="h-56 w-56 text-gray-400 cursor-pointer"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -145,7 +145,7 @@ function Register() {
                   />
                 </svg>
               )}
-              <input type="file" className="hidden" onChange={handleChangeProfilePicture} />
+              <input type="file" className="hidden " onChange={handleChangeProfilePicture} />
             </label>
 
             {/* form */}

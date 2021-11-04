@@ -26,10 +26,6 @@ function Header({ children }) {
   const [alluser, setAlluser] = useState([]);
 
 
-  // console.log(typeof currentMode);
-  // console.log(currentMode);
-  // console.log(currentMode === 'true');
-
 
   useEffect(() => {
     try {
@@ -177,12 +173,11 @@ function Header({ children }) {
           >
             <ProfilePicUi beforeSize="9" afterSize="9" url={myuser?.profilePicture} id={myuser?.id} />
           </div>
-
           {/* chat */}
-          <div
+          {/* <div
             className={`${dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
               } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
-          >
+              >
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 icon-grad" viewBox="0 0 20 20">
                 {gd}
@@ -193,7 +188,7 @@ function Header({ children }) {
                 />
               </svg>
             </div>
-          </div>
+          </div> */}
 
           {/* DropdownNotification */}
           <DropdownNotification />
@@ -204,7 +199,7 @@ function Header({ children }) {
           {/* logout */}
           <div
             className={`${dark ? 'dark-bg hover:bg-gray-700' : 'bg-white hover:bg-gray-200'
-              } hover:bg-gray-200 flex items-center justify-center  rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
+              } hover:bg-gray-200 flex items-center justify-center cursor-pointer rounded-full h-9 w-9 shadow-input ml-3 border border-red-300 maxwidth`}
             onClick={handleClickLogout}
           >
             <div>

@@ -10,6 +10,7 @@ import EditPostForm from "../Post/EditPostForm";
 import { timeStampDisplay } from "../../service/dateService";
 import { DarkContext } from "../../context/DarkContext";
 import { AuthContext } from "../../context/authContext";
+import { PostContext } from "../../context/postContext";
 import axios from "../../config/axios";
 import LikeContainer from "./LikeContainer";
 // import { user } from "../../service/localStorage";
@@ -18,11 +19,12 @@ function Post(props) {
     const { setToggleUpdatePost, data, i, postEl } = props;
     const { dark } = useContext(DarkContext);
     const { user } = useContext(AuthContext);
+    const { toggleStateComment, setToggleStateComment } = useContext(PostContext);
 
     const [isEdit, setIsEdit] = useState(false);
 
     const [comment, setComment] = useState([]);
-    const [toggleStateComment, setToggleStateComment] = useState(false);
+    // const [toggleStateComment, setToggleStateComment] = useState(false);
 
     useEffect(() => {
         const fetchAllCommentInPost = async () => {
@@ -136,7 +138,7 @@ function Post(props) {
                             />
                         </svg>
                         <p className="text-dark">{`${comment.filter(item => item.postId === data?.id).length}
-              comment`}</p>
+              Comment`}</p>
                     </div>
                 </div>
 

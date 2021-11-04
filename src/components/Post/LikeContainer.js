@@ -93,7 +93,7 @@ function LikeContainer({ likes, postId, isPublicAndPurchase, isOwnerPost, setTog
                     </svg>
                 )}
 
-                <p className="text-dark ml-1">{likes?.length} recommend</p>
+                <p className="text-dark ml-1">{likes?.length} Like</p>
             </div>
         </>
     );

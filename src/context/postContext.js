@@ -9,6 +9,8 @@ const PostContextProvider = ({ children }) => {
   const { spinner, setSpinner } = useContext(SpinnerContext);
   const { user } = useContext(AuthContext);
   const [toggleUpdatePost, setToggleUpdatePost] = useState(false);
+  const [toggleStateComment, setToggleStateComment] = useState(false);
+
   const [refreshFeed, setRefreshFeed] = useState(false);
   const togleReFeed = () => setRefreshFeed(cur => !cur);
 
@@ -55,8 +57,8 @@ const PostContextProvider = ({ children }) => {
   return (
     <PostContext.Provider
       value={{
-        // hdlClickAddLike,
-        // hdlClickRemoveLike,
+        toggleStateComment,
+        setToggleStateComment,
         hdlSubmitCreatePost,
         hdlDeletePost,
         getAllMyPost,

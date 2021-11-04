@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import portrait from '../../images/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg';
-import ProfilePicUi from '../ui/ProfilePicUi';
-import { timeStampDisplay } from '../../service/dateService';
-import axios from '../../config/axios';
-import { useParams } from 'react-router-dom';
 import CommentOwner from './CommentOwner';
 import CommentFriends from './CommentFriends';
 function CommentBox({ postId, comment, setToggleStateComment }) {

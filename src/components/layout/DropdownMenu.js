@@ -199,7 +199,8 @@ export default function DropdownMenu({ alluser }) {
               </Menu.Item>
               {/* </div> */}
               {/* <div className="px-1 py-1"> */}
-              <Menu.Item>
+              {/* chat btn */}
+              {/* <Menu.Item>
                 {({ active }) => (
                   <button
                     className={`${active ? 'bg-primary-grad text-white' : 'text-gray-900'
@@ -215,7 +216,7 @@ export default function DropdownMenu({ alluser }) {
                     Chat
                   </button>
                 )}
-              </Menu.Item>
+              </Menu.Item> */}
 
               <Menu.Item>
                 {({ active }) => (

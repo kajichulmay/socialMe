@@ -1,13 +1,14 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { DarkContext } from "../../context/DarkContext";
 import { AuthContext } from "../../context/authContext";
 import { socketContext } from "../../context/socketContext";
+import { PostContext } from "../../context/postContext";
 import axios from "../../config/axios";
 import { userContext } from "../../context/userContext";
 import { timeStampDisplay } from "../../service/dateService";
 import { useHistory } from "react-router";
+import ProfilePicUi from "../../components/ui/ProfilePicUi";
 
 export default function DropdownNotification() {
     // state
@@ -16,7 +17,9 @@ export default function DropdownNotification() {
     const { dark } = useContext(DarkContext);
     const { socket } = useContext(socketContext);
     const { user } = useContext(AuthContext);
-    // const { myuser } = useContext(userContext);
+    const { myuser } = useContext(userContext);
+    const { toggleStateComment,
+        setToggleStateComment, } = useContext(PostContext);
 
     // socket
 
@@ -26,6 +29,7 @@ export default function DropdownNotification() {
         socket.emit("fetchNoti", "fetch");
         socket.on("shownoti", msg => {
             setAllnoti(msg);
+            setToggleStateComment(cur => !cur);
         });
     }, []);
 
@@ -35,13 +39,13 @@ export default function DropdownNotification() {
         .splice(0, 8);
 
     // console.log(`allnoti`, allnoti);
-    console.log(`filterNoti`, filterNoti);
-    console.log(filterNoti.filter(item => !item.status).length);
+    // console.log(`filterNoti`, filterNoti);
+    // console.log(filterNoti.filter(item => !item.status).length);
 
 
     const handleClickmovetopost = postId => {
         history.push({ pathname: "/newsfeed", state: postId });
-        console.log(`postId`, postId);
+        // console.log(`postId`, postId);
     };
 
     const handleClickclearnoti = () => {
@@ -53,13 +57,12 @@ export default function DropdownNotification() {
         <div>
             <Menu as="div" className="relative inline-block text-left">
                 {filterNoti.filter(item => !item.status).length ?
-                    <div>
+                    <div className="hidden lg:block ">
                         <div className="bg-red-300 absolute rounded-full w-5 h-5 -right-1 -top-2 animate-ping">
                         </div>
                         <div className="bg-red-500 absolute rounded-full w-5 h-5 -right-1  -top-2 ">
                             <p className="text-white text-center text-sm">
                                 {filterNoti.filter(item => !item.status).length}
-                                {/* 30 */}
                             </p>
                         </div>
                     </div>
@@ -107,13 +110,16 @@ export default function DropdownNotification() {
                                     {filterNoti.map((item, idx) => (
                                         <div key={idx}
                                             className="flex p-2 border-b-2 border-fuchsia-600"
-                                            onClick={() => handleClickmovetopost(item.postId)}
                                         >
-                                            <img
-                                                className="h-16 rounded-full mr-10"
-                                                src={item.userNotice.profilePicture}
+                                            <ProfilePicUi
+                                                beforeSize="16"
+                                                afterSize="16" url={item.userNotice.profilePicture}
+                                                id={item?.userNoticeId}
                                             />
-                                            <div>
+
+                                            <div className="ml-6 cursor-pointer"
+                                                onClick={() => handleClickmovetopost(item.postId)}
+                                            >
                                                 <p className="text-xl">
                                                     {item.userNotice.firstName} {item.userNotice.lastName}
                                                 </p>
